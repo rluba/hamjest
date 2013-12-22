@@ -1,12 +1,13 @@
 'use strict';
 
 var _ = require('lodash-node')
-	, asserts = require('../lib/asserts')
 	, AssertionError = require('assertion-error')
+	, asserts = require('../lib/asserts')
+	, Matcher = require('../lib/matcher')
 	;
 
-var Matcher = function (matchesFn) {
-	_.extend(this, {
+var TestMatcher = function (matchesFn) {
+	Matcher.call(this, {
 		matches: matchesFn,
 		describeTo: function (description) {
 			description.append('Matcher description');
@@ -16,6 +17,7 @@ var Matcher = function (matchesFn) {
 		}
 	});
 };
+TestMatcher.prototype = _.create(Matcher.prototype, { 'constructor': TestMatcher });
 
 var assertTrue = function (value, message) {
 	if (!value) {
@@ -28,7 +30,7 @@ describe('assertThat', function () {
 
 	it('should do nothing on success', function () {
 
-		assertThat('truth', new Matcher(function () { return true; }));
+		assertThat('truth', new TestMatcher(function () { return true; }));
 
 	});
 
@@ -36,7 +38,7 @@ describe('assertThat', function () {
 		var input = 'assertion value';
 		var passedValue;
 
-		assertThat(input, new Matcher(function (value) {
+		assertThat(input, new TestMatcher(function (value) {
 			passedValue = value;
 			return true;
 		}));
@@ -48,7 +50,7 @@ describe('assertThat', function () {
 		var thrown;
 
 		try {
-			assertThat('assertion value', new Matcher(function () {
+			assertThat('assertion value', new TestMatcher(function () {
 				return false;
 			}));
 		}
@@ -65,7 +67,7 @@ describe('assertThat', function () {
 		var thrown;
 
 		try {
-			assertThat('Assertion message', 'assertion value', new Matcher(function () {
+			assertThat('Assertion message', 'assertion value', new TestMatcher(function () {
 				return false;
 			}));
 		}
