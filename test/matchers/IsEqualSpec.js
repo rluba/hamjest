@@ -1,12 +1,12 @@
 'use strict';
 
-var IsEqual = require('../lib/matchers/IsEqual')
-	, Description = require('../lib/Description')
-	, hamjest = require('../lib/hamjest')
-	, assertTrue = require('./asserts').assertTrue
-	, assertFalse = require('./asserts').assertFalse
-	, assertEquals = require('./asserts').assertEquals
-	, TestMatcher = require('./TestMatcher')
+var IsEqual = require('../../lib/matchers/IsEqual')
+	, Description = require('../../lib/Description')
+	, hamjest = require('../../lib/hamjest')
+	, assertTrue = require('../asserts').assertTrue
+	, assertFalse = require('../asserts').assertFalse
+	, assertEquals = require('../asserts').assertEquals
+	, TestMatcher = require('../TestMatcher')
 	;
 
 describe('IsEqual', function () {
