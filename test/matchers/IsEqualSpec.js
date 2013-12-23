@@ -14,6 +14,12 @@ describe('IsEqual', function () {
 	describe('equalTo', function () {
 		var equalTo = IsEqual.equalTo;
 
+		it('should return a matcher', function () {
+			var matcher = equalTo('a value');
+
+			assertTrue(hamjest.isMatcher(matcher));
+		});
+
 		it('should match same strings', function () {
 			assertTrue(equalTo('a string').matches('a string'));
 		});
