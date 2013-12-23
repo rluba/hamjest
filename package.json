@@ -5,7 +5,7 @@
 	"description": "Hamcrest port for Node",
 	"licenses": [
 		{
-			"type": "MIT"
+			"type": "Apache v2"
 		}
 	],
 	"devDependencies": {
