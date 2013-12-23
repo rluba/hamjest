@@ -2,7 +2,7 @@
 
 var _ = require('lodash-node')
 	, AssertionError = require('assertion-error')
-	, asserts = require('../lib/asserts')
+	, assertThat = require('../lib/assertThat')
 	, Matcher = require('../lib/matcher')
 	;
 
@@ -26,8 +26,6 @@ var assertTrue = function (value, message) {
 };
 
 describe('assertThat', function () {
-	var assertThat = asserts.assertThat;
-
 	it('should do nothing on success', function () {
 
 		assertThat('truth', new TestMatcher(function () { return true; }));
