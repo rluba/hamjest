@@ -1,7 +1,7 @@
 'use strict';
 
-var Matcher = require('../lib/Matcher')
-	, equalTo = require('../lib/IsEqual').equalTo
+var Matcher = require('../lib/matchers/Matcher')
+	, equalTo = require('../lib/matchers/IsEqual').equalTo
 	, assertTrue = require('./asserts').assertTrue
 	, assertFalse = require('./asserts').assertFalse
 	;

@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash-node')
-	, Matcher = require('../lib/matcher')
+	, Matcher = require('../lib/matchers/matcher')
 	;
 
 var TestMatcher = function (matchesFn) {

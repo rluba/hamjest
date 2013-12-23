@@ -1,7 +1,7 @@
 'use strict';
 
 var Description = require('../lib/Description')
-	, Matcher = require('../lib/Matcher')
+	, Matcher = require('../lib/matchers/Matcher')
 	, assertEquals = require('./asserts').assertEquals
 	;
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var equalTo = require('../lib/IsEqual').equalTo
+var equalTo = require('../lib/matchers/IsEqual').equalTo
 	, Description = require('../lib/Description')
 	, assertTrue = require('./asserts').assertTrue
 	, assertFalse = require('./asserts').assertFalse
