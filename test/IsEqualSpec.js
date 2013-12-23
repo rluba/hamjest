@@ -31,6 +31,13 @@ describe('IsEqual', function () {
 		assertFalse(equalTo({a: 1, b: 2}).matches({a: 1, b: 2, c: 3}));
 	});
 
+	it('should match undefined values', function () {
+		var a;
+		var b;
+
+		assertTrue(equalTo(a).matches(b));
+	});
+
 	it('should describe as value', function () {
 		var description = new Description();
 
