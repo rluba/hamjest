@@ -1,27 +1,16 @@
 'use strict';
 
-var _ = require('lodash-node')
-	, AssertionError = require('assertion-error')
+var AssertionError = require('assertion-error')
 	, assertThat = require('../lib/assertThat')
-	, Matcher = require('../lib/matcher')
 	, assertTrue = require('./asserts').assertTrue
 	, assertEquals = require('./asserts').assertEquals
+	, TestMatcher = require('./TestMatcher')
 	;
-
-var TestMatcher = function (matchesFn) {
-	Matcher.call(this, {
-		matches: matchesFn,
-		describeTo: function (description) {
-			description.append('Matcher description');
-		}
-	});
-};
-TestMatcher.prototype = _.create(Matcher.prototype, { 'constructor': TestMatcher });
 
 describe('assertThat', function () {
 	it('should do nothing on success', function () {
 
-		assertThat('truth', new TestMatcher(function () { return true; }));
+		assertThat('truth', new TestMatcher());
 
 	});
 
