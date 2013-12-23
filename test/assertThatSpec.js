@@ -4,6 +4,7 @@ var _ = require('lodash-node')
 	, AssertionError = require('assertion-error')
 	, assertThat = require('../lib/assertThat')
 	, Matcher = require('../lib/matcher')
+	, assertTrue = require('./asserts').assertTrue
 	;
 
 var TestMatcher = function (matchesFn) {
@@ -18,12 +19,6 @@ var TestMatcher = function (matchesFn) {
 	});
 };
 TestMatcher.prototype = _.create(Matcher.prototype, { 'constructor': TestMatcher });
-
-var assertTrue = function (value, message) {
-	if (!value) {
-		throw new Error(message);
-	}
-};
 
 describe('assertThat', function () {
 	it('should do nothing on success', function () {
