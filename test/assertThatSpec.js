@@ -5,6 +5,7 @@ var _ = require('lodash-node')
 	, assertThat = require('../lib/assertThat')
 	, Matcher = require('../lib/matcher')
 	, assertTrue = require('./asserts').assertTrue
+	, assertEquals = require('./asserts').assertEquals
 	;
 
 var TestMatcher = function (matchesFn) {
@@ -12,9 +13,6 @@ var TestMatcher = function (matchesFn) {
 		matches: matchesFn,
 		describeTo: function (description) {
 			description.append('Matcher description');
-		},
-		describeMismatch: function (value, description) {
-			description.append('Mismatch description with value: ' + value);
 		}
 	});
 };
@@ -43,7 +41,7 @@ describe('assertThat', function () {
 		var thrown;
 
 		try {
-			assertThat('assertion value', new TestMatcher(function () {
+			assertThat('real value', new TestMatcher(function () {
 				return false;
 			}));
 		}
@@ -52,15 +50,14 @@ describe('assertThat', function () {
 		}
 
 		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertTrue(thrown.message === '\nExpected: Matcher description\n     but: Mismatch description with value: assertion value',
-			'Threw error with message: ' + thrown.message);
+		assertEquals(thrown.message, '\nExpected: Matcher description\n     but: was "real value"');
 	});
 
 	it('should prepend message, if available', function () {
 		var thrown;
 
 		try {
-			assertThat('Assertion message', 'assertion value', new TestMatcher(function () {
+			assertThat('Assertion message', 'real value', new TestMatcher(function () {
 				return false;
 			}));
 		}
@@ -69,7 +66,6 @@ describe('assertThat', function () {
 		}
 
 		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertTrue(thrown.message === 'Assertion message\nExpected: Matcher description\n     but: Mismatch description with value: assertion value',
-			'Threw error with message: ' + thrown.message);
+		assertEquals(thrown.message , 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
 	});
 });
