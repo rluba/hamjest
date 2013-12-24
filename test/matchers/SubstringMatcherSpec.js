@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash-node')
-	, StringContains = require('../../lib/matchers/StringContains')
+	, SubstringMatcher = require('../../lib/matchers/SubstringMatcher')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
@@ -9,10 +9,10 @@ var _ = require('lodash-node')
 	, assertEquals = require('../asserts').assertEquals
 	;
 
-describe('StringContains', function () {
+describe('SubstringMatcher', function () {
 
 	describe('containsString', function () {
-		var containsString = StringContains.containsString;
+		var containsString = SubstringMatcher.containsString;
 
 		it('should return a matcher', function () {
 
