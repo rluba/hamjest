@@ -1,13 +1,36 @@
 {
-	"name": "node-hamcrest",
+	"name": "hamjest",
 	"version": "0.1.0",
-	"main": "lib/node-hamcrest.js",
-	"description": "Hamcrest port for Node",
-	"licenses": [
-		{
-			"type": "Apache v2"
-		}
+	"main": "lib/hamjest.js",
+	"description": "A JavaScript implementation of Hamcrest",
+	"homepage": "https://github.com/rluba/hamjest",
+	"author": {
+		"name": "Raphael Luba",
+		"email": "raphael@leanbyte.com",
+		"url": "https://github.com/rluba"
+	},
+	"keywords": [
+		"hamjest",
+		"hamcrest",
+		"matcher",
+		"matchers",
+		"assertThat",
+		"node"
 	],
+	"bugs": {
+		"url": "https://github.com/rluba/hamjest/issues"
+	},
+	"license": {
+		"type": "Apache v2",
+		"url": "https://raw.github.com/rluba/hamjest/master/LICENSE"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/rluba/hamjest.git"
+	},
+	"engines": {
+		"node": ">=0.10.0"
+	},
 	"devDependencies": {
 		"grunt-contrib-jshint": "~0.7.0",
 		"grunt-contrib-nodeunit": "~0.2.0",
@@ -22,5 +45,9 @@
 		"q": "~0.9.7",
 		"lodash-node": "~2.4.1",
 		"assertion-error": "~1.0.0"
+	},
+	"scripts": {
+		"test": "grunt test",
+		"lint": "grunt jshint"
 	}
 }
