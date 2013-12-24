@@ -1,8 +1,9 @@
 'use strict';
 
-var IsEqual = require('../../lib/matchers/IsEqual')
+var _ = require('lodash-node')
+	, IsEqual = require('../../lib/matchers/IsEqual')
 	, Description = require('../../lib/Description')
-	, hamjest = require('../../lib/hamjest')
+	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
 	, assertFalse = require('../asserts').assertFalse
 	, assertEquals = require('../asserts').assertEquals
@@ -15,48 +16,67 @@ describe('IsEqual', function () {
 		var equalTo = IsEqual.equalTo;
 
 		it('should return a matcher', function () {
+
 			var matcher = equalTo('a value');
 
-			assertTrue(hamjest.isMatcher(matcher));
+			assertTrue(__.isMatcher(matcher));
 		});
 
 		it('should match same strings', function () {
-			assertTrue(equalTo('a string').matches('a string'));
+
+			var matcher = equalTo('a string');
+
+			assertTrue(matcher.matches('a string'));
 		});
 
-		it('should not match different strings', function () {
-			assertFalse(equalTo('a string').matches('another string'));
+		it('should not match unequal strings', function () {
+			var matcher = equalTo('a string');
+
+			assertFalse(matcher.matches('another string'));
 		});
 
-		it('should not match strings and numbers', function () {
-			assertFalse(equalTo('2').matches(2));
+		it('should not coerce', function () {
+			var matcher = equalTo('2');
+
+			assertFalse(matcher.matches(2));
 		});
 
 		it('should match different but equivalent objects', function () {
-			assertTrue(equalTo({a: 1, b: 2}).matches({a: 1, b: 2}));
+			var value = {a: 1, b: 2};
+			var equivalentValue = _.assign({}, value);
+
+			var matcher = equalTo(value);
+
+			assertTrue(matcher.matches(equivalentValue));
 		});
 
 		it('should not match unequivalent objects', function () {
-			assertFalse(equalTo({a: 1, b: 2}).matches({a: 1, b: 3}));
-			assertFalse(equalTo({a: 1, b: 2}).matches({a: 1}));
-			assertFalse(equalTo({a: 1, b: 2}).matches({a: 1, b: 2, c: 3}));
+			var value = {a: 1, b: 2};
+
+			var matcher = equalTo(value);
+
+			assertFalse(matcher.matches({a: 1, b: 3}));
+			assertFalse(matcher.matches({a: 1}));
+			assertFalse(matcher.matches({a: 1, b: 2, c: 3}));
 		});
 
 		it('should match undefined values', function () {
-			var a;
-			var b;
+			var anUndefinedVariable;
+			var another;
 
-			assertTrue(equalTo(a).matches(b));
+			var matcher = equalTo(anUndefinedVariable);
+
+			assertTrue(matcher.matches(another));
 		});
 
 		it('should describe as value', function () {
 			var description = new Description();
 
-			equalTo('a value').describeTo(description);
+			var matcher = equalTo('a value');
+			matcher.describeTo(description);
 
-			assertEquals(description.get(), '"a value"');
+			__.assertThat(description.get(), equalTo('"a value"'));
 		});
-
 	});
 
 	describe('asMatcher', function () {
@@ -75,7 +95,7 @@ describe('IsEqual', function () {
 
 			var resultMatcher = asMatcher(value);
 
-			assertTrue(hamjest.isMatcher(resultMatcher), 'Should wrap value');
+			assertTrue(__.isMatcher(resultMatcher), 'Should wrap value');
 			assertTrue(resultMatcher.matches({ member: 'a member value' }));
 		});
 	});
@@ -92,7 +112,7 @@ describe('IsEqual', function () {
 			var wrappedFunction = acceptingMatcher(aFunction);
 			wrappedFunction('not a matcher');
 
-			assertTrue(hamjest.isMatcher(passedValue));
+			assertTrue(__.isMatcher(passedValue));
 		});
 
 		it('should adapt function with asMatcher: with matcher', function () {
@@ -108,5 +128,4 @@ describe('IsEqual', function () {
 			assertEquals(passedValue, aMatcher);
 		});
 	});
-
 });
