@@ -1,12 +1,10 @@
 'use strict';
 
-var _ = require('lodash-node')
-	, SubstringMatcher = require('../../lib/matchers/SubstringMatcher')
+var SubstringMatcher = require('../../lib/matchers/SubstringMatcher')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
 	, assertFalse = require('../asserts').assertFalse
-	, assertEquals = require('../asserts').assertEquals
 	;
 
 describe('SubstringMatcher', function () {
@@ -55,7 +53,7 @@ describe('SubstringMatcher', function () {
 				matcher = containsString('a value');
 			});
 
-			it('should describe as value', function () {
+			it('should contain value', function () {
 				var description = new Description();
 				var matcher = containsString('a value');
 
@@ -64,7 +62,7 @@ describe('SubstringMatcher', function () {
 				__.assertThat(description.get(), __.equalTo('a string containing "a value"'));
 			});
 
-			it('should describe mismatched string', function () {
+			it('should contain mismatched string', function () {
 				var description = new Description();
 
 				matcher.describeMismatch('another string', description);
@@ -72,7 +70,7 @@ describe('SubstringMatcher', function () {
 				__.assertThat(description.get(), __.equalTo('was "another string"'));
 			});
 
-			it('should describe non-string values', function () {
+			it('should contain non-string values', function () {
 				var description = new Description();
 
 				matcher.describeMismatch({an: 'object'}, description);
