@@ -1,0 +1,14 @@
+'use strict';
+
+var _ = require('lodash-node')
+	, hamjest = require('../lib/hamjest')
+	, assertFalse = require('./asserts').assertFalse
+	;
+
+describe('hamjest', function () {
+	it('should not export undefined matchers', function () {
+		_.forEach(hamjest, function (value, key) {
+			assertFalse(_.isUndefined(value), 'Undefined entry for key: ' + key);
+		});
+	});
+});
