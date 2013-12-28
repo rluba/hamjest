@@ -21,6 +21,9 @@ describe('SubstringMatcher', function () {
 			assertTrue(__.isMatcher(sut));
 		});
 
+		// requires "throws" matcher
+		it('should throw for non-string arguments');
+
 		it('should match superstrings', function () {
 			assertTrue(sut.matches('a value'));
 			assertTrue(sut.matches('containing a value'));
@@ -82,6 +85,9 @@ describe('SubstringMatcher', function () {
 			assertTrue(__.isMatcher(sut));
 		});
 
+		// requires "throws" matcher
+		it('should throw for non-string arguments');
+
 		it('should match strings starting with...', function () {
 			assertTrue(sut.matches('a value'));
 			assertTrue(sut.matches('a valueextension'));
@@ -139,6 +145,9 @@ describe('SubstringMatcher', function () {
 		it('should return a matcher', function () {
 			assertTrue(__.isMatcher(sut));
 		});
+
+		// requires "throws" matcher
+		it('should throw for non-string arguments');
 
 		it('should match strings ending with...', function () {
 			assertTrue(sut.matches('a value'));
