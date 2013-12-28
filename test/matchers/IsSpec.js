@@ -21,10 +21,18 @@ describe('Is', function () {
 
 		it('should delegate matching', function () {
 
-			var matcher = is(__.equalTo('expected value'));
+			var matcher = is(__.containsString('expected'));
 
 			assertTrue(matcher.matches('expected value'));
 			assertFalse(matcher.matches('another value'));
+		});
+
+		it('should wrap values in equalTo matchers', function () {
+
+			var matcher = is({a: "value"});
+
+			assertTrue(matcher.matches({a: "value"}));
+			assertFalse(matcher.matches({another: "value"}));
 		});
 
 		it('should expand on inner description', function () {
