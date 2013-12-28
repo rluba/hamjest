@@ -3,7 +3,7 @@ Hamjest
 
 A JavaScript implementation of [Hamcrest](http://hamcrest.org).
 
-Unlinke other JS implementations like [JsHamcrest](https://github.com/danielfm/jshamcrest), it
+Unlinke other JS Hamcrest libraries, it
 
 * tries to deliver meaningful and readable (mismatch) descriptions, even for arbitrary JavaScript objects,
 * uses deep equivalence (without coercion) as default matcher - instead of '==' or '===',
@@ -11,7 +11,8 @@ Unlinke other JS implementations like [JsHamcrest](https://github.com/danielfm/j
 * lets [Lo-Dash](http://lodash.com) do some of the heavy lifting (because you can't do it any better by yourself),
 * uses [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode) for all source and test files,
 * is designed as a first-class [NPM module](https://npmjs.org) (a build for browsers is planned),
-* uses [Grunt](http://gruntjs.com), so it does not need Python or Fabric,
 * has an extensive suite of [Mocha](http://visionmedia.github.io/mocha/) tests,
-* is still very early in development and not yet ready for use,
-* could use some contributors that help with porting the rich set of matchers from the [Java Hamcrest implementation](http://hamcrest.org/JavaHamcrest/).
+* uses [Grunt](http://gruntjs.com) as build system, so it does not depend on Python or Ruby,
+* is still very early in development,
+* could use some contributors that help with porting the rich set of matchers from the [Java Hamcrest implementation](http://hamcrest.org/JavaHamcrest/),
+* currently lacks documentation, but have a look at the [test suite](./tests/) to see lots of usage examples [for each matcher](./tests/matchers/) as well as the [assertThat](./tests/assertThatSpec.js) and [promiseThat](./tests/promiseThatSpec.js) functions.
