@@ -21,6 +21,9 @@ var asserts = {
 			throw new AssertionError(message, {}, asserts.assertFalse);
 		}
 	},
+	fail: function (message) {
+		throw new AssertionError(message, {}, asserts.fail);
+	}
 };
 
 module.exports = asserts;
