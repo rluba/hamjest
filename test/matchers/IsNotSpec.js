@@ -1,53 +1,53 @@
 'use strict';
 
-var Is = require('../../lib/matchers/Is')
+var IsNot = require('../../lib/matchers/IsNot')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
 	, assertFalse = require('../asserts').assertFalse
 	;
 
-describe('Is', function () {
+describe('IsNot', function () {
 
-	describe('is', function () {
-		var is = Is.is;
+	describe('not', function () {
+		var not = IsNot.not;
 
 		it('should return a matcher', function () {
 
-			var matcher = is(__.equalTo('a value'));
+			var matcher = not(__.equalTo('a value'));
 
 			assertTrue(__.isMatcher(matcher));
 		});
 
-		it('should delegate matching', function () {
+		it('should delegate matching and invert result', function () {
 
-			var matcher = is(__.containsString('expected'));
+			var matcher = not(__.containsString('expected'));
 
-			assertTrue(matcher.matches('expected value'));
-			assertFalse(matcher.matches('another value'));
+			assertFalse(matcher.matches('expected value'));
+			assertTrue(matcher.matches('another value'));
 		});
 
 		it('should wrap values in equalTo matchers', function () {
 
-			var matcher = is({a: "value"});
+			var matcher = not({a: "value"});
 
-			assertTrue(matcher.matches({a: "value"}));
-			assertFalse(matcher.matches({another: "value"}));
+			assertFalse(matcher.matches({a: "value"}));
+			assertTrue(matcher.matches({another: "value"}));
 		});
 
 		it('should expand on inner description', function () {
 			var description = new Description();
 
-			var matcher = is(__.containsString('a value'));
+			var matcher = not(__.containsString('a value'));
 			matcher.describeTo(description);
 
-			__.assertThat(description.get(), __.equalTo('is a string containing "a value"'));
+			__.assertThat(description.get(), __.equalTo('not a string containing "a value"'));
 		});
 
 		it('should delegate mismatch description', function () {
 			var description = new Description();
 
-			var matcher = is(__.containsString('a value'));
+			var matcher = not(__.containsString('a value'));
 			matcher.describeMismatch(7, description);
 
 			__.assertThat(description.get(), __.equalTo('was a number (<7>)'));
