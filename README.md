@@ -15,4 +15,4 @@ Unlinke other JS Hamcrest libraries, it
 * uses [Grunt](http://gruntjs.com) as build system, so it does not depend on Python or Ruby,
 * is still very early in development,
 * could use some contributors that help with porting the rich set of matchers from the [Java Hamcrest implementation](http://hamcrest.org/JavaHamcrest/),
-* currently lacks documentation, but have a look at the [test suite](./tests/) to see lots of usage examples [for each matcher](./tests/matchers/) as well as the [assertThat](./tests/assertThatSpec.js) and [promiseThat](./tests/promiseThatSpec.js) functions.
+* currently lacks documentation, but have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
