@@ -117,4 +117,20 @@ describe('promiseThat', function () {
 
 		deferred.reject('a reason');
 	});
+
+	it('should allow a message as first parameter', function (done) {
+		var message = 'Some explanation';
+
+		promiseThat(message, q('promised value'), __.rejected())
+			.then(function () {
+					fail('Should not be rejected');
+				},
+				function (reason) {
+					__.assertThat(reason, __.instanceOf(AssertionError));
+					__.assertThat(reason.message, __.containsString(message));
+					done();
+				}
+			)
+			.done();
+	});
 });
