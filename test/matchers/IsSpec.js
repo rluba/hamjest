@@ -29,10 +29,10 @@ describe('Is', function () {
 
 		it('should wrap values in equalTo matchers', function () {
 
-			var matcher = is({a: "value"});
+			var matcher = is({a: 'value'});
 
-			assertTrue(matcher.matches({a: "value"}));
-			assertFalse(matcher.matches({another: "value"}));
+			assertTrue(matcher.matches({a: 'value'}));
+			assertFalse(matcher.matches({another: 'value'}));
 		});
 
 		it('should expand on inner description', function () {

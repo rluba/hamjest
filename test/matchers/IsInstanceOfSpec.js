@@ -6,22 +6,20 @@ var _ = require('lodash-node')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
 	, assertFalse = require('../asserts').assertFalse
-	, assertEquals = require('../asserts').assertEquals
-	, TestMatcher = require('../TestMatcher')
 	;
 
 // Simple Hierarchy for testing
 function Animal() {
-};
+}
 
 function Rodent() {
 	Animal.call(this);
-};
+}
 Rodent.prototype = _.create(Animal.prototype, { 'constructor': Rodent });
 
 function Squirrel() {
 	Rodent.call(this);
-};
+}
 Squirrel.prototype = _.create(Rodent.prototype, { 'constructor': Squirrel });
 
 assertTrue(new Animal() instanceof Animal);
@@ -43,7 +41,7 @@ describe('IsInstanceOf', function () {
 		var sut;
 
 		beforeEach(function () {
-			 sut = instanceOf(Rodent);
+			sut = instanceOf(Rodent);
 		});
 
 		it('should return a matcher', function () {

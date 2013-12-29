@@ -103,7 +103,6 @@ describe('promiseThat', function () {
 
 	it('should defer matching until promise is rejected', function (done) {
 		var deferred = q.defer();
-		var input = 'expected value';
 
 		promiseThat(deferred.promise, __.rejected())
 			.then(function () {
