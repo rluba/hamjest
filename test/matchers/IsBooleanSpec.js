@@ -21,9 +21,6 @@ describe('IsBoolean', function () {
 			assertTrue(__.isMatcher(sut));
 		});
 
-		// requires "throws" matcher
-		it('should throw for non-bool arguments');
-
 		it('should match any bool', function () {
 			assertTrue(sut.matches(true));
 			assertTrue(sut.matches(false));

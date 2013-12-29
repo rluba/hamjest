@@ -1,6 +1,7 @@
 'use strict';
 
-var SubstringMatcher = require('../../lib/matchers/SubstringMatcher')
+var AssertionError = require('assertion-error')
+	, SubstringMatcher = require('../../lib/matchers/SubstringMatcher')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
@@ -21,8 +22,11 @@ describe('SubstringMatcher', function () {
 			assertTrue(__.isMatcher(sut));
 		});
 
-		// requires "throws" matcher
-		it('should throw for non-string arguments');
+		it('should throw for non-string arguments', function () {
+			__.assertThat(function () {
+				containsString(7);
+			}, __.throws(AssertionError));
+		});
 
 		it('should match superstrings', function () {
 			assertTrue(sut.matches('a value'));
@@ -85,8 +89,12 @@ describe('SubstringMatcher', function () {
 			assertTrue(__.isMatcher(sut));
 		});
 
-		// requires "throws" matcher
-		it('should throw for non-string arguments');
+		it('should throw for non-string arguments', function () {
+			__.assertThat(function () {
+				startsWith(7);
+			}, __.throws(AssertionError));
+		});
+
 
 		it('should match strings starting with...', function () {
 			assertTrue(sut.matches('a value'));
@@ -146,8 +154,12 @@ describe('SubstringMatcher', function () {
 			assertTrue(__.isMatcher(sut));
 		});
 
-		// requires "throws" matcher
-		it('should throw for non-string arguments');
+		it('should throw for non-string arguments', function () {
+			__.assertThat(function () {
+				endsWith(7);
+			}, __.throws(AssertionError));
+		});
+
 
 		it('should match strings ending with...', function () {
 			assertTrue(sut.matches('a value'));
