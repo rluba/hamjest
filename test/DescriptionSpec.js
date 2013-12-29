@@ -1,6 +1,7 @@
 'use strict';
 
-var Description = require('../lib/Description')
+var _ = require('lodash-node')
+	, Description = require('../lib/Description')
 	, Matcher = require('../lib/matchers/Matcher')
 	, assertEquals = require('./asserts').assertEquals
 	;
@@ -42,9 +43,11 @@ describe('Description', function () {
 	});
 
 	it('should describe matchers in arrays', function () {
-		var matcher = new Matcher({describeTo: function (description) {
-			description.append('a matcher description');
-		}});
+		var matcher = _.create(new Matcher(), {
+			describeTo: function (description) {
+				description.append('a matcher description');
+			}
+		});
 
 		sut.appendValue([5, matcher, 'foo']);
 
