@@ -6,7 +6,7 @@ var _ = require('lodash-node')
 
 var asserts = {
 	assertTrue: function (value, message) {
-		if (!value) {
+		if (value !== true) {
 			throw new AssertionError(message, {}, asserts.assertTrue);
 		}
 	},
@@ -17,7 +17,7 @@ var asserts = {
 		}
 	},
 	assertFalse: function (value, message) {
-		if (value) {
+		if (value !== false) {
 			throw new AssertionError(message, {}, asserts.assertFalse);
 		}
 	},
