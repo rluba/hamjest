@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash-node')
+	, AssertionError = require('assertion-error')
 	, IsInstanceOf = require('../../lib/matchers/IsInstanceOf')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
@@ -48,8 +49,11 @@ describe('IsInstanceOf', function () {
 			assertTrue(__.isMatcher(sut));
 		});
 
-		// requires "throws" matcher
-		it('should throw for non-function arguments');
+		it('should throw for non-function arguments', function () {
+			__.assertThat(function () {
+				instanceOf('a value');
+			}, __.throws(AssertionError));
+		});
 
 		it('should match instances and subinstances', function () {
 			assertFalse(sut.matches(new Animal()));
