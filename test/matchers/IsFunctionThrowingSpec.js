@@ -1,7 +1,6 @@
 'use strict';
 
-var q = require('q')
-	, AssertionError = require('assertion-error')
+var AssertionError = require('assertion-error')
 	, IsFunctionThrowing = require('../../lib/matchers/IsFunctionThrowing')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
