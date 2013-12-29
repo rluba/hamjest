@@ -46,7 +46,7 @@ describe('AllOf', function () {
 
 				sut.describeMismatch(actual, description);
 
-				__.assertThat(description.get(), __.equalTo('a string containing "expected" was "another value"'));
+				__.assertThat(description.get(), __.equalTo('a string containing "expected": was "another value"'));
 			});
 		});
 	});
