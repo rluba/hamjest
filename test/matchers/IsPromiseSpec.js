@@ -52,7 +52,7 @@ describe('IsPromise', function () {
 
 				sut.describeTo(description);
 
-				__.assertThat(description.get(), __.equalTo('promise'));
+				__.assertThat(description.get(), __.equalTo('a promise'));
 			});
 		});
 	});
