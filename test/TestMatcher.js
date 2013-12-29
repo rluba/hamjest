@@ -6,13 +6,12 @@ var _ = require('lodash-node')
 
 var TestMatcher = function (matchesFn) {
 	matchesFn = matchesFn || function () { return true; };
-	Matcher.call(this, {
+	return _.create(new Matcher(), {
 		matches: matchesFn,
 		describeTo: function (description) {
 			description.append('Matcher description');
 		}
 	});
 };
-TestMatcher.prototype = _.create(Matcher.prototype, { 'constructor': TestMatcher });
 
 module.exports = TestMatcher;
