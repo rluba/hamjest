@@ -42,6 +42,13 @@ describe('Description', function () {
 		assertEquals(sut.get(), '<5><2.5>');
 	});
 
+	it('should describe RegExp as pattern', function () {
+
+		sut.appendValue(/a pattern/);
+
+		assertEquals(sut.get(), '/a pattern/');
+	});
+
 	it('should describe matchers in arrays', function () {
 		var matcher = _.create(new Matcher(), {
 			describeTo: function (description) {
