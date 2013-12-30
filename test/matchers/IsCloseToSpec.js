@@ -66,12 +66,12 @@ describe('IsCloseTo', function () {
 				__.assertThat(description.get(), __.equalTo('a number within <0.5> of <7>'));
 			});
 
-			it.skip('should contain mismatched number and real delta', function () {
+			it('should contain mismatched number and real delta', function () {
 				var description = new Description();
 
-				sut.describeMismatch(6.4, description);
+				sut.describeMismatch(6.49, description);
 
-				__.assertThat(description.get(), __.equalTo('<6.4> differed by <0.6>'));
+				__.assertThat(description.get(), __.matchesPattern(/<6\.49> differed by <0\.5\d*>/));
 			});
 
 			it('should contain non-number values', function () {
