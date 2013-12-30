@@ -17,10 +17,6 @@ describe('IsString', function () {
 			sut = string();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any string', function () {
 			assertTrue(sut.matches('a value'));
 			assertTrue(sut.matches(String('another value')));

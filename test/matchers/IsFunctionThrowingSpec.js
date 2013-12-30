@@ -25,10 +25,6 @@ describe('ThrowsError', function () {
 				sut = throws();
 			});
 
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
-			});
-
 			it('should not match if argument is not a function', function () {
 				assertFalse(sut.matches('a string value'));
 			});
@@ -72,10 +68,6 @@ describe('ThrowsError', function () {
 			var sut;
 			beforeEach(function () {
 				sut = throws(AssertionError);
-			});
-
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
 			});
 
 			it('should not match if argument is not a function', function () {

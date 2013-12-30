@@ -17,10 +17,6 @@ describe('IsNumber', function () {
 			sut = number();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any number', function () {
 			assertTrue(sut.matches(7));
 			assertTrue(sut.matches(7.7));

@@ -15,13 +15,6 @@ describe('IsEqual', function () {
 	describe('equalTo', function () {
 		var equalTo = IsEqual.equalTo;
 
-		it('should return a matcher', function () {
-
-			var matcher = equalTo('a value');
-
-			assertTrue(__.isMatcher(matcher));
-		});
-
 		it('should match same strings', function () {
 
 			var matcher = equalTo('a string');

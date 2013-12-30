@@ -12,13 +12,6 @@ describe('Is', function () {
 	describe('is', function () {
 		var is = Is.is;
 
-		it('should return a matcher', function () {
-
-			var matcher = is(__.equalTo('a value'));
-
-			assertTrue(__.isMatcher(matcher));
-		});
-
 		it('should delegate matching', function () {
 
 			var matcher = is(__.containsString('expected'));

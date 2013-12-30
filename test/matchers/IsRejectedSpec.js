@@ -19,10 +19,6 @@ describe('IsRejected', function () {
 				sut = rejected();
 			});
 
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
-			});
-
 			it('should not match fulfilled promises', function () {
 				var aFulfilledPromise = q('a value');
 
@@ -54,10 +50,6 @@ describe('IsRejected', function () {
 			var sut;
 			beforeEach(function () {
 				sut = rejected('a reason');
-			});
-
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
 			});
 
 			it('should not match fulfilled promise with matching value', function () {
@@ -128,10 +120,6 @@ describe('IsRejected', function () {
 			var sut;
 			beforeEach(function () {
 				sut = rejected(__.containsString('expected'));
-			});
-
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
 			});
 
 			it('should not match fulfilled promise with matching value', function () {

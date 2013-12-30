@@ -17,10 +17,6 @@ describe('IsArrayWithItem', function () {
 			sut = hasItem(__.containsString('expected'));
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match if any item matches', function () {
 			assertTrue(sut.matches(['expected item']));
 			assertTrue(sut.matches(['an item', 7, 'expected item']));

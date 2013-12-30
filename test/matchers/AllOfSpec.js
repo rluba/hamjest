@@ -13,10 +13,6 @@ describe('AllOf', function () {
 		var allOf = AllOf.allOf;
 		var sut = allOf(__.containsString('expected'), __.containsString('value'));
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match if every matcher matches', function () {
 			assertTrue(sut.matches('expected value'));
 			assertTrue(sut.matches('value expected'));

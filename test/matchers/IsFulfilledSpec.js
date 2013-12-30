@@ -19,10 +19,6 @@ describe('IsFulfilled', function () {
 				sut = fulfilled();
 			});
 
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
-			});
-
 			it('should match fulfilled promises', function () {
 				var aFulfilledPromise = q('a value');
 
@@ -54,10 +50,6 @@ describe('IsFulfilled', function () {
 			var sut;
 			beforeEach(function () {
 				sut = fulfilled('a value');
-			});
-
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
 			});
 
 			it('should match fulfilled promise with equivalent value', function () {
@@ -128,10 +120,6 @@ describe('IsFulfilled', function () {
 			var sut;
 			beforeEach(function () {
 				sut = fulfilled(__.containsString('expected'));
-			});
-
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
 			});
 
 			it('should match fulfilled promise with matching values', function () {

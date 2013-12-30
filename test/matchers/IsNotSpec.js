@@ -17,13 +17,6 @@ describe('IsNot', function () {
 			innerMatcher = __.containsString('expected');
 		});
 
-		it('should return a matcher', function () {
-
-			var matcher = not(innerMatcher);
-
-			assertTrue(__.isMatcher(matcher));
-		});
-
 		it('should delegate matching and invert result', function () {
 
 			var matcher = not(innerMatcher);

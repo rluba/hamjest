@@ -45,10 +45,6 @@ describe('IsInstanceOf', function () {
 			sut = instanceOf(Rodent);
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should throw for non-function arguments', function () {
 			__.assertThat(function () {
 				instanceOf('a value');

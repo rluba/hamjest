@@ -17,10 +17,6 @@ describe('IsDate', function () {
 			sut = date();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any date', function () {
 			assertTrue(sut.matches(new Date(2017, 14, 2)));
 			assertTrue(sut.matches(new Date('2007-13-5')));

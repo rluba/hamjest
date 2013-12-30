@@ -17,10 +17,6 @@ describe('IsRegExp', function () {
 			sut = regExp();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any regular expression', function () {
 			assertTrue(sut.matches(/./));
 			assertTrue(sut.matches(/a RegExp/i));

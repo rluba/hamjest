@@ -17,10 +17,6 @@ describe('IsObject', function () {
 			sut = object();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any object', function () {
 			assertTrue(sut.matches({}));
 			assertTrue(sut.matches([]));

@@ -17,10 +17,6 @@ describe('IsBoolean', function () {
 			sut = bool();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any bool', function () {
 			assertTrue(sut.matches(true));
 			assertTrue(sut.matches(false));

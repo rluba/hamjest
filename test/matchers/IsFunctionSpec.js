@@ -17,10 +17,6 @@ describe('IsFunction', function () {
 			sut = func();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any func', function () {
 			function namedFunction() {
 

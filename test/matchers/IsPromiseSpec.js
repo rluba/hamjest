@@ -19,10 +19,6 @@ describe('IsPromise', function () {
 				sut = promise();
 			});
 
-			it('should return a matcher', function () {
-				assertTrue(__.isMatcher(sut));
-			});
-
 			it('should match fulfilled promises', function () {
 				var aFulfilledPromise = q('a value');
 

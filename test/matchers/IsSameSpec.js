@@ -13,13 +13,6 @@ describe('IsSame', function () {
 	describe('strictlyEqualTo', function () {
 		var strictlyEqualTo = IsSame.strictlyEqualTo;
 
-		it('should return a matcher', function () {
-
-			var matcher = strictlyEqualTo('a value');
-
-			assertTrue(__.isMatcher(matcher));
-		});
-
 		it('should match same strings', function () {
 
 			var matcher = strictlyEqualTo('a string');

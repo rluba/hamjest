@@ -17,10 +17,6 @@ describe('IsArray', function () {
 			sut = array();
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match any array', function () {
 			assertTrue(sut.matches([]));
 			assertTrue(sut.matches(['an element']));

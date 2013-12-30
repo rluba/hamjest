@@ -13,10 +13,6 @@ describe('AnyOf', function () {
 		var anyOf = AnyOf.anyOf;
 		var sut = anyOf(__.containsString('expected value'), __.containsString('some value'));
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should match if any matcher matches', function () {
 			assertTrue(sut.matches('expected value'));
 			assertTrue(sut.matches('some value'));

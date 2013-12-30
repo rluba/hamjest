@@ -18,10 +18,6 @@ describe('SubstringMatcher', function () {
 			sut = containsString('a value');
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should throw for non-string arguments', function () {
 			__.assertThat(function () {
 				containsString(7);
@@ -85,10 +81,6 @@ describe('SubstringMatcher', function () {
 			sut = startsWith('a value');
 		});
 
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
-		});
-
 		it('should throw for non-string arguments', function () {
 			__.assertThat(function () {
 				startsWith(7);
@@ -148,10 +140,6 @@ describe('SubstringMatcher', function () {
 
 		beforeEach(function () {
 			sut = endsWith('a value');
-		});
-
-		it('should return a matcher', function () {
-			assertTrue(__.isMatcher(sut));
 		});
 
 		it('should throw for non-string arguments', function () {
