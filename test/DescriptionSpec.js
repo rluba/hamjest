@@ -49,6 +49,13 @@ describe('Description', function () {
 		assertEquals(sut.get(), '/a pattern/');
 	});
 
+	it('should describe undefined as "undefined"', function () {
+
+		sut.appendValue(undefined);
+
+		assertEquals(sut.get(), 'undefined');
+	});
+
 	it('should describe matchers in arrays', function () {
 		var matcher = _.create(new Matcher(), {
 			describeTo: function (description) {
