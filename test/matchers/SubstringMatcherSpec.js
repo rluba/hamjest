@@ -48,7 +48,6 @@ describe('SubstringMatcher', function () {
 			});
 
 			it('should contain value', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -56,7 +55,6 @@ describe('SubstringMatcher', function () {
 			});
 
 			it('should contain mismatched string', function () {
-				var description = new Description();
 
 				sut.describeMismatch('another value', description);
 
@@ -64,7 +62,6 @@ describe('SubstringMatcher', function () {
 			});
 
 			it('should contain non-string values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 

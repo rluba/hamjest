@@ -59,7 +59,6 @@ describe('IsCloseTo', function () {
 			});
 
 			it('should contain value and delta', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -67,7 +66,6 @@ describe('IsCloseTo', function () {
 			});
 
 			it('should contain mismatched number and real delta', function () {
-				var description = new Description();
 
 				sut.describeMismatch(6.49, description);
 
@@ -75,7 +73,6 @@ describe('IsCloseTo', function () {
 			});
 
 			it('should contain non-number values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 

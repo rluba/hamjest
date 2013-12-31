@@ -36,7 +36,6 @@ describe('IsArray', function () {
 			});
 
 			it('should be nice', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -44,7 +43,6 @@ describe('IsArray', function () {
 			});
 
 			it('should contain non-array values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 

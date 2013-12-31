@@ -65,7 +65,6 @@ describe('IsInstanceOf', function () {
 			});
 
 			it('should contain instance name', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -73,7 +72,6 @@ describe('IsInstanceOf', function () {
 			});
 
 			it('should insert placeholder for anonymous functions', function () {
-				var description = new Description();
 				sut = instanceOf(function () {});
 
 				sut.describeTo(description);
@@ -82,7 +80,6 @@ describe('IsInstanceOf', function () {
 			});
 
 			it('should contain mismatched type', function () {
-				var description = new Description();
 
 				sut.describeMismatch('another value', description);
 
@@ -90,7 +87,6 @@ describe('IsInstanceOf', function () {
 			});
 
 			it('should contain mismatched type for custom types', function () {
-				var description = new Description();
 
 				sut.describeMismatch(new Animal(), description);
 

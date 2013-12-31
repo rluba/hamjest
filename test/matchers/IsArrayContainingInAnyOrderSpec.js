@@ -51,7 +51,6 @@ describe('IsArrayContainingInAnyOrder', function () {
 			});
 
 			it('should contain item description', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -59,7 +58,6 @@ describe('IsArrayContainingInAnyOrder', function () {
 			});
 
 			it('should contain surplus items', function () {
-				var description = new Description();
 
 				sut.describeMismatch(['expected', 7, 100, 'item', 'surplus item'], description);
 
@@ -67,7 +65,6 @@ describe('IsArrayContainingInAnyOrder', function () {
 			});
 
 			it('should contain unmatched matchers', function () {
-				var description = new Description();
 
 				sut.describeMismatch([7], description);
 
@@ -75,7 +72,6 @@ describe('IsArrayContainingInAnyOrder', function () {
 			});
 
 			it('should fit for non-arrays', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 

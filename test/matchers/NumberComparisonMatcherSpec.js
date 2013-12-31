@@ -44,7 +44,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain value', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -52,7 +51,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain mismatched number', function () {
-				var description = new Description();
 
 				sut.describeMismatch(6, description);
 
@@ -60,7 +58,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain non-number values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 
@@ -104,7 +101,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain value', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -112,7 +108,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain mismatched number', function () {
-				var description = new Description();
 
 				sut.describeMismatch(6, description);
 
@@ -120,7 +115,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain non-number values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 
@@ -164,7 +158,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain value', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -172,7 +165,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain mismatched number', function () {
-				var description = new Description();
 
 				sut.describeMismatch(12, description);
 
@@ -180,7 +172,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain non-number values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 
@@ -224,7 +215,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain value', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -232,7 +222,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain mismatched number', function () {
-				var description = new Description();
 
 				sut.describeMismatch(14, description);
 
@@ -240,7 +229,6 @@ describe('NumberComparisonMatcher', function () {
 			});
 
 			it('should contain non-number values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 

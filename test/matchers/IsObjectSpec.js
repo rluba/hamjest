@@ -38,7 +38,6 @@ describe('IsObject', function () {
 			});
 
 			it('should be nice', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -46,7 +45,6 @@ describe('IsObject', function () {
 			});
 
 			it('should contain non-object values', function () {
-				var description = new Description();
 
 				sut.describeMismatch('a string value', description);
 

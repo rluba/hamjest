@@ -46,7 +46,6 @@ describe('IsStringMatching', function () {
 				});
 
 				it('should contain expression', function () {
-					var description = new Description();
 
 					sut.describeTo(description);
 
@@ -54,7 +53,6 @@ describe('IsStringMatching', function () {
 				});
 
 				it('should contain mismatched string', function () {
-					var description = new Description();
 
 					sut.describeMismatch('another value', description);
 
@@ -62,7 +60,6 @@ describe('IsStringMatching', function () {
 				});
 
 				it('should contain non-string values', function () {
-					var description = new Description();
 
 					sut.describeMismatch({an: 'object'}, description);
 
@@ -100,7 +97,6 @@ describe('IsStringMatching', function () {
 				});
 
 				it('should contain expression', function () {
-					var description = new Description();
 
 					sut.describeTo(description);
 
@@ -108,7 +104,6 @@ describe('IsStringMatching', function () {
 				});
 
 				it('should contain mismatched string', function () {
-					var description = new Description();
 
 					sut.describeMismatch('another value', description);
 
@@ -116,7 +111,6 @@ describe('IsStringMatching', function () {
 				});
 
 				it('should contain non-string values', function () {
-					var description = new Description();
 
 					sut.describeMismatch({an: 'object'}, description);
 

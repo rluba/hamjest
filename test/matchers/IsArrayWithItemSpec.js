@@ -49,7 +49,6 @@ describe('IsArrayWithItem', function () {
 			});
 
 			it('should contain item description', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -57,7 +56,6 @@ describe('IsArrayWithItem', function () {
 			});
 
 			it('should fit for empty arrays', function () {
-				var description = new Description();
 
 				sut.describeMismatch([], description);
 
@@ -65,7 +63,6 @@ describe('IsArrayWithItem', function () {
 			});
 
 			it('should contain every mismatch', function () {
-				var description = new Description();
 
 				sut.describeMismatch(['a value', 7], description);
 
@@ -73,7 +70,6 @@ describe('IsArrayWithItem', function () {
 			});
 
 			it('should fit for non-arrays', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 

@@ -32,7 +32,7 @@ describe('IsCollectionWithSize', function () {
 			__.assertThat(sut.matches('a long string'), __.is(true));
 			__.assertThat(sut.matches('xs'), __.is(false));
 		});
-	
+
 		it('should not match other types', function () {
 			__.assertThat(sut.matches(12), __.is(false));
 			__.assertThat(sut.matches(new Date()), __.is(false));
@@ -54,7 +54,6 @@ describe('IsCollectionWithSize', function () {
 			});
 
 			it('should contain matcher description', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -62,7 +61,6 @@ describe('IsCollectionWithSize', function () {
 			});
 
 			it('should contain mismatched value and size', function () {
-				var description = new Description();
 
 				sut.describeMismatch(['a'], description);
 
@@ -70,7 +68,6 @@ describe('IsCollectionWithSize', function () {
 			});
 
 			it('should fit for non-arrays', function () {
-				var description = new Description();
 
 				sut.describeMismatch(7, description);
 

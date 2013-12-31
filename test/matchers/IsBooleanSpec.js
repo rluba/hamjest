@@ -36,7 +36,6 @@ describe('IsBoolean', function () {
 			});
 
 			it('should be nice', function () {
-				var description = new Description();
 
 				sut.describeTo(description);
 
@@ -44,7 +43,6 @@ describe('IsBoolean', function () {
 			});
 
 			it('should contain non-bool values', function () {
-				var description = new Description();
 
 				sut.describeMismatch({an: 'object'}, description);
 
