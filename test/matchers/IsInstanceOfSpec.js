@@ -1,39 +1,17 @@
 'use strict';
 
-var _ = require('lodash-node')
-	, AssertionError = require('assertion-error')
+var AssertionError = require('assertion-error')
 	, IsInstanceOf = require('../../lib/matchers/IsInstanceOf')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
 	, assertFalse = require('../asserts').assertFalse
+	, zoo = require('../zoo')
 	;
 
-// Simple Hierarchy for testing
-function Animal() {
-}
-
-function Rodent() {
-	Animal.call(this);
-}
-Rodent.prototype = _.create(Animal.prototype, { 'constructor': Rodent });
-
-function Squirrel() {
-	Rodent.call(this);
-}
-Squirrel.prototype = _.create(Rodent.prototype, { 'constructor': Squirrel });
-
-assertTrue(new Animal() instanceof Animal);
-assertTrue(new Rodent() instanceof Animal);
-assertTrue(new Squirrel() instanceof Animal);
-
-assertFalse(new Animal() instanceof Rodent);
-assertTrue(new Rodent() instanceof Rodent);
-assertTrue(new Squirrel() instanceof Rodent);
-
-assertFalse(new Animal() instanceof Rodent);
-assertFalse(new Rodent() instanceof Squirrel);
-assertTrue(new Squirrel() instanceof Squirrel);
+var Animal = zoo.Animal;
+var Rodent = zoo.Rodent;
+var Squirrel = zoo.Squirrel;
 
 describe('IsInstanceOf', function () {
 

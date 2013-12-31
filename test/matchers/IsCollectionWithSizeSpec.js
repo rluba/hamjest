@@ -64,7 +64,7 @@ describe('IsCollectionWithSize', function () {
 
 				sut.describeMismatch(['a'], description);
 
-				__.assertThat(description.get(), __.equalTo('["a"] has size <1>'));
+				__.assertThat(description.get(), __.equalTo('size of ["a"] was <1>'));
 			});
 
 			it('should fit for non-arrays', function () {
