@@ -15,7 +15,11 @@
 		"matcher",
 		"matchers",
 		"assertThat",
-		"node"
+		"node",
+		"q",
+		"promiseThat",
+		"promise",
+		"promises"
 	],
 	"bugs": {
 		"url": "https://github.com/rluba/hamjest/issues"
