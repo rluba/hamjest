@@ -25,7 +25,7 @@
 		"url": "https://github.com/rluba/hamjest/issues"
 	},
 	"license": {
-		"type": "Apache v2",
+		"type": "MIT",
 		"url": "https://raw.github.com/rluba/hamjest/master/LICENSE"
 	},
 	"repository": {

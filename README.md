@@ -18,5 +18,10 @@ Unlinke other JS Hamcrest libraries, it
 * currently lacks documentation, but have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rluba/hamjest/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+## License
 
+Licensed under the MIT License [(enclosed)](./LICENSE). 
+
+This library is inspired by and based on the work of the original [Hamcrest team](http://hamcrest.org).
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rluba/hamjest/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
