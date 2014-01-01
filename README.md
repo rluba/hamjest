@@ -16,3 +16,7 @@ Unlinke other JS Hamcrest libraries, it
 * is still very early in development,
 * could use some contributors that help with porting the rich set of matchers from the [Java Hamcrest implementation](http://hamcrest.org/JavaHamcrest/),
 * currently lacks documentation, but have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rluba/hamjest/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
