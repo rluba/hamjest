@@ -100,7 +100,7 @@ By default, FeatureMatcher tries to find a property with the given feature name 
 Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
 
 ## Suggestions
-Do you have an idea how to make a matcher's error description even more readable? Dies Hamjest lack a crucial matcher? (I'm sure it does...)
+Do you have an idea how to make a matcher's error description even more readable? Does Hamjest lack a crucial matcher? (I'm sure it does...)
 
 Just drop me a message or - even better - send me a pull request.
 
