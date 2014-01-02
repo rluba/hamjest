@@ -18,7 +18,7 @@ describe('promiseThat', function () {
 		__.assertThat(result, __.is(__.promise()));
 	});
 
-	it('should pass input promise to matcher', function (done) {
+	it('should pass fulfilled value to matcher', function (done) {
 		var aPromise = q('promised value');
 		var passedValue;
 
@@ -27,7 +27,7 @@ describe('promiseThat', function () {
 				return true;
 			}))
 			.then(function () {
-					__.assertThat(passedValue, __.equalTo(aPromise));
+					__.assertThat(passedValue, __.equalTo('promised value'));
 					done();
 				},
 				function () {
@@ -37,7 +37,7 @@ describe('promiseThat', function () {
 			.done();
 	});
 
-	it('should pass simple value as promise to matcher', function (done) {
+	it('should also accept simple values instead of promises', function (done) {
 		var input = 'assertion value';
 		var passedValue;
 
@@ -46,7 +46,7 @@ describe('promiseThat', function () {
 				return true;
 			}))
 			.then(function () {
-					__.assertThat(passedValue, __.is(__.fulfilled(input)));
+					__.assertThat(passedValue, __.equalTo(input));
 					done();
 				},
 				function () {
@@ -59,7 +59,7 @@ describe('promiseThat', function () {
 	it('should fulfill promise if matcher matches', function (done) {
 		var input = 'expected value';
 
-		promiseThat(input, __.fulfilled(__.equalTo(input)))
+		promiseThat(input, __.equalTo(input))
 			.then(function () {
 					done();
 				},
@@ -70,12 +70,12 @@ describe('promiseThat', function () {
 			.done();
 	});
 
-	it('should reject promise if matcher fails', function (done) {
+	it('should reject promise with AssertionError if matcher fails', function (done) {
 		var input = 'some value';
 
-		promiseThat(input, __.fulfilled(__.equalTo('expected value')))
+		promiseThat(input, __.equalTo('expected value'))
 			.then(function () {
-					fail('Should not be accepted');
+					fail('Should not be fulfilled');
 				},
 				function (reason) {
 					__.assertThat(reason, __.instanceOf(AssertionError));
@@ -88,7 +88,7 @@ describe('promiseThat', function () {
 	it('should defer matching until promise is fulfilled', function (done) {
 		var deferred = q.defer();
 
-		promiseThat(deferred.promise, __.fulfilled())
+		promiseThat(deferred.promise, __.equalTo('expected'))
 			.then(function () {
 					done();
 				},
@@ -98,18 +98,18 @@ describe('promiseThat', function () {
 			)
 			.done();
 
-		deferred.fulfill();
+		deferred.fulfill('expected');
 	});
 
-	it('should defer matching until promise is rejected', function (done) {
+	it('should reject promise if input is rejected', function (done) {
 		var deferred = q.defer();
 
-		promiseThat(deferred.promise, __.rejected())
+		promiseThat(deferred.promise, __.anything())
 			.then(function () {
-					done();
+					fail('Should not be fulfilled');
 				},
 				function () {
-					fail('Should not be rejected');
+					done();
 				}
 			)
 			.done();
@@ -120,9 +120,9 @@ describe('promiseThat', function () {
 	it('should allow a message as first parameter', function (done) {
 		var message = 'Some explanation';
 
-		promiseThat(message, q('promised value'), __.rejected())
+		promiseThat(message, q('different value'), __.equalTo('expected value'))
 			.then(function () {
-					fail('Should not be rejected');
+					fail('Should not be fulfilled');
 				},
 				function (reason) {
 					__.assertThat(reason, __.instanceOf(AssertionError));
