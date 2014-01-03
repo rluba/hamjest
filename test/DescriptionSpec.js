@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash-node')
+	, __ = require('../lib/hamjest')
 	, Description = require('../lib/Description')
 	, Matcher = require('../lib/matchers/Matcher')
 	, assertEquals = require('./asserts').assertEquals
@@ -54,6 +55,22 @@ describe('Description', function () {
 		sut.appendValue(undefined);
 
 		assertEquals(sut.get(), 'undefined');
+	});
+
+	it('should describe objects as JSON', function () {
+
+		sut.appendValue({an: 'object'});
+
+		assertEquals(sut.get(), '{"an":"object"}');
+	});
+
+	it('should describe at least top-level of recursive objects', function () {
+		var recursiveObject = {name: 'recursive'};
+		recursiveObject.children = [{name: 'another'}, recursiveObject];
+
+		sut.appendValue(recursiveObject);
+
+		__.assertThat(sut.get(), __.allOf(__.startsWith('{'), __.endsWith('}'), __.containsString('name: "recursive"'), __.containsString('children: ')));
 	});
 
 	it('should describe matchers in arrays', function () {
