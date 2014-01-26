@@ -10,11 +10,10 @@ Unlinke other JS Hamcrest libraries, it
 * has builtin support for [promises](http://promises-aplus.github.io/promises-spec/) using the [Q library](http://documentup.com/kriskowal/q/),
 * lets [Lo-Dash](http://lodash.com) do some of the heavy lifting (because you can't do it any better by yourself),
 * uses [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode) for all source and test files,
-* is designed as a first-class [NPM module](https://npmjs.org) (a build for browsers is planned),
+* is designed as a first-class [NPM module](https://npmjs.org),
+* also has a build for browsers (i.e. you can use it in [Karma](http://karma-runner.github.io) tests and whatnot),
 * has an extensive suite of [Mocha](http://visionmedia.github.io/mocha/) tests,
-* uses [Grunt](http://gruntjs.com) as build system, so it does not depend on Python or Ruby,
-* is still very early in development,
-* could use some contributors that help with porting the rich set of matchers from the [Java Hamcrest implementation](http://hamcrest.org/JavaHamcrest/)
+* uses [Grunt](http://gruntjs.com) as build system, so it does not depend on Python or Ruby.
 
 # Installation
 Hamjest is available via [NPM](https://npmjs.org/package/hamjest):
@@ -103,6 +102,23 @@ Have a look at the [test suite](./test/) to see lots of usage examples [for each
 Do you have an idea how to make a matcher's error description even more readable? Does Hamjest lack a crucial matcher? (I'm sure it does...)
 
 Just drop me a message or - even better - send me a pull request.
+
+# Browser support
+Hamjest also runs in the browser - thanks to [browserify](http://browserify.org/).
+
+Use `dist/hamjest(.min).js` if [Lo-Dash](http://lodash.com) is already part of you test / app page. If you need promise support, you also have to include the [Q library](http://documentup.com/kriskowal/q/).
+
+If you have neither Lo-Dash nor Q and don't want to include them yourself, you can use `dist/hamjest-deps(.min).js` instead. It comes with "batteries included" and none of the dependencies are leaked into global scope.
+
+Both files export a single global: `hamjest`. You can rename it as usual for better readability:
+
+```
+	var __ = hamjest;
+
+	__.assertThat('2007-05-01', __.startsWith('2007'));
+	
+```
+
 
 # License
 
