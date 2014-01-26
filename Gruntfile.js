@@ -51,6 +51,19 @@ module.exports = function (grunt) {
 				files: '<%= jshint.test.src %>',
 				tasks: ['jshint:test', 'mochaTest']
 			}
+		},
+		browserify: {
+			dist: {
+				src: ['hamjest.js'],
+				dest: 'dist/hamjest.js',
+				options: {
+					'global-shim': {
+						'lodash-node': '_',
+						'q': 'q'
+					},
+					standalone: 'hamjest'
+				}
+			}
 		}
 	});
 
