@@ -63,13 +63,37 @@ module.exports = function (grunt) {
 					},
 					standalone: 'hamjest'
 				}
+			},
+			distDeps: {
+				src: ['hamjest.js'],
+				dest: 'dist/hamjest-deps.js',
+				options: {
+					standalone: 'hamjest'
+				}
+			}
+		},
+		uglify: {
+			dist: {
+				files: {
+					'dist/hamjest.min.js': [
+						'<%= browserify.dist.dest %>'
+					]
+				}
+			},
+			distDeps: {
+				files: {
+					'dist/hamjest-deps.min.js': [
+						'<%= browserify.distDeps.dest %>'
+					]
+				}
 			}
 		}
 	});
 
 	grunt.registerTask('test', ['jshint', 'mochaTest']);
+	grunt.registerTask('build', ['browserify', 'uglify']);
 
 	// Default task.
-	grunt.registerTask('default', 'test');
+	grunt.registerTask('default', ['test', 'build']);
 
 };

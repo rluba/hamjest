@@ -39,6 +39,7 @@
 		"grunt-browserify": "git://github.com/rluba/grunt-browserify.git#support_global_shim",
 		"grunt-contrib-jshint": "~0.7.0",
 		"grunt-contrib-nodeunit": "~0.2.0",
+		"grunt-contrib-uglify": "~0.3.2",
 		"grunt-contrib-watch": "~0.5.0",
 		"grunt-mocha-test": "~0.8.1",
 		"jshint-stylish": "~0.1.3",
