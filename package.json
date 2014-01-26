@@ -36,7 +36,6 @@
 		"node": ">=0.10.0"
 	},
 	"devDependencies": {
-		"browserify-global-shim": "~1.0.0",
 		"grunt-browserify": "git://github.com/rluba/grunt-browserify.git#support_global_shim",
 		"grunt-contrib-jshint": "~0.7.0",
 		"grunt-contrib-nodeunit": "~0.2.0",
@@ -55,14 +54,5 @@
 	"scripts": {
 		"test": "grunt test",
 		"lint": "grunt jshint"
-	},
-	"browserify": {
-		"transform": [
-			"browserify-global-shim"
-		]
-	},
-	"browserify-global-shim": {
-		"lodash-node": "_",
-		"q": "q"
 	}
 }
