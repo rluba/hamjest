@@ -187,6 +187,7 @@ var matchers = {
 	containsInAnyOrder: _dereq_('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
 	hasSize: _dereq_('./matchers/IsCollectionWithSize').hasSize,
 	hasProperties: _dereq_('./matchers/IsObjectWithProperties').hasProperties,
+	hasProperty: _dereq_('./matchers/IsObjectWithProperties').hasProperty,
 	throws: _dereq_('./matchers/IsFunctionThrowing').throws,
 	promise: _dereq_('./matchers/IsPromise').promise,
 	fulfilled: _dereq_('./matchers/IsFulfilled').fulfilled,
@@ -1147,6 +1148,12 @@ function IsObjectWithProperties(properties) {
 }
 
 IsObjectWithProperties.hasProperties = function (properties) {
+	return new IsObjectWithProperties(properties);
+};
+
+IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
+	var properties = {};
+	properties[name] = valueOrMatcher;
 	return new IsObjectWithProperties(properties);
 };
 

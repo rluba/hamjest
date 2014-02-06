@@ -79,4 +79,69 @@ describe('IsObjectWithProperties', function () {
 			});
 		});
 	});
+
+	describe('hasProperty', function () {
+		var hasProperty = IsObjectWithProperties.hasProperty;
+
+		var sut;
+		beforeEach(function () {
+			sut = hasProperty('name', 'Joe');
+		});
+
+		it('should match if property is present and matches', function () {
+			__.assertThat(sut.matches({name: 'Joe'}), __.is(true));
+
+			__.assertThat(sut.matches({name: 'Joel'}), __.is(false));
+			__.assertThat(sut.matches({children: 12}), __.is(false));
+		});
+
+		it('should ignore unspecified properties', function () {
+			__.assertThat(sut.matches({name: 'Joe', age: 27}), __.is(true));
+
+			__.assertThat(sut.matches({name: 'Joe2', age: 27}), __.is(false));
+		});
+
+		it('should not match non-objects', function () {
+			__.assertThat(sut.matches(12), __.is(false));
+			__.assertThat(sut.matches(['Joe', 12]), __.is(false));
+			__.assertThat(sut.matches([12, 'Joe']), __.is(false));
+		});
+
+		describe('description', function () {
+			var description;
+
+			beforeEach(function () {
+				description = new Description();
+			});
+
+			it('should contain value', function () {
+
+				sut.describeTo(description);
+
+				__.assertThat(description.get(), __.equalTo('an object with {name: "Joe"}'));
+			});
+
+			it('should contain matcher description', function () {
+				sut = hasProperty('name', __.endsWith('Joe'));
+
+				sut.describeTo(description);
+
+				__.assertThat(description.get(), __.equalTo('an object with {name: a string ending with "Joe"}'));
+			});
+
+			it('should contain mismatched properties', function () {
+
+				sut.describeMismatch({name: 'Jim', other: 'ignored'}, description);
+
+				__.assertThat(description.get(), __.equalTo('name was "Jim"'));
+			});
+
+			it('should fit for non-objects', function () {
+
+				sut.describeMismatch(7, description);
+
+				__.assertThat(description.get(), __.equalTo('was a number (<7>)'));
+			});
+		});
+	});
 });
