@@ -107,6 +107,20 @@ describe('IsObjectWithProperties', function () {
 			__.assertThat(sut.matches([12, 'Joe']), __.is(false));
 		});
 
+		describe('without second argument', function () {
+			beforeEach(function () {
+				sut = hasProperty('name');
+			});
+
+			it('should match if property is defined', function () {
+				__.assertThat(sut.matches({name: null}), __.is(true));
+
+				__.assertThat(sut.matches({name: undefined}), __.is(false));
+				__.assertThat(sut.matches({foo: 'bar'}), __.is(false));
+				__.assertThat(sut.matches({}), __.is(false));
+			});
+		});
+
 		describe('description', function () {
 			var description;
 
