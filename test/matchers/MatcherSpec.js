@@ -40,5 +40,17 @@ describe('Matcher', function () {
 				describeMismatch: function () {}
 			}));
 		});
+
+		it('should return false for null', function () {
+			assertFalse(Matcher.isMatcher(null));
+		});
+
+		it('should return false for undefined', function () {
+			assertFalse(Matcher.isMatcher(undefined));
+		});
+
+		it('should return false for arrays', function () {
+			assertFalse(Matcher.isMatcher([]));
+		});
 	});
 });
