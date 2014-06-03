@@ -1018,7 +1018,9 @@ var IsNot = acceptingMatcher(function IsNot(innerMatcher) {
 				.appendDescriptionOf(innerMatcher);
 		},
 		describeMismatch: function (value, description) {
-			innerMatcher.describeMismatch(value, description);
+			description
+				.append('was ')
+				.appendValue(value);
 		}
 	});
 });
@@ -1091,6 +1093,7 @@ module.exports = IsObject;
 var _ = _dereq_('lodash-node')
 	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
 	, asMatcher = _dereq_('./IsEqual').asMatcher
+	, defined = _dereq_('./IsDefined').defined
 	;
 
 function IsObjectWithProperties(properties) {
@@ -1153,13 +1156,13 @@ IsObjectWithProperties.hasProperties = function (properties) {
 
 IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
 	var properties = {};
-	properties[name] = valueOrMatcher;
+	properties[name] = valueOrMatcher || defined();
 	return new IsObjectWithProperties(properties);
 };
 
 module.exports = IsObjectWithProperties;
 
-},{"./IsEqual":20,"./TypeSafeMatcher":38,"lodash-node":115}],29:[function(_dereq_,module,exports){
+},{"./IsDefined":19,"./IsEqual":20,"./TypeSafeMatcher":38,"lodash-node":115}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash-node')
@@ -13193,7 +13196,7 @@ return Q;
 
 });
 
-}).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":41}]},{},[1])
+}).call(this,_dereq_("FWaASH"))
+},{"FWaASH":41}]},{},[1])
 (1)
 });
