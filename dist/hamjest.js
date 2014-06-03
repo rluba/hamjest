@@ -1385,6 +1385,7 @@ function Matcher() {
 
 Matcher.isMatcher = function (matcherOrValue) {
 	return !_.isUndefined(matcherOrValue) &&
+		!_.isNull(matcherOrValue) &&
 		_.isFunction(matcherOrValue.matches) &&
 		_.isFunction(matcherOrValue.describeTo) &&
 		_.isFunction(matcherOrValue.describeMismatch);

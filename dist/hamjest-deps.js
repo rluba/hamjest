@@ -1385,6 +1385,7 @@ function Matcher() {
 
 Matcher.isMatcher = function (matcherOrValue) {
 	return !_.isUndefined(matcherOrValue) &&
+		!_.isNull(matcherOrValue) &&
 		_.isFunction(matcherOrValue.matches) &&
 		_.isFunction(matcherOrValue.describeTo) &&
 		_.isFunction(matcherOrValue.describeMismatch);
@@ -1724,6 +1725,16 @@ process.title = 'browser';
 process.browser = true;
 process.env = {};
 process.argv = [];
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
@@ -6528,7 +6539,8 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
 module.exports = baseClone;
 
 },{"../collections/forEach":79,"../objects/assign":160,"../objects/forOwn":169,"../objects/isArray":175,"../objects/isObject":186,"./getArray":138,"./releaseArray":152,"./slice":157}],119:[function(_dereq_,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -6571,6 +6583,7 @@ if (!nativeCreate) {
 
 module.exports = baseCreate;
 
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../objects/isObject":186,"../utilities/noop":206,"./isNative":142}],120:[function(_dereq_,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -9372,7 +9385,8 @@ function isEqual(a, b, callback, thisArg) {
 module.exports = isEqual;
 
 },{"../internals/baseCreateCallback":120,"../internals/baseIsEqual":125}],181:[function(_dereq_,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -9419,6 +9433,7 @@ function isFinite(value) {
 
 module.exports = isFinite;
 
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],182:[function(_dereq_,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -10255,7 +10270,8 @@ function values(object) {
 module.exports = values;
 
 },{"./keys":191}],199:[function(_dereq_,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -10296,6 +10312,7 @@ support.funcNames = typeof Function.name == 'string';
 
 module.exports = support;
 
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./internals/isNative":142}],200:[function(_dereq_,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -10513,7 +10530,8 @@ function mixin(object, source, options) {
 module.exports = mixin;
 
 },{"../collections/forEach":79,"../objects/functions":171,"../objects/isFunction":182,"../objects/isObject":186}],205:[function(_dereq_,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -10544,6 +10562,7 @@ function noConflict() {
 
 module.exports = noConflict;
 
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],206:[function(_dereq_,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -10603,7 +10622,8 @@ var now = isNative(now = Date.now) && now || function() {
 module.exports = now;
 
 },{"../internals/isNative":142}],208:[function(_dereq_,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -10657,6 +10677,7 @@ var parseInt = nativeParseInt(whitespace + '08') == 8 ? nativeParseInt : functio
 
 module.exports = parseInt;
 
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../objects/isString":189}],209:[function(_dereq_,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -11233,7 +11254,8 @@ function uniqueId(prefix) {
 module.exports = uniqueId;
 
 },{}],217:[function(_dereq_,module,exports){
-var process=_dereq_("__browserify_process");// vim:ts=4:sts=4:sw=4:
+(function (process){
+// vim:ts=4:sts=4:sw=4:
 /*!
  *
  * Copyright 2009-2012 Kris Kowal under the terms of the MIT
@@ -13171,6 +13193,7 @@ return Q;
 
 });
 
-},{"__browserify_process":41}]},{},[1])
+}).call(this,_dereq_("JkpR2F"))
+},{"JkpR2F":41}]},{},[1])
 (1)
 });
