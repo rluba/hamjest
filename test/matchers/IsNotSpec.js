@@ -42,13 +42,13 @@ describe('IsNot', function () {
 			__.assertThat(description.get(), __.equalTo('not a string containing "expected"'));
 		});
 
-		it('should delegate mismatch description', function () {
+		it('should describe mismatching value', function () {
 			var description = new Description();
 
-			var matcher = not(innerMatcher);
-			matcher.describeMismatch(7, description);
+			var matcher = not(__.hasProperties({foo: 'bar'}));
+			matcher.describeMismatch({foo: 'bar'}, description);
 
-			__.assertThat(description.get(), __.equalTo('was a number (<7>)'));
+			__.assertThat(description.get(), __.equalTo('was {"foo":"bar"}'));
 		});
 	});
 });
