@@ -1018,7 +1018,9 @@ var IsNot = acceptingMatcher(function IsNot(innerMatcher) {
 				.appendDescriptionOf(innerMatcher);
 		},
 		describeMismatch: function (value, description) {
-			innerMatcher.describeMismatch(value, description);
+			description
+				.append('was ')
+				.appendValue(value);
 		}
 	});
 });
@@ -13193,7 +13195,7 @@ return Q;
 
 });
 
-}).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":41}]},{},[1])
+}).call(this,_dereq_("FWaASH"))
+},{"FWaASH":41}]},{},[1])
 (1)
 });
