@@ -125,5 +125,3 @@ Both files export a single global: `hamjest`. You can rename it as usual for bet
 Licensed under the MIT License [(enclosed)](./LICENSE). 
 
 This library is inspired by and based on the work of the original [Hamcrest team](http://hamcrest.org).
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rluba/hamjest/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
