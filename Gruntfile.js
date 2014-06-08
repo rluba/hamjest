@@ -58,7 +58,7 @@ module.exports = function (grunt) {
 				dest: 'dist/hamjest.js',
 				options: {
 					'global-shim': {
-						'lodash-node': '_',
+						'lodash': '_',
 						'q': 'q'
 					},
 					standalone: 'hamjest'

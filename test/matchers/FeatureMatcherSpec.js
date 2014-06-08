@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash-node')
+var _ = require('lodash')
 	, FeatureMatcher = require('../../lib/matchers/FeatureMatcher')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
