@@ -3,6 +3,9 @@ Hamjest
 
 A JavaScript implementation of [Hamcrest](http://hamcrest.org).
 
+**Attention: The semantics of `promiseThat` has changed in `1.0.0` (hence the version bump). See below for more details.**
+
+
 Unlinke other JS Hamcrest libraries, it
 
 * tries to deliver meaningful and readable (mismatch) descriptions, even for arbitrary JavaScript objects,
@@ -21,6 +24,7 @@ Hamjest is available via [NPM](https://npmjs.org/package/hamjest):
     npm install hamjest --save-dev
     
 # Usage
+
 All asserts and matchers are available as children of the `hamjest` module, so just require it, give it an unobtrusive name and start matching:
 
 	var __ = require('hamjest');
@@ -94,6 +98,23 @@ By default, FeatureMatcher tries to find a property with the given feature name 
 	AssertionError: 
 	Expected: is animal with name length a number greater than <5>
 	     but: name length of {"name":"bob","age":12} was <3>
+	     
+
+## promiseThat
+`promiseThat` is similar to `assertThat` can be used to wait for a given promise to be fulfilled or rejected before matching it. It returns a promise that will be fulfilled iff the given matcher matches the fulfilled/rejected input promise.
+
+    var promise = q('future value');
+    //Will return a fulfilled promise
+    return __.promiseThat(promise, __.is(__.fulfilled('future value')));
+
+    //Will return a rejected promise because the matcher does not match
+    return __.promiseThat(promise, __.is(__.fulfilled('another value')));
+
+	var deferred = q.defer();
+	// The returned promise will be pending until "deferred"" is rejected or fulfilled.
+    return __.promiseThat(deferred.promise, __.is(__.rejected('an error')));
+    
+**Attention: The semantics of `promiseThat` has changed in `1.0.0` (hence the version bump). Previously the matcher was called with the fulfilled value instead of the promise. This turned out to be of limited use because you couldn't test for rejection.**
 
 ## More matchers and examples
 Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.

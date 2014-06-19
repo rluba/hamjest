@@ -1,59 +1,59 @@
 {
-	"name": "hamjest",
-	"version": "0.9.0",
-	"main": "hamjest.js",
-	"description": "A JavaScript implementation of Hamcrest",
-	"homepage": "https://github.com/rluba/hamjest",
-	"author": {
-		"name": "Raphael Luba",
-		"email": "raphael@leanbyte.com",
-		"url": "https://github.com/rluba"
-	},
-	"keywords": [
-		"hamjest",
-		"hamcrest",
-		"matcher",
-		"matchers",
-		"assertThat",
-		"node",
-		"q",
-		"promiseThat",
-		"promise",
-		"promises"
-	],
-	"bugs": {
-		"url": "https://github.com/rluba/hamjest/issues"
-	},
-	"license": {
-		"type": "MIT",
-		"url": "https://raw.github.com/rluba/hamjest/master/LICENSE"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/rluba/hamjest.git"
-	},
-	"engines": {
-		"node": ">=0.10.0"
-	},
-	"devDependencies": {
-		"grunt-browserify": "git://github.com/rluba/grunt-browserify.git#support_global_shim",
-		"grunt-contrib-jshint": "~0.7.0",
-		"grunt-contrib-nodeunit": "~0.2.0",
-		"grunt-contrib-uglify": "~0.3.2",
-		"grunt-contrib-watch": "~0.5.0",
-		"grunt-mocha-test": "~0.8.1",
-		"jshint-stylish": "~0.1.3",
-		"load-grunt-tasks": "~0.2.0",
-		"mocha": "~1.16.1",
-		"time-grunt": "~0.2.0"
-	},
-	"dependencies": {
-		"assertion-error": "~1.0.0",
-		"lodash": "^2.4.1",
-		"q": "~0.9.7"
-	},
-	"scripts": {
-		"test": "grunt test",
-		"lint": "grunt jshint"
-	}
+  "name": "hamjest",
+  "version": "1.0.0",
+  "main": "hamjest.js",
+  "description": "A JavaScript implementation of Hamcrest",
+  "homepage": "https://github.com/rluba/hamjest",
+  "author": {
+    "name": "Raphael Luba",
+    "email": "raphael@leanbyte.com",
+    "url": "https://github.com/rluba"
+  },
+  "keywords": [
+    "hamjest",
+    "hamcrest",
+    "matcher",
+    "matchers",
+    "assertThat",
+    "node",
+    "q",
+    "promiseThat",
+    "promise",
+    "promises"
+  ],
+  "bugs": {
+    "url": "https://github.com/rluba/hamjest/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://raw.github.com/rluba/hamjest/master/LICENSE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rluba/hamjest.git"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "devDependencies": {
+    "grunt-browserify": "git://github.com/rluba/grunt-browserify.git#support_global_shim",
+    "grunt-contrib-jshint": "^0.7.2",
+    "grunt-contrib-nodeunit": "^0.2.2",
+    "grunt-contrib-uglify": "^0.3.3",
+    "grunt-contrib-watch": "^0.5.3",
+    "grunt-mocha-test": "^0.8.2",
+    "jshint-stylish": "^0.1.5",
+    "load-grunt-tasks": "^0.2.1",
+    "mocha": "^1.16.2",
+    "time-grunt": "^0.2.10"
+  },
+  "dependencies": {
+    "assertion-error": "~1.0.0",
+    "lodash": "^2.4.1",
+    "q": "~0.9.7"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "lint": "grunt jshint"
+  }
 }
