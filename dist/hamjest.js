@@ -193,7 +193,9 @@ var matchers = {
 	throws: _dereq_('./matchers/IsFunctionThrowing').throws,
 	promise: _dereq_('./matchers/IsPromise').promise,
 	fulfilled: _dereq_('./matchers/IsFulfilled').fulfilled,
-	rejected: _dereq_('./matchers/IsRejected').rejected
+	isFulfilledWith: _dereq_('./matchers/IsFulfilled').isFulfilledWith,
+	rejected: _dereq_('./matchers/IsRejected').rejected,
+	isRejectedWith: _dereq_('./matchers/IsRejected').isRejectedWith
 };
 
 var utils = {
