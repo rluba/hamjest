@@ -59,7 +59,7 @@ module.exports = function (grunt) {
 				options: {
 					'global-shim': {
 						'lodash': '_',
-						'q': 'q'
+						'q': 'Q'
 					},
 					standalone: 'hamjest'
 				}

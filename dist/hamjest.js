@@ -935,7 +935,7 @@ module.exports = IsEqual;
 'use strict';
 
 var _ = (window._)
-	, q = (window.q)
+	, q = (window.Q)
 	, IsPromise = _dereq_('./IsPromise')
 	, asMatcher = _dereq_('./IsEqual').asMatcher
 	, anything = _dereq_('./IsAnything').anything
@@ -1276,7 +1276,7 @@ module.exports = IsObjectWithProperties;
 'use strict';
 
 var _ = (window._)
-	, q = (window.q)
+	, q = (window.Q)
 	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
 	;
 
@@ -1333,7 +1333,7 @@ module.exports = IsRegExp;
 'use strict';
 
 var _ = (window._)
-	, q = (window.q)
+	, q = (window.Q)
 	, IsPromise = _dereq_('./IsPromise')
 	, asMatcher = _dereq_('./IsEqual').asMatcher
 	, anything = _dereq_('./IsAnything').anything
@@ -1662,7 +1662,7 @@ module.exports = TypeSafeMatcher;
 },{"./Matcher":37}],41:[function(_dereq_,module,exports){
 'use strict';
 
-var q = (window.q)
+var q = (window.Q)
 	, assertThat = _dereq_('./assertThat')
 	;
 
