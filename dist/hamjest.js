@@ -953,11 +953,12 @@ function IsFulfilled(valueOrMatcher) {
 			return valueMatcher.matches(actual.inspect().value);
 		},
 		describeTo: function (description) {
-			description.append('fulfilled promise');
-			if (!anyValue) {
-				description.append(' (');
+			if (anyValue) {
+				description.append('a fulfilled promise');
+			}
+			else {
+				description.append('a promise fulfilled with ');
 				valueMatcher.describeTo(description);
-				description.append(')');
 			}
 		},
 		describeMismatchSafely: function (actual, description) {
@@ -984,6 +985,7 @@ IsFulfilled.fulfilled = function (operand) {
 		return new IsFulfilled(operand);
 	}
 };
+IsFulfilled.isFulfilledWith = IsFulfilled.fulfilled;
 
 module.exports = IsFulfilled;
 
@@ -1351,11 +1353,12 @@ function IsRejected(valueOrMatcher) {
 			return valueMatcher.matches(actual.inspect().reason);
 		},
 		describeTo: function (description) {
-			description.append('rejected promise');
-			if (!anyValue) {
-				description.append(' (');
+			if (anyValue) {
+				description.append('a rejected promise');
+			}
+			else {
+				description.append('a promise rejected with ');
 				valueMatcher.describeTo(description);
-				description.append(')');
 			}
 		},
 		describeMismatchSafely: function (actual, description) {
@@ -1382,6 +1385,8 @@ IsRejected.rejected = function (operand) {
 		return new IsRejected(operand);
 	}
 };
+IsRejected.isRejectedWith = IsRejected.rejected;
+
 
 module.exports = IsRejected;
 

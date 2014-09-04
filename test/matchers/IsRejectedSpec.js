@@ -10,6 +10,10 @@ var q = require('q')
 
 describe('IsRejected', function () {
 
+	it('should provide a better readable alias', function () {
+		__.assertThat(IsRejected.isRejectedWith, __.is(IsRejected.rejected));
+	});
+
 	describe('rejected', function () {
 		var rejected = IsRejected.rejected;
 
@@ -42,7 +46,7 @@ describe('IsRejected', function () {
 
 				sut.describeTo(description);
 
-				__.assertThat(description.get(), __.equalTo('rejected promise'));
+				__.assertThat(description.get(), __.equalTo('a rejected promise'));
 			});
 		});
 
@@ -87,7 +91,7 @@ describe('IsRejected', function () {
 
 					sut.describeTo(description);
 
-					__.assertThat(description.get(), __.equalTo('rejected promise ("a reason")'));
+					__.assertThat(description.get(), __.equalTo('a promise rejected with "a reason"'));
 				});
 
 				it('should contain fulfilled value', function () {
@@ -157,7 +161,7 @@ describe('IsRejected', function () {
 
 					sut.describeTo(description);
 
-					__.assertThat(description.get(), __.equalTo('rejected promise (a string containing "expected")'));
+					__.assertThat(description.get(), __.equalTo('a promise rejected with a string containing "expected"'));
 				});
 
 				it('should contain fulfilled value', function () {

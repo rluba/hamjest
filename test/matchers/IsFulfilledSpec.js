@@ -10,6 +10,10 @@ var q = require('q')
 
 describe('IsFulfilled', function () {
 
+	it('should provide a better readable alias', function () {
+		__.assertThat(IsFulfilled.isFulfilledWith, __.is(IsFulfilled.fulfilled));
+	});
+
 	describe('fulfilled', function () {
 		var fulfilled = IsFulfilled.fulfilled;
 
@@ -42,7 +46,7 @@ describe('IsFulfilled', function () {
 
 				sut.describeTo(description);
 
-				__.assertThat(description.get(), __.equalTo('fulfilled promise'));
+				__.assertThat(description.get(), __.equalTo('a fulfilled promise'));
 			});
 		});
 
@@ -87,7 +91,7 @@ describe('IsFulfilled', function () {
 
 					sut.describeTo(description);
 
-					__.assertThat(description.get(), __.equalTo('fulfilled promise ("a value")'));
+					__.assertThat(description.get(), __.equalTo('a promise fulfilled with "a value"'));
 				});
 
 				it('should contain mismatched value', function () {
@@ -157,7 +161,7 @@ describe('IsFulfilled', function () {
 
 					sut.describeTo(description);
 
-					__.assertThat(description.get(), __.equalTo('fulfilled promise (a string containing "expected")'));
+					__.assertThat(description.get(), __.equalTo('a promise fulfilled with a string containing "expected"'));
 				});
 
 				it('should contain mismatched value', function () {
