@@ -19,21 +19,21 @@ describe('IsCloseTo', function () {
 		it('should throw for non-number arguments', function () {
 			__.assertThat(function () {
 				closeTo('5', 0.5);
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 
 			__.assertThat(function () {
 				closeTo(1, '0.2');
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 
 			__.assertThat(function () {
 				closeTo(1);
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should throw for missing delta', function () {
 			__.assertThat(function () {
 				closeTo(1);
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should match numbers correctly', function () {

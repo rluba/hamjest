@@ -8,9 +8,9 @@ var AssertionError = require('assertion-error')
 	, assertFalse = require('../asserts').assertFalse
 	;
 
-describe('ThrowsError', function () {
+describe('IsFunctionThrowing', function () {
 
-	describe('fulfilled', function () {
+	describe('throws', function () {
 		var throws = IsFunctionThrowing.throws;
 
 		function throwingErrorFunction() {
@@ -55,35 +55,37 @@ describe('ThrowsError', function () {
 
 					sut.describeMismatch(notThrowingFunction, description);
 
-					__.assertThat(description.get(), __.equalTo('did not throw anything'));
+					__.assertThat(description.get(), __.equalTo('Function notThrowingFunction did not throw anything'));
 				});
 			});
 		});
 
-		describe('with a type', function () {
-			function throwingAssertionErrorFunction() {
-				throw new AssertionError('an assertion error');
+		describe('with a value', function () {
+			function throwing(value) {
+				return function () {
+					throw value;
+				};
 			}
 
 			var sut;
 			beforeEach(function () {
-				sut = throws(AssertionError);
+				sut = throws('a string value');
 			});
 
 			it('should not match if argument is not a function', function () {
 				assertFalse(sut.matches('a string value'));
 			});
 
-			it('should match if function throws expected type', function () {
-				assertTrue(sut.matches(throwingAssertionErrorFunction));
+			it('should match if function throws expected value', function () {
+				assertTrue(sut.matches(throwing('a string value')));
+			});
+
+			it('should not match if function throws something different', function () {
+				assertFalse(sut.matches(throwing('another string value')));
 			});
 
 			it('should not match if function does not throw', function () {
 				assertFalse(sut.matches(notThrowingFunction));
-			});
-
-			it('should not match if function throws different type', function () {
-				assertFalse(sut.matches(throwingErrorFunction));
 			});
 
 			describe('description', function () {
@@ -93,25 +95,94 @@ describe('ThrowsError', function () {
 					description = new Description();
 				});
 
-				it('should contain type name', function () {
+				it('should contain exception matcher description', function () {
 
 					sut.describeTo(description);
 
-					__.assertThat(description.get(), __.equalTo('a function throwing an instance of AssertionError'));
+					__.assertThat(description.get(), __.equalTo('a function throwing "a string value"'));
 				});
 
 				it('should say if nothing was thrown', function () {
 
 					sut.describeMismatch(notThrowingFunction, description);
 
-					__.assertThat(description.get(), __.equalTo('did not throw anything'));
+					__.assertThat(description.get(), __.equalTo('Function notThrowingFunction did not throw anything'));
+				});
+
+				it('should contain exception mismatch description', function () {
+
+					sut.describeMismatch(throwing('another string value'), description);
+
+					__.assertThat(description.get(), __.equalTo('thrown object: was "another string value"'));
+				});
+			});
+		});
+
+		describe('with a matcher', function () {
+			function throwingAssertionErrorFunction(message) {
+				return function () {
+					throw new AssertionError(message);
+				};
+			}
+
+			function assertionErrorWithMessage(matcherOrValue) {
+				return __.allOf(
+					__.instanceOf(AssertionError),
+					new __.FeatureMatcher(matcherOrValue, 'AssertionError with message', 'message')
+				);
+			}
+
+			var sut;
+			beforeEach(function () {
+				sut = throws(assertionErrorWithMessage('the reason'));
+			});
+
+			it('should not match if argument is not a function', function () {
+				assertFalse(sut.matches('a string value'));
+			});
+
+			it('should match if thrown exception matches expectation', function () {
+				var fn = throwingAssertionErrorFunction('the reason');
+
+				assertTrue(sut.matches(fn));
+			});
+
+			it('should not match if thrown exception does not match expectation', function () {
+				var fn = throwingAssertionErrorFunction('another reason');
+
+				assertFalse(sut.matches(fn));
+			});
+
+			it('should not match if function does not throw', function () {
+				assertFalse(sut.matches(notThrowingFunction));
+			});
+
+			describe('description', function () {
+				var description;
+
+				beforeEach(function () {
+					description = new Description();
+				});
+
+				it('should contain matcher description', function () {
+
+					sut.describeTo(description);
+
+					__.assertThat(description.get(), __.equalTo('a function throwing (an instance of AssertionError and AssertionError with message \"the reason\")'));
+				});
+
+				it('should say if nothing was thrown', function () {
+
+					sut.describeMismatch(notThrowingFunction, description);
+
+					__.assertThat(description.get(), __.equalTo('Function notThrowingFunction did not throw anything'));
 				});
 
 				it('should contain mismatching type', function () {
 
 					sut.describeMismatch(throwingErrorFunction, description);
 
-					__.assertThat(description.get(), __.equalTo('{} is a Error'));
+					__.assertThat(description.get(), __.equalTo('thrown object: an instance of AssertionError: {} is a Error'));
 				});
 			});
 		});

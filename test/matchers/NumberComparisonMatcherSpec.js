@@ -21,7 +21,7 @@ describe('NumberComparisonMatcher', function () {
 		it('should throw for non-number arguments', function () {
 			__.assertThat(function () {
 				greaterThan('5');
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should match numbers correctly', function () {
@@ -77,7 +77,7 @@ describe('NumberComparisonMatcher', function () {
 		it('should throw for non-number arguments', function () {
 			__.assertThat(function () {
 				greaterThanOrEqualTo('5');
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should match numbers correctly', function () {
@@ -134,7 +134,7 @@ describe('NumberComparisonMatcher', function () {
 		it('should throw for non-number arguments', function () {
 			__.assertThat(function () {
 				lessThan('5');
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should match numbers correctly', function () {
@@ -191,7 +191,7 @@ describe('NumberComparisonMatcher', function () {
 		it('should throw for non-number arguments', function () {
 			__.assertThat(function () {
 				lessThanOrEqualTo('5');
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should match numbers correctly', function () {

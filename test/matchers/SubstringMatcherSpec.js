@@ -21,7 +21,7 @@ describe('SubstringMatcher', function () {
 		it('should throw for non-string arguments', function () {
 			__.assertThat(function () {
 				containsString(7);
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should match superstrings', function () {
@@ -81,7 +81,7 @@ describe('SubstringMatcher', function () {
 		it('should throw for non-string arguments', function () {
 			__.assertThat(function () {
 				startsWith(7);
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 
@@ -142,7 +142,7 @@ describe('SubstringMatcher', function () {
 		it('should throw for non-string arguments', function () {
 			__.assertThat(function () {
 				endsWith(7);
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 

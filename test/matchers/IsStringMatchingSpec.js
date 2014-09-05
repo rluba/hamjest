@@ -14,7 +14,7 @@ describe('IsStringMatching', function () {
 		it('should throw for non-string, non-RegExp arguments', function () {
 			__.assertThat(function () {
 				matchesPattern(7);
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		describe('with RegExp', function () {

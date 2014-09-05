@@ -26,7 +26,7 @@ describe('IsInstanceOf', function () {
 		it('should throw for non-function arguments', function () {
 			__.assertThat(function () {
 				instanceOf('a value');
-			}, __.throws(AssertionError));
+			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
 		it('should match instances and subinstances', function () {

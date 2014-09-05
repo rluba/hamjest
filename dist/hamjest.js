@@ -1024,13 +1024,13 @@ module.exports = IsFunction;
 
 var _ = (window._)
 	, IsFunction = _dereq_('./IsFunction')
-	, instanceOf = _dereq_('./IsInstanceOf').instanceOf
+	, asMatcher = _dereq_('./IsEqual').asMatcher
 	, anything = _dereq_('./IsAnything').anything
 	;
 
-function IsFunctionThrowing(type) {
-	var anyType = (arguments.length === 0);
-	var typeMatcher = (anyType ? anything() : instanceOf(type));
+function IsFunctionThrowing(valueOrMatcher) {
+	var anyValue = (arguments.length === 0);
+	var exceptionMatcher = (anyValue ? anything() : asMatcher(valueOrMatcher));
 	return _.create(new IsFunction(), {
 		matchesSafely: function (throwingFunction) {
 			try {
@@ -1038,20 +1038,23 @@ function IsFunctionThrowing(type) {
 				return false;
 			}
 			catch(e) {
-				return typeMatcher.matches(e);
+				return exceptionMatcher.matches(e);
 			}
 		},
 		describeTo: function (description) {
 			description.append('a function throwing ');
-			typeMatcher.describeTo(description);
+			exceptionMatcher.describeTo(description);
 		},
 		describeMismatch: function (throwingFunction, description) {
 			try {
 				throwingFunction();
-				description.append('did not throw anything');
+				description
+					.appendValue(throwingFunction)
+					.append(' did not throw anything');
 			}
 			catch(e) {
-				typeMatcher.describeMismatch(e, description);
+				description.append('thrown object: ');
+				exceptionMatcher.describeMismatch(e, description);
 			}
 		}
 	});
@@ -1068,7 +1071,7 @@ IsFunctionThrowing.throws = function (operand) {
 
 module.exports = IsFunctionThrowing;
 
-},{"./IsAnything":10,"./IsFunction":24,"./IsInstanceOf":26}],26:[function(_dereq_,module,exports){
+},{"./IsAnything":10,"./IsEqual":22,"./IsFunction":24}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
