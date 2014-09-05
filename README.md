@@ -3,9 +3,6 @@ Hamjest
 
 A JavaScript implementation of [Hamcrest](http://hamcrest.org).
 
-**Attention: The semantics of `promiseThat` has changed in `1.0.0` (hence the version bump). See below for more details.**
-
-
 Unlinke other JS Hamcrest libraries, it
 
 * tries to deliver meaningful and readable (mismatch) descriptions, even for arbitrary JavaScript objects,
@@ -114,8 +111,6 @@ By default, FeatureMatcher tries to find a property with the given feature name 
 	// The returned promise will be pending until "deferred"" is rejected or fulfilled.
     return __.promiseThat(deferred.promise, __.is(__.rejected('an error')));
     
-**Attention: The semantics of `promiseThat` has changed in `1.0.0` (hence the version bump). Previously the matcher was called with the fulfilled value instead of the promise. This turned out to be of limited use because you couldn't test for rejection.**
-
 ## More matchers and examples
 Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
 
@@ -140,6 +135,22 @@ Both files export a single global: `hamjest`. You can rename it as usual for bet
 	
 ```
 
+# Breaking changes between versions
+## v0.x to v1.0
+### promiseThat
+The semantics of `promiseThat` has changed in `1.0.0` Previously the sub-matcher was called with the fulfilled value instead of the promise. This turned out to be of limited use because you couldn't test for rejection.
+
+## v1.x to v2.0
+### throws
+`throws` now behaves like other matchers that accept a sub-matcher. If an argument is provided, it can now be a matcher or an arbitrary value, i.e. it is wrapped with `equalTo`, if it is not a matcher.
+
+Previously, the argument had to be the expected exception type and was always wrapped in `instanceOf`. To get the old behavior, change
+    
+    __.assertThat(fn, __.throws(AssertionError))
+
+to
+
+    __.assertThat(fn, __.throws(__.instanceOf(AssertionError)))
 
 # License
 
