@@ -131,28 +131,22 @@ describe('IsRejected', function () {
 					__.assertThat(description.get(), __.equalTo('a promise rejected with "a reason"'));
 				});
 
-				it('should contain fulfilled value', function () {
+				it('should contain fulfilled value', function (done) {
 					var actual = q('a value');
 
-					sut.describeMismatch(actual, description);
-
-					__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('fulfilled'), __.containsString('"a value"')));
+					sut.describeMismatch(actual, description).done(function () {
+						__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('fulfilled'), __.containsString('"a value"')));
+						done();
+					});
 				});
 
-				it('should contain mismatched reason', function () {
+				it('should contain mismatched reason', function (done) {
 					var actual = q.reject('another reason');
 
-					sut.describeMismatch(actual, description);
-
-					__.assertThat(description.get(), __.equalTo('was rejected with "another reason"'));
-				});
-
-				it('should contain pending state', function () {
-					var actual = q.defer().promise;
-
-					sut.describeMismatch(actual, description);
-
-					__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('pending')));
+					sut.describeMismatch(actual, description).done(function () {
+						__.assertThat(description.get(), __.equalTo('was rejected with "another reason"'));
+						done();
+					});
 				});
 			});
 		});
@@ -221,28 +215,22 @@ describe('IsRejected', function () {
 					__.assertThat(description.get(), __.equalTo('a promise rejected with a string containing "expected"'));
 				});
 
-				it('should contain fulfilled value', function () {
+				it('should contain fulfilled value', function (done) {
 					var actual = q('a value');
 
-					sut.describeMismatch(actual, description);
-
-					__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('fulfilled'), __.containsString('"a value"')));
+					sut.describeMismatch(actual, description).done(function () {
+						__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('fulfilled'), __.containsString('"a value"')));
+						done();
+					});
 				});
 
-				it('should contain mismatched reason', function () {
+				it('should contain mismatched reason', function (done) {
 					var actual = q.reject('another reason');
 
-					sut.describeMismatch(actual, description);
-
-					__.assertThat(description.get(), __.equalTo('was rejected with "another reason"'));
-				});
-
-				it('should contain pending state', function () {
-					var actual = q.defer().promise;
-
-					sut.describeMismatch(actual, description);
-
-					__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('pending')));
+					sut.describeMismatch(actual, description).done(function () {
+						__.assertThat(description.get(), __.equalTo('was rejected with "another reason"'));
+						done();
+					});
 				});
 			});
 		});

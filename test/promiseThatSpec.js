@@ -8,6 +8,7 @@ var q = require('q')
 	, fail = require('./asserts').fail
 	, TestMatcher = require('./TestMatcher')
 	;
+var _ = require('lodash');
 
 describe('promiseThat', function () {
 
@@ -125,5 +126,35 @@ describe('promiseThat', function () {
 					done();
 				}
 			);
+	});
+
+	it('should allow matchers to describe mismatch asynchronously', function (done) {
+		var deferred = q.defer();
+		var matcher = _.create(new __.Matcher(), {
+			matches: function () {
+				return false;
+			},
+			describeTo: function (description) {
+				description.append('Matcher description');
+			},
+			describeMismatch: function (actual, description) {
+				return deferred.promise.then(function () {
+					description.append('Deferred mismatch description');
+				});
+			}
+		});
+
+		promiseThat('a value', matcher).done(
+			function () {
+				fail('Should not be fulfilled');
+			},
+			function (reason) {
+				__.assertThat(reason, __.instanceOf(AssertionError));
+				__.assertThat(reason.message, __.containsString('Deferred mismatch description'));
+				done();
+			}
+		);
+
+		deferred.resolve();
 	});
 });
