@@ -35,6 +35,12 @@ describe('IsInstanceOf', function () {
 			assertTrue(sut.matches(new Squirrel()));
 		});
 
+		it('should not match undefined', function () {
+			var undef;
+
+			assertFalse(sut.matches(undef));
+		});
+
 		describe('description', function () {
 			var description;
 
@@ -62,6 +68,14 @@ describe('IsInstanceOf', function () {
 				sut.describeMismatch('another value', description);
 
 				__.assertThat(description.get(), __.equalTo('"another value" is a String'));
+			});
+
+			it('should handle undefined value', function () {
+				var undef;
+
+				sut.describeMismatch(undef, description);
+
+				__.assertThat(description.get(), __.equalTo('was undefined'));
 			});
 
 			it('should contain mismatched type for custom types', function () {
