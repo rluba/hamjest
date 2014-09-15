@@ -207,6 +207,7 @@ var matchers = {
 	promise: _dereq_('./matchers/IsPromise').promise,
 	fulfilled: _dereq_('./matchers/IsFulfilled').fulfilled,
 	isFulfilledWith: _dereq_('./matchers/IsFulfilled').isFulfilledWith,
+	willBe: _dereq_('./matchers/IsFulfilled').isFulfilledWith,
 	rejected: _dereq_('./matchers/IsRejected').rejected,
 	isRejectedWith: _dereq_('./matchers/IsRejected').isRejectedWith
 };
@@ -450,9 +451,6 @@ function IsArray() {
 	return _.create(new TypeSafeMatcher(), {
 		isExpectedType: function (actual) {
 			return _.isArray(actual);
-		},
-		matchesSafely: function () {
-			return true;
 		},
 		describeTo: function (description) {
 			description
@@ -767,9 +765,6 @@ function IsBoolean() {
 		isExpectedType: function (actual) {
 			return _.isBoolean(actual);
 		},
-		matchesSafely: function () {
-			return true;
-		},
 		describeTo: function (description) {
 			description
 				.append('a boolean');
@@ -867,9 +862,6 @@ function IsDate() {
 		isExpectedType: function (actual) {
 			return _.isDate(actual);
 		},
-		matchesSafely: function () {
-			return true;
-		},
 		describeTo: function (description) {
 			description
 				.append('a date');
@@ -961,11 +953,11 @@ function IsFulfilled(valueOrMatcher) {
 	var valueMatcher = (anyValue ? anything() : asMatcher(valueOrMatcher));
 	return _.create(new IsPromise(), {
 		matchesSafely: function (actual) {
-			if (!q.isFulfilled(actual)) {
+			return actual.then(function (value) {
+				return valueMatcher.matches(value);
+			}, function () {
 				return false;
-			}
-
-			return valueMatcher.matches(actual.inspect().value);
+			});
 		},
 		describeTo: function (description) {
 			if (anyValue) {
@@ -977,17 +969,24 @@ function IsFulfilled(valueOrMatcher) {
 			}
 		},
 		describeMismatchSafely: function (actual, description) {
-			if (!q.isFulfilled(actual)) {
-				description
-					.append('was not fulfilled (')
-					.appendValue(actual.inspect())
-					.append(')');
-			}
-			else {
-				description
-					.append('was fulfilled with ')
-					.appendValue(actual.inspect().value);
-			}
+			var deferred = q.defer();
+
+			var qPromise = q(actual);
+			qPromise.fin(function () {
+				if (!q.isFulfilled(qPromise)) {
+					description
+						.append('was not fulfilled (')
+						.appendValue(qPromise.inspect())
+						.append(')');
+				}
+				else {
+					description
+						.append('was fulfilled with ')
+						.appendValue(qPromise.inspect().value);
+				}
+				deferred.resolve();
+			});
+			return deferred.promise;
 		}
 	});
 }
@@ -1015,9 +1014,6 @@ function IsFunction() {
 	return _.create(new TypeSafeMatcher(), {
 		isExpectedType: function (actual) {
 			return _.isFunction(actual);
-		},
-		matchesSafely: function () {
-			return true;
 		},
 		describeTo: function (description) {
 			description
@@ -1115,6 +1111,13 @@ function IsInstanceOf(expectedType) {
 				.append(getName(expectedType));
 		},
 		describeMismatch: function (actual, description) {
+			if(_.isUndefined(actual)) {
+				description
+					.append('was ')
+					.appendValue(actual);
+				return;
+			}
+
 			description
 				.appendValue(actual)
 				.append(' is a ')
@@ -1173,9 +1176,6 @@ function IsNumber() {
 		isExpectedType: function (actual) {
 			return _.isNumber(actual);
 		},
-		matchesSafely: function () {
-			return true;
-		},
 		describeTo: function (description) {
 			description
 				.append('a number');
@@ -1200,9 +1200,6 @@ function IsObject() {
 	return _.create(new TypeSafeMatcher(), {
 		isExpectedType: function (actual) {
 			return _.isObject(actual);
-		},
-		matchesSafely: function () {
-			return true;
 		},
 		describeTo: function (description) {
 			description
@@ -1303,10 +1300,7 @@ var _ = _dereq_('lodash')
 function IsPromise() {
 	return _.create(new TypeSafeMatcher(), {
 		isExpectedType: function (actual) {
-			return q.isPromise(actual);
-		},
-		matchesSafely: function () {
-			return true;
+			return q.isPromiseAlike(actual);
 		},
 		describeTo: function (description) {
 			description
@@ -1332,9 +1326,6 @@ function IsRegExp() {
 	return _.create(new TypeSafeMatcher(), {
 		isExpectedType: function (actual) {
 			return _.isRegExp(actual);
-		},
-		matchesSafely: function () {
-			return true;
 		},
 		describeTo: function (description) {
 			description
@@ -1364,11 +1355,11 @@ function IsRejected(valueOrMatcher) {
 	var valueMatcher = (anyValue ? anything() : asMatcher(valueOrMatcher));
 	return _.create(new IsPromise(), {
 		matchesSafely: function (actual) {
-			if (!q.isRejected(actual)) {
+			return actual.then(function () {
 				return false;
-			}
-
-			return valueMatcher.matches(actual.inspect().reason);
+			}, function (reason) {
+				return valueMatcher.matches(reason);
+			});
 		},
 		describeTo: function (description) {
 			if (anyValue) {
@@ -1380,17 +1371,24 @@ function IsRejected(valueOrMatcher) {
 			}
 		},
 		describeMismatchSafely: function (actual, description) {
-			if (!q.isRejected(actual)) {
-				description
-					.append('was not rejected (')
-					.appendValue(actual.inspect())
-					.append(')');
-			}
-			else {
-				description
-					.append('was rejected with ')
-					.appendValue(actual.inspect().reason);
-			}
+			var deferred = q.defer();
+
+			var qPromise = q(actual);
+			qPromise.fin(function () {
+				if (!q.isRejected(qPromise)) {
+					description
+						.append('was not rejected (')
+						.appendValue(qPromise.inspect())
+						.append(')');
+				}
+				else {
+					description
+						.append('was rejected with ')
+						.appendValue(qPromise.inspect().reason);
+				}
+				deferred.resolve();
+			});
+			return deferred.promise;
 		}
 	});
 }
@@ -1443,9 +1441,6 @@ function IsString() {
 	return _.create(new TypeSafeMatcher(), {
 		isExpectedType: function (actual) {
 			return _.isString(actual);
-		},
-		matchesSafely: function () {
-			return true;
 		},
 		describeTo: function (description) {
 			description
@@ -1665,14 +1660,14 @@ function TypeSafeMatcher() {
 					.append(')');
 			}
 			else {
-				this.describeMismatchSafely(actual, description);
+				return this.describeMismatchSafely(actual, description);
 			}
 		},
 		isExpectedType: function () {
 			throw new Error('Not implemented');
 		},
 		matchesSafely: function () {
-			throw new Error('Not implemented');
+			return true;
 		},
 		describeMismatchSafely: function () {
 			throw new Error('Not implemented');
@@ -1685,29 +1680,35 @@ module.exports = TypeSafeMatcher;
 },{"./Matcher":38,"lodash":45}],42:[function(_dereq_,module,exports){
 'use strict';
 
-var q = _dereq_('q')
-	, assertThat = _dereq_('./assertThat')
-	;
+var q = _dereq_('q');
+var AssertionError = _dereq_('assertion-error');
+var Description = _dereq_('./Description');
 
-function promiseThat(reason, promiseOrValue, promiseMatcher) {
+function promiseThat(reason, actual, matcher) {
 	if (arguments.length === 2) {
-		promiseMatcher = promiseOrValue;
-		promiseOrValue = reason;
+		matcher = actual;
+		actual = reason;
 		reason = '';
 	}
 
-	var promise = q(promiseOrValue);
-	return promise.then(function () {
-		return assertThat(reason, promise, promiseMatcher);
-	}, function () {
-		return assertThat(reason, promise, promiseMatcher);
+	return q(matcher.matches(actual)).then(function (result) {
+		if (!result) {
+			var description = new Description();
+			description.append(reason)
+				.append('\nExpected: ')
+				.appendDescriptionOf(matcher)
+				.append('\n     but: ');
+			return q(matcher.describeMismatch(actual, description)).then(function () {
+				throw new AssertionError(description.get(), {}, promiseThat);
+			});
+		}
 	});
 }
 
 module.exports = promiseThat;
 
 
-},{"./assertThat":3,"q":46}],43:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":43,"q":46}],43:[function(_dereq_,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
