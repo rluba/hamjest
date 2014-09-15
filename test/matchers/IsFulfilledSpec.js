@@ -23,22 +23,39 @@ describe('IsFulfilled', function () {
 				sut = fulfilled();
 			});
 
-			it('should match fulfilled promises', function () {
+			it('should return a promise', function () {
 				var aFulfilledPromise = q('a value');
 
-				assertTrue(sut.matches(aFulfilledPromise));
+				assertTrue(q.isPromise(sut.matches(aFulfilledPromise)));
 			});
 
-			it('should not match rejected promises', function () {
+			it('should match fulfilled promises', function (done) {
+				var aFulfilledPromise = q('a value');
+
+				sut.matches(aFulfilledPromise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
+			});
+
+			it('should not match rejected promises', function (done) {
 				var aRejectedPromise = q.reject('rejected for a reason');
 
-				assertFalse(sut.matches(aRejectedPromise));
+				sut.matches(aRejectedPromise).done(function (value) {
+					assertFalse(value);
+					done();
+				});
 			});
 
-			it('should not match pending promises', function () {
-				var aPendingPromise = q.defer().promise;
+			it('should wait for pending promises', function (done) {
+				var deferred = q.defer();
 
-				assertFalse(sut.matches(aPendingPromise));
+				sut.matches(deferred.promise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
+
+				deferred.resolve();
 			});
 
 			it('should describe nicely', function () {
@@ -56,28 +73,48 @@ describe('IsFulfilled', function () {
 				sut = fulfilled('a value');
 			});
 
-			it('should match fulfilled promise with equivalent value', function () {
+			it('should return a promise', function () {
 				var aFulfilledPromise = q('a value');
 
-				assertTrue(sut.matches(aFulfilledPromise));
+				assertTrue(q.isPromise(sut.matches(aFulfilledPromise)));
 			});
 
-			it('should not match fulfilled promise with different value', function () {
+			it('should match fulfilled promise with equivalent value', function (done) {
+				var aFulfilledPromise = q('a value');
+
+				sut.matches(aFulfilledPromise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
+			});
+
+			it('should not match fulfilled promise with different value', function (done) {
 				var aFulfilledPromise = q('another value');
 
-				assertFalse(sut.matches(aFulfilledPromise));
+				sut.matches(aFulfilledPromise).done(function (value) {
+					assertFalse(value);
+					done();
+				});
 			});
 
-			it('should not match rejected promise with value reason', function () {
+			it('should not match rejected promise with expected value reason', function (done) {
 				var aRejectedPromise = q.reject('a value');
 
-				assertFalse(sut.matches(aRejectedPromise));
+				sut.matches(aRejectedPromise).done(function (value) {
+					assertFalse(value);
+					done();
+				});
 			});
 
-			it('should not match pending promise', function () {
-				var aPendingPromise = q.defer().promise;
+			it('should wait for pending promises', function (done) {
+				var deferred = q.defer();
 
-				assertFalse(sut.matches(aPendingPromise));
+				sut.matches(deferred.promise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
+
+				deferred.resolve('a value');
 			});
 
 			describe('description', function () {
@@ -126,28 +163,42 @@ describe('IsFulfilled', function () {
 				sut = fulfilled(__.containsString('expected'));
 			});
 
-			it('should match fulfilled promise with matching values', function () {
+			it('should match fulfilled promise with matching values', function (done) {
 				var aFulfilledPromise = q('expected value');
 
-				assertTrue(sut.matches(aFulfilledPromise));
+				sut.matches(aFulfilledPromise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
 			});
 
-			it('should not match fulfilled promise with nonmatching value', function () {
+			it('should not match fulfilled promise with nonmatching value', function (done) {
 				var aFulfilledPromise = q('another value');
 
-				assertFalse(sut.matches(aFulfilledPromise));
+				sut.matches(aFulfilledPromise).done(function (value) {
+					assertFalse(value);
+					done();
+				});
 			});
 
-			it('should not match rejected promise with matching reason', function () {
+			it('should not match rejected promise with matching reason', function (done) {
 				var aRejectedPromise = q.reject('rejected for expected reason');
 
-				assertFalse(sut.matches(aRejectedPromise));
+				sut.matches(aRejectedPromise).done(function (value) {
+					assertFalse(value);
+					done();
+				});
 			});
 
-			it('should not match pending promise', function () {
-				var aPendingPromise = q.defer().promise;
+			it('should wait for pending promises', function (done) {
+				var deferred = q.defer();
 
-				assertFalse(sut.matches(aPendingPromise));
+				sut.matches(deferred.promise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
+
+				deferred.resolve('expected value');
 			});
 
 			describe('description', function () {
