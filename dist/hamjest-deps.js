@@ -246,15 +246,17 @@ function AllOf(matchers) {
 			description.appendList('(', ' and ', ')', matchers);
 		},
 		describeMismatch: function (actual, description) {
+			var result;
 			_.forEach(matchers, function (matcher) {
 				if(!matcher.matches(actual)) {
 					description
 						.appendDescriptionOf(matcher)
 						.append(': ');
-					matcher.describeMismatch(actual, description);
+					result = matcher.describeMismatch(actual, description);
 					return false;
 				}
 			});
+			return result;
 		}
 	});
 }
@@ -379,7 +381,7 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 				.append(' of ')
 				.appendValue(actual)
 				.append(' ');
-			matcher.describeMismatch(featureFunction(actual), description);
+			return matcher.describeMismatch(featureFunction(actual), description);
 		}
 	});
 }
@@ -405,7 +407,7 @@ var Is = acceptingMatcher(function Is(innerMatcher) {
 				.appendDescriptionOf(innerMatcher);
 		},
 		describeMismatch: function (value, description) {
-			innerMatcher.describeMismatch(value, description);
+			return innerMatcher.describeMismatch(value, description);
 		}
 	});
 });
@@ -505,8 +507,7 @@ function IsArrayContaining(itemsOrMatchers) {
 					.append('item ')
 					.append(firstMismatch)
 					.append(': ');
-				matchers[firstMismatch].describeMismatch(actual[firstMismatch], description);
-				return;
+				return matchers[firstMismatch].describeMismatch(actual[firstMismatch], description);
 			}
 
 			if (actual.length > matchers.length) {
@@ -1063,7 +1064,7 @@ function IsFunctionThrowing(valueOrMatcher) {
 			}
 			catch(e) {
 				description.append('thrown object: ');
-				exceptionMatcher.describeMismatch(e, description);
+				return exceptionMatcher.describeMismatch(e, description);
 			}
 		}
 	});
