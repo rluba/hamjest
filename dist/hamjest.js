@@ -1284,7 +1284,7 @@ IsObjectWithProperties.hasProperties = function (properties) {
 
 IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
 	var properties = {};
-	properties[name] = valueOrMatcher || defined();
+	properties[name] = _.isUndefined(valueOrMatcher) ? defined() : valueOrMatcher;
 	return new IsObjectWithProperties(properties);
 };
 

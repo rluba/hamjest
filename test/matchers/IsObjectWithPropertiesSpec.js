@@ -121,6 +121,34 @@ describe('IsObjectWithProperties', function () {
 			});
 		});
 
+		describe('with false value', function () {
+			var hasProperty = IsObjectWithProperties.hasProperty;
+
+			var sut;
+			beforeEach(function () {
+				sut = hasProperty('enabled', false);
+			});
+
+			it('should match if property is present and matches', function () {
+				__.assertThat(sut.matches({enabled: false}), __.is(true));
+
+				__.assertThat(sut.matches({enabled: true}), __.is(false));
+				__.assertThat(sut.matches({}), __.is(false));
+			});
+
+			it('should ignore unspecified properties', function () {
+				__.assertThat(sut.matches({enabled: false, age: 27}), __.is(true));
+
+				__.assertThat(sut.matches({enabled: true, age: 27}), __.is(false));
+			});
+
+			it('should not match non-objects', function () {
+				__.assertThat(sut.matches(12), __.is(false));
+				__.assertThat(sut.matches(['Joe', 12]), __.is(false));
+				__.assertThat(sut.matches([12, 'Joe']), __.is(false));
+			});
+		});
+
 		describe('description', function () {
 			var description;
 
