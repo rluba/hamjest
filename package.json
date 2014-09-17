@@ -1,6 +1,6 @@
 {
   "name": "hamjest",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "main": "hamjest.js",
   "description": "A JavaScript implementation of Hamcrest",
   "homepage": "https://github.com/rluba/hamjest",
