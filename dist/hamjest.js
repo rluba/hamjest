@@ -357,6 +357,7 @@ module.exports = Every;
 var _ = (window._)
 	, Matcher = _dereq_('./Matcher')
 	, asMatcher = _dereq_('./IsEqual').asMatcher
+	, q = (window.Q)
 	;
 
 function FeatureMatcher(valueOrMatcher, featureDescription, featureName, featureFunction) {
@@ -377,12 +378,21 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 				.appendDescriptionOf(matcher);
 		},
 		describeMismatch: function (actual, description) {
+			function appendSuffix() {
+				description
+					.append('\nfor ')
+					.appendValue(actual);
+			}
+
 			description
 				.append(featureName)
-				.append(' of ')
-				.appendValue(actual)
 				.append(' ');
-			return matcher.describeMismatch(featureFunction(actual), description);
+			var promise = matcher.describeMismatch(featureFunction(actual),description);
+			if (q.isPromise(promise)) {
+				return promise.then(appendSuffix);
+			} else {
+				appendSuffix();
+			}
 		}
 	});
 }
