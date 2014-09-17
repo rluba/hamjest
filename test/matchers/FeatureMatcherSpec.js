@@ -55,7 +55,7 @@ describe('FeatureMatcher', function () {
 
 				sut.describeMismatch(new Animal('Jim'), description);
 
-				__.assertThat(description.get(), __.equalTo('name of {"name":"Jim"} was "Jim"'));
+				__.assertThat(description.get(), __.equalTo('name was "Jim"\nfor {"name":"Jim"}'));
 			});
 		});
 	});
@@ -101,7 +101,7 @@ describe('FeatureMatcher', function () {
 
 				sut.describeMismatch(new Animal('Jim'), description);
 
-				__.assertThat(description.get(), __.equalTo('name length of {"name":"Jim"} was <3>'));
+				__.assertThat(description.get(), __.equalTo('name length was <3>\nfor {"name":"Jim"}'));
 			});
 		});
 	});
