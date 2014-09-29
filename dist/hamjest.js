@@ -174,6 +174,7 @@ var matchers = {
 	not: _dereq_('./matchers/IsNot').not,
 	equalTo: IsEqual.equalTo,
 	defined: _dereq_('./matchers/IsDefined').defined,
+	undefined: _dereq_('./matchers/IsDefined').undefined,
 	instanceOf: _dereq_('./matchers/IsInstanceOf').instanceOf,
 	array: _dereq_('./matchers/IsArray').array,
 	bool: _dereq_('./matchers/IsBoolean').bool,
@@ -892,6 +893,7 @@ module.exports = IsDate;
 
 var _ = (window._)
 	, Matcher = _dereq_('./Matcher')
+	, not = _dereq_('./IsNot').not
 	;
 
 function IsDefined() {
@@ -909,9 +911,13 @@ IsDefined.defined = function () {
 	return new IsDefined();
 };
 
+IsDefined.undefined = function () {
+	return not(IsDefined.defined());
+};
+
 module.exports = IsDefined;
 
-},{"./Matcher":38}],23:[function(_dereq_,module,exports){
+},{"./IsNot":28,"./Matcher":38}],23:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
