@@ -22,7 +22,7 @@ describe('PromiseAllOf', function () {
 			assertTrue(q.isPromise(sut.matches('expected value')));
 		});
 
-		it('should resolve to false if a matcher returns a failing promise', function (done) {
+		it('should resolve to false if a matcher returns a promise resolving to false', function (done) {
 			var sut = promiseAllOf(__.containsString('expected'), new TestMatcher(function () {
 				return q(false);
 			}));
@@ -33,7 +33,7 @@ describe('PromiseAllOf', function () {
 			});
 		});
 
-		it('should resolve to false if a matcher resolves to false', function (done) {
+		it('should resolve to false if a matcher returns false', function (done) {
 			var sut = promiseAllOf(__.containsString('expected'), new TestMatcher(function () {
 				return q(true);
 			}));

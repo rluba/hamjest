@@ -135,7 +135,7 @@ function assertThat(reason, actual, matcher) {
 
 module.exports = assertThat;
 
-},{"./Description":2,"assertion-error":44}],4:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":45}],4:[function(_dereq_,module,exports){
 'use strict';
 
 var AssertionError = _dereq_('assertion-error')
@@ -147,7 +147,7 @@ function fail(reason) {
 
 module.exports = fail;
 
-},{"assertion-error":44}],5:[function(_dereq_,module,exports){
+},{"assertion-error":45}],5:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -211,7 +211,9 @@ var matchers = {
 	willBe: _dereq_('./matchers/IsFulfilled').isFulfilledWith,
 	rejected: _dereq_('./matchers/IsRejected').rejected,
 	isRejectedWith: _dereq_('./matchers/IsRejected').isRejectedWith,
-	promiseAllOf: _dereq_('./matchers/PromiseAllOf').promiseAllOf
+	promiseAllOf: _dereq_('./matchers/PromiseAllOf').promiseAllOf,
+	willHaveProperties: _dereq_('./matchers/willHaveProperties'),
+	willHaveProperty: _dereq_('./matchers/willHaveProperties').willHaveProperty
 };
 
 var utils = {
@@ -225,7 +227,7 @@ _.extend(hamjest, asserts, matchers, utils);
 
 module.exports = hamjest;
 
-},{"./assertThat":3,"./fail":4,"./matchers/AllOf":6,"./matchers/AnyOf":7,"./matchers/Every":8,"./matchers/FeatureMatcher":9,"./matchers/Is":10,"./matchers/IsAnything":11,"./matchers/IsArray":12,"./matchers/IsArrayContaining":13,"./matchers/IsArrayContainingInAnyOrder":14,"./matchers/IsArrayOrderedBy":15,"./matchers/IsArrayWithItem":16,"./matchers/IsArrayWithItems":17,"./matchers/IsBoolean":18,"./matchers/IsCloseTo":19,"./matchers/IsCollectionWithSize":20,"./matchers/IsDate":21,"./matchers/IsDefined":22,"./matchers/IsEqual":23,"./matchers/IsFulfilled":24,"./matchers/IsFunction":25,"./matchers/IsFunctionThrowing":26,"./matchers/IsInstanceOf":27,"./matchers/IsNot":28,"./matchers/IsNumber":29,"./matchers/IsObject":30,"./matchers/IsObjectWithProperties":31,"./matchers/IsPromise":32,"./matchers/IsRegExp":33,"./matchers/IsRejected":34,"./matchers/IsSame":35,"./matchers/IsString":36,"./matchers/IsStringMatching":37,"./matchers/Matcher":38,"./matchers/NumberComparisonMatcher":39,"./matchers/PromiseAllOf":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./promiseThat":43}],6:[function(_dereq_,module,exports){
+},{"./assertThat":3,"./fail":4,"./matchers/AllOf":6,"./matchers/AnyOf":7,"./matchers/Every":8,"./matchers/FeatureMatcher":9,"./matchers/Is":10,"./matchers/IsAnything":11,"./matchers/IsArray":12,"./matchers/IsArrayContaining":13,"./matchers/IsArrayContainingInAnyOrder":14,"./matchers/IsArrayOrderedBy":15,"./matchers/IsArrayWithItem":16,"./matchers/IsArrayWithItems":17,"./matchers/IsBoolean":18,"./matchers/IsCloseTo":19,"./matchers/IsCollectionWithSize":20,"./matchers/IsDate":21,"./matchers/IsDefined":22,"./matchers/IsEqual":23,"./matchers/IsFulfilled":24,"./matchers/IsFunction":25,"./matchers/IsFunctionThrowing":26,"./matchers/IsInstanceOf":27,"./matchers/IsNot":28,"./matchers/IsNumber":29,"./matchers/IsObject":30,"./matchers/IsObjectWithProperties":31,"./matchers/IsPromise":32,"./matchers/IsRegExp":33,"./matchers/IsRejected":34,"./matchers/IsSame":35,"./matchers/IsString":36,"./matchers/IsStringMatching":37,"./matchers/Matcher":38,"./matchers/NumberComparisonMatcher":39,"./matchers/PromiseAllOf":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./matchers/willHaveProperties":43,"./promiseThat":44}],6:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1708,7 +1710,10 @@ var _ = (window._)
 function TypeSafeMatcher() {
 	return _.create(new Matcher(), {
 		matches: function (actual) {
-			return this.isExpectedType(actual) && this.matchesSafely(actual);
+			if (!this.isExpectedType(actual)) {
+				return false;
+			}
+			return this.matchesSafely(actual);
 		},
 		describeMismatch: function (actual, description) {
 			if (!this.isExpectedType(actual)) {
@@ -1745,6 +1750,95 @@ module.exports = TypeSafeMatcher;
 },{"./Matcher":38}],43:[function(_dereq_,module,exports){
 'use strict';
 
+var _ = (window._)
+	, IsObject = _dereq_('./IsObject')
+	, asMatcher = _dereq_('./IsEqual').asMatcher
+	, defined = _dereq_('./IsDefined').defined
+	, q = (window.Q)
+	;
+
+function IsPromiseWithProperties(properties) {
+	var objectMatcher = new IsObject();
+	var propertyMatchers = _.mapValues(properties, asMatcher);
+	return {
+		matches: function (actual) {
+			return q(actual).then(function (actual) {
+				if (!objectMatcher.matches(actual)) {
+					return [false];
+				}
+
+				return q.all(_.map(propertyMatchers, function (matcher, key) {
+					return matcher.matches(actual[key]);
+				}));
+			}).then(function (results) {
+				return _.all(results);
+			});
+		},
+		describeTo: function (description) {
+			description.append('an object with {');
+
+			var first = true;
+			_.forEach(propertyMatchers, function (matcher, key) {
+				if (!first) {
+					description.append(', ');
+				}
+				first = false;
+
+				description
+					.append(key)
+					.append(': ')
+					.appendDescriptionOf(matcher);
+			});
+
+			description.append('}');
+		},
+		describeMismatch: function (actual, description) {
+			if (!objectMatcher.matches(actual)) {
+				return q(objectMatcher.describeMismatch(actual, description));
+			}
+
+			var sequencePromise = q();
+			var first = true;
+			_.forEach(propertyMatchers, function (matcher, key) {
+				sequencePromise = sequencePromise.then(function () {
+					var propertyValue = actual[key];
+					return q(matcher.matches(propertyValue)).then(function (matches) {
+						if (matches) {
+							return;
+						}
+
+						if (!first) {
+							description.append(', ');
+						}
+						first = false;
+
+						description
+							.append(key)
+							.append(' ');
+						return matcher.describeMismatch(propertyValue, description);
+					});
+				});
+			});
+			return sequencePromise;
+		}
+	};
+}
+
+function willHaveProperties(properties) {
+	return new IsPromiseWithProperties(properties);
+}
+
+willHaveProperties.willHaveProperty = function (name, valueOrMatcher) {
+	var properties = {};
+	properties[name] = _.isUndefined(valueOrMatcher) ? defined() : valueOrMatcher;
+	return new IsPromiseWithProperties(properties);
+};
+
+module.exports = willHaveProperties;
+
+},{"./IsDefined":22,"./IsEqual":23,"./IsObject":30}],44:[function(_dereq_,module,exports){
+'use strict';
+
 var q = (window.Q);
 var AssertionError = _dereq_('assertion-error');
 var Description = _dereq_('./Description');
@@ -1773,7 +1867,7 @@ function promiseThat(reason, actual, matcher) {
 module.exports = promiseThat;
 
 
-},{"./Description":2,"assertion-error":44}],44:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":45}],45:[function(_dereq_,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
