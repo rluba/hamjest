@@ -91,13 +91,11 @@ describe('AllOf', function () {
 				});
 
 				it('should return promise if one of the matchers returns a promise', function () {
-					var sut = allOf(__.containsString('expected'), new TestMatcher(function () {
-						return q(false);
-					}));
-					var actual = 'another value';
+					var sut = allOf(__.containsString('expected'), deferMatcher(__.containsString('value')));
+					var actual = 'another valu';
 
 					return sut.describeMismatch(actual, description).then(function () {
-						__.assertThat(description.get(), __.equalTo('a string containing "expected": was "another value"'));
+						__.assertThat(description.get(), __.equalTo('a string containing "expected": was "another valu"\ndeferred: a string containing "value": deferred: was "another valu"'));
 					});
 				});
 			});

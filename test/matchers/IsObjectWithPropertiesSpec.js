@@ -1,9 +1,11 @@
 'use strict';
 
+var q = require('q');
 var IsObjectWithProperties = require('../../lib/matchers/IsObjectWithProperties')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
 	;
+var deferMatcher = require('../deferMatcher');
 
 describe('IsObjectWithProperties', function () {
 
@@ -76,6 +78,78 @@ describe('IsObjectWithProperties', function () {
 				sut.describeMismatch(7, description);
 
 				__.assertThat(description.get(), __.equalTo('was a number (<7>)'));
+			});
+		});
+
+		describe('with a promising matcher', function () {
+			beforeEach(function () {
+				sut = hasProperties({
+					name: deferMatcher(__.is('Joe')),
+					age: __.greaterThan(5)
+				});
+			});
+
+			it('should return a promise', function () {
+
+				var result = sut.matches({name: 'Jim'});
+
+				__.assertThat(result, __.is(__.promise()));
+			});
+
+			it('should resolve to false if a property matcher returns a promise resolving to false', function () {
+
+				var result = sut.matches({name: 'Jim', age: 6});
+
+				return __.promiseThat(result, __.willBe(false));
+			});
+
+			it('should resolve to false if a property matcher returns false', function () {
+
+				var result = sut.matches({name: 'Joe', age: 5});
+
+				return __.promiseThat(result, __.willBe(false));
+			});
+
+			it('should match if every property is present and matches', function () {
+
+				var result = sut.matches({name: 'Joe', age: 6});
+
+				return __.promiseThat(result, __.willBe(true));
+			});
+
+			it('should ignore unspecified properties', function () {
+
+				var result = sut.matches({name: 'Joe', age: 6, height: 120});
+
+				return __.promiseThat(result, __.willBe(true));
+			});
+
+			describe('description', function () {
+				var description;
+				beforeEach(function () {
+					description = new Description();
+				});
+
+				it('should contain matcher description', function () {
+
+					sut.describeTo(description);
+
+					__.assertThat(description.get(), __.equalTo('an object with {name: deferred: is "Joe", age: a number greater than <5>}'));
+				});
+
+				it('should contain mismatched properties', function () {
+
+					return sut.describeMismatch({name: 'Jim', age: 5}, description).then(function () {
+						__.assertThat(description.get(), __.equalTo('name deferred: was "Jim", age was <5>'));
+					});
+				});
+
+				it('should omit matched and extra properties', function () {
+
+					return sut.describeMismatch({name: 'Joe', age: 5, height: 89}, description).then(function () {
+						__.assertThat(description.get(), __.equalTo('age was <5>'));
+					});
+				});
 			});
 		});
 	});

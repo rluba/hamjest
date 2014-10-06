@@ -16,7 +16,7 @@ function deferMatcher (matcher) {
 		describeMismatch: function (actual, description) {
 			description.append('deferred: ');
 			return q().then(function () {
-				return matcher.describeMismatch(description);
+				return matcher.describeMismatch(actual, description);
 			});
 		}
 	};

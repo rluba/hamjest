@@ -72,6 +72,6 @@ describe('assertThat', function () {
 		}
 
 		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertEquals(thrown.message , 'Matcher returned a promise instead of a boolean - use promiseThat for promise matchers!');
+		assertEquals(thrown.message , 'Matcher returned a promise instead of a boolean - use promiseThat for promising matchers!');
 	});
 });
