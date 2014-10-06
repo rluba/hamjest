@@ -182,7 +182,7 @@ describe('IsFunctionThrowing', function () {
 
 					sut.describeMismatch(throwingErrorFunction, description);
 
-					__.assertThat(description.get(), __.equalTo('thrown object: an instance of AssertionError: {} is a Error'));
+					__.assertThat(description.get(), __.equalTo('thrown object: an instance of AssertionError: {} is a Error\nAssertionError with message \"the reason\": message was \"an error\"\nfor {}'));
 				});
 			});
 		});
