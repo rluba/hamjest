@@ -6,7 +6,6 @@ var AllOf = require('../../lib/matchers/AllOf')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
 	, assertFalse = require('../asserts').assertFalse
-	, TestMatcher = require('../TestMatcher')
 	;
 var deferMatcher = require('../deferMatcher');
 

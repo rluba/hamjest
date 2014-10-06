@@ -1,6 +1,5 @@
 'use strict';
 
-var q = require('q');
 var IsObjectWithProperties = require('../../lib/matchers/IsObjectWithProperties')
 	, Description = require('../../lib/Description')
 	, __ = require('../../lib/hamjest')
