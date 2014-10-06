@@ -1,5 +1,6 @@
 'use strict';
 
+var q = require('q');
 var AssertionError = require('assertion-error')
 	, assertThat = require('../lib/assertThat')
 	, assertTrue = require('./asserts').assertTrue
@@ -56,5 +57,21 @@ describe('assertThat', function () {
 
 		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
 		assertEquals(thrown.message , 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
+	});
+
+	it('should throw if matcher returns a promise', function () {
+		var thrown;
+
+		try {
+			assertThat('a value', new TestMatcher(function () {
+				return q(true);
+			}));
+		}
+		catch (e) {
+			thrown = e;
+		}
+
+		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
+		assertEquals(thrown.message , 'Matcher returned a promise instead of a boolean - use promiseThat for promise matchers!');
 	});
 });
