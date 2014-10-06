@@ -52,11 +52,11 @@ describe('IsArrayContaining', function () {
 				__.assertThat(description.get(), __.equalTo('[a string containing "expected", <7>]'));
 			});
 
-			it('should contain first mismatch', function () {
+			it('should contain all mismatches', function () {
 
 				sut.describeMismatch([5, 6, 7], description);
 
-				__.assertThat(description.get(), __.equalTo('item 0: was a number (<5>)'));
+				__.assertThat(description.get(), __.equalTo('item 0: was a number (<5>)\nitem 1: was <6>\nnot matched: <7>'));
 			});
 
 			it('should contain surplus items', function () {
