@@ -400,11 +400,12 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 				.appendDescriptionOf(matcher);
 		},
 		describeMismatch: function (actual, description) {
-			return promiseAgnostic.describeMismatch(matcher.matches(actual), function () {
+			var featureValue = featureFunction(actual);
+			return promiseAgnostic.describeMismatch(matcher.matches(featureValue), function () {
 				description
 					.append(featureName)
 					.append(' ');
-				return matcher.describeMismatch(featureFunction(actual),description);
+				return matcher.describeMismatch(featureValue, description);
 			}, function () {
 				description
 					.append('\nfor ')
