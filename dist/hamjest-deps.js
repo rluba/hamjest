@@ -1033,8 +1033,8 @@ function IsFulfilled(valueOrMatcher) {
 				}
 				else {
 					description
-						.append('was fulfilled with ')
-						.appendValue(qPromise.inspect().value);
+						.append('fulfillment value: ');
+					valueMatcher.describeMismatch(qPromise.inspect().value, description);
 				}
 				deferred.resolve();
 			});

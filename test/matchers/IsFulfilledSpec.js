@@ -135,7 +135,7 @@ describe('IsFulfilled', function () {
 					var actual = q('another value');
 
 					sut.describeMismatch(actual, description).done(function () {
-						__.assertThat(description.get(), __.equalTo('was fulfilled with "another value"'));
+						__.assertThat(description.get(), __.equalTo('fulfillment value: was "another value"'));
 						done();
 					});
 				});
@@ -213,7 +213,21 @@ describe('IsFulfilled', function () {
 					var actual = q('another value');
 
 					sut.describeMismatch(actual, description).done(function () {
-						__.assertThat(description.get(), __.equalTo('was fulfilled with "another value"'));
+						__.assertThat(description.get(), __.equalTo('fulfillment value: was "another value"'));
+						done();
+					});
+				});
+
+				it('should contain mismatch description', function (done) {
+					sut = fulfilled(__.hasProperties({
+						expected: 'value',
+						other: 'property'
+					}));
+
+					var actual = q({expected: 'another value', other: 'property'});
+
+					sut.describeMismatch(actual, description).done(function () {
+						__.assertThat(description.get(), __.equalTo('fulfillment value: expected was "another value"'));
 						done();
 					});
 				});
