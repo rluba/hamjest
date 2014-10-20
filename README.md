@@ -1,6 +1,4 @@
-Hamjest
-=======
-
+# Hamjest
 A JavaScript implementation of [Hamcrest](http://hamcrest.org).
 
 Unlinke other JS Hamcrest libraries, it
@@ -38,15 +36,6 @@ The best thing about Hamjest are its error messages, just like the Java original
 	AssertionError: 
 	Expected: an object with {name: a string, age: a number greater than <18>}
 	     but: name was a number (<1337>)
-
-Too simple? How about this:
-
-	var collection = ['a rat', 12, 'nice, but not regular'];
-	__.assertThat(collection, __.containsInAnyOrder(__.regExp(), 12, __.containsString('cat')));
-
-	AssertionError: 
-	Expected: [a regular expression, <12>, a string containing "cat"] in any order
-	     but: no item in ["a rat", <12>, "nice, but not regular"] matches: a regular expression, a string containing "cat"
 	     
 You can also add a descriptive message to every assert, if needed:
 
@@ -55,6 +44,10 @@ You can also add a descriptive message to every assert, if needed:
 	AssertionError: Invalid age
 	Expected: a number less than <18>
 	     but: was <18>
+
+See the [detailed matcher description](./doc/matchers.md) for a list of available matchers (currently incomplete).
+
+Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
 
 ## JSON descriptions
 
@@ -110,9 +103,6 @@ By default, FeatureMatcher tries to find a property with the given feature name 
 	var deferred = q.defer();
 	// The returned promise will be pending until "deferred"" is rejected or fulfilled.
     return __.promiseThat(deferred.promise, __.is(__.rejected('an error')));
-    
-## More matchers and examples
-Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
 
 ## Suggestions
 Do you have an idea how to make a matcher's error description even more readable? Does Hamjest lack a crucial matcher? (I'm sure it does...)
