@@ -5,6 +5,25 @@ Many matchers take `valueOrMatcher` as an argument. If you provide a value that 
 # Builtin matchers
 ## General matchers
 
+### truthy
+Matches [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) values:
+
+	__.assertThat({}, __.is(__.truthy())); // Passes
+	__.assertThat(25, __.is(__.truthy())); // Passes
+
+	__.assertThat(undefined, __.is(__.truthy())); // Fails
+	__.assertThat('', __.is(__.truthy())); // Fails
+	
+### falsy
+Matches [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) values:
+
+	__.assertThat(null, __.is(__.falsy())); // Passes
+	__.assertThat('', __.is(__.falsy())); // Passes
+
+	__.assertThat('Hello', __.is(__.falsy())); // Fails
+	__.assertThat(42, __.is(__.falsy())); // Fails
+
+
 ### equalTo(value)
 Performs a deep comparison between the given and the tested value. See [_.isEqual](https://lodash.com/docs#isEqual) for for details.
 

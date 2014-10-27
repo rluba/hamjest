@@ -142,7 +142,7 @@ function assertThat(reason, actual, matcher) {
 
 module.exports = assertThat;
 
-},{"./Description":2,"assertion-error":44}],4:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":46}],4:[function(_dereq_,module,exports){
 'use strict';
 
 var AssertionError = _dereq_('assertion-error')
@@ -154,7 +154,7 @@ function fail(reason) {
 
 module.exports = fail;
 
-},{"assertion-error":44}],5:[function(_dereq_,module,exports){
+},{"assertion-error":46}],5:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -180,6 +180,8 @@ var matchers = {
 	is: _dereq_('./matchers/Is').is,
 	not: _dereq_('./matchers/IsNot').not,
 	equalTo: IsEqual.equalTo,
+	truthy: _dereq_('./matchers/truthy'),
+	falsy: _dereq_('./matchers/falsy'),
 	defined: _dereq_('./matchers/IsDefined').defined,
 	undefined: _dereq_('./matchers/IsDefined').undefined,
 	instanceOf: _dereq_('./matchers/IsInstanceOf').instanceOf,
@@ -232,7 +234,7 @@ _.extend(hamjest, asserts, matchers, utils);
 
 module.exports = hamjest;
 
-},{"./assertThat":3,"./fail":4,"./matchers/AllOf":6,"./matchers/AnyOf":7,"./matchers/Every":8,"./matchers/FeatureMatcher":9,"./matchers/Is":10,"./matchers/IsAnything":11,"./matchers/IsArray":12,"./matchers/IsArrayContaining":13,"./matchers/IsArrayContainingInAnyOrder":14,"./matchers/IsArrayOrderedBy":15,"./matchers/IsArrayWithItem":16,"./matchers/IsArrayWithItems":17,"./matchers/IsBoolean":18,"./matchers/IsCloseTo":19,"./matchers/IsCollectionWithSize":20,"./matchers/IsDate":21,"./matchers/IsDefined":22,"./matchers/IsEqual":23,"./matchers/IsFulfilled":24,"./matchers/IsFunction":25,"./matchers/IsFunctionThrowing":26,"./matchers/IsInstanceOf":27,"./matchers/IsNot":28,"./matchers/IsNumber":29,"./matchers/IsObject":30,"./matchers/IsObjectWithProperties":31,"./matchers/IsPromise":32,"./matchers/IsRegExp":33,"./matchers/IsRejected":34,"./matchers/IsSame":35,"./matchers/IsString":36,"./matchers/IsStringMatching":37,"./matchers/Matcher":38,"./matchers/NumberComparisonMatcher":39,"./matchers/SubstringMatcher":40,"./matchers/TypeSafeMatcher":41,"./promiseThat":43}],6:[function(_dereq_,module,exports){
+},{"./assertThat":3,"./fail":4,"./matchers/AllOf":6,"./matchers/AnyOf":7,"./matchers/Every":8,"./matchers/FeatureMatcher":9,"./matchers/Is":10,"./matchers/IsAnything":11,"./matchers/IsArray":12,"./matchers/IsArrayContaining":13,"./matchers/IsArrayContainingInAnyOrder":14,"./matchers/IsArrayOrderedBy":15,"./matchers/IsArrayWithItem":16,"./matchers/IsArrayWithItems":17,"./matchers/IsBoolean":18,"./matchers/IsCloseTo":19,"./matchers/IsCollectionWithSize":20,"./matchers/IsDate":21,"./matchers/IsDefined":22,"./matchers/IsEqual":23,"./matchers/IsFulfilled":24,"./matchers/IsFunction":25,"./matchers/IsFunctionThrowing":26,"./matchers/IsInstanceOf":27,"./matchers/IsNot":28,"./matchers/IsNumber":29,"./matchers/IsObject":30,"./matchers/IsObjectWithProperties":31,"./matchers/IsPromise":32,"./matchers/IsRegExp":33,"./matchers/IsRejected":34,"./matchers/IsSame":35,"./matchers/IsString":36,"./matchers/IsStringMatching":37,"./matchers/Matcher":38,"./matchers/NumberComparisonMatcher":39,"./matchers/SubstringMatcher":40,"./matchers/TypeSafeMatcher":41,"./matchers/falsy":42,"./matchers/truthy":44,"./promiseThat":45}],6:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._);
@@ -282,7 +284,7 @@ AllOf.allOf = function () {
 
 module.exports = AllOf;
 
-},{"./Matcher":38,"./promiseAgnostic":42}],7:[function(_dereq_,module,exports){
+},{"./Matcher":38,"./promiseAgnostic":43}],7:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._);
@@ -311,7 +313,7 @@ AnyOf.anyOf = function () {
 
 module.exports = AnyOf;
 
-},{"./Matcher":38,"./promiseAgnostic":42}],8:[function(_dereq_,module,exports){
+},{"./Matcher":38,"./promiseAgnostic":43}],8:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -372,7 +374,7 @@ Every.everyItem = function (matcherOrValue) {
 
 module.exports = Every;
 
-},{"./IsEqual":23,"./TypeSafeMatcher":41,"./promiseAgnostic":42}],9:[function(_dereq_,module,exports){
+},{"./IsEqual":23,"./TypeSafeMatcher":41,"./promiseAgnostic":43}],9:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -417,7 +419,7 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 
 module.exports = FeatureMatcher;
 
-},{"./IsEqual":23,"./Matcher":38,"./promiseAgnostic":42}],10:[function(_dereq_,module,exports){
+},{"./IsEqual":23,"./Matcher":38,"./promiseAgnostic":43}],10:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -570,7 +572,7 @@ IsArrayContaining.contains = function () {
 
 module.exports = IsArrayContaining;
 
-},{"./IsArray":12,"./IsEqual":23,"./promiseAgnostic":42}],14:[function(_dereq_,module,exports){
+},{"./IsArray":12,"./IsEqual":23,"./promiseAgnostic":43}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -755,7 +757,7 @@ IsArrayWithItem.hasItem = function (matcherOrValue) {
 
 module.exports = IsArrayWithItem;
 
-},{"./IsArray":12,"./IsEqual":23,"./promiseAgnostic":42}],17:[function(_dereq_,module,exports){
+},{"./IsArray":12,"./IsEqual":23,"./promiseAgnostic":43}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1219,7 +1221,7 @@ IsNot.not = function (innerMatcher) {
 
 module.exports = IsNot;
 
-},{"./IsEqual":23,"./Matcher":38,"./promiseAgnostic":42}],29:[function(_dereq_,module,exports){
+},{"./IsEqual":23,"./Matcher":38,"./promiseAgnostic":43}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1344,7 +1346,7 @@ IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
 
 module.exports = IsObjectWithProperties;
 
-},{"./IsDefined":22,"./IsEqual":23,"./IsObject":30,"./promiseAgnostic":42}],32:[function(_dereq_,module,exports){
+},{"./IsDefined":22,"./IsEqual":23,"./IsObject":30,"./promiseAgnostic":43}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1738,6 +1740,26 @@ module.exports = TypeSafeMatcher;
 },{"./Matcher":38}],42:[function(_dereq_,module,exports){
 'use strict';
 
+var _ = (window._)
+	, Matcher = _dereq_('./Matcher')
+	;
+
+function falsy() {
+	return _.create(new Matcher(), {
+		matches: function (actualValue) {
+			return !actualValue;
+		},
+		describeTo: function (description) {
+			description.append('falsy value');
+		}
+	});
+}
+
+module.exports = falsy;
+
+},{"./Matcher":38}],43:[function(_dereq_,module,exports){
+'use strict';
+
 var _ = (window._);
 var q = (window.Q);
 
@@ -1814,7 +1836,27 @@ var promiseAgnostic = {
 
 module.exports = promiseAgnostic;
 
-},{}],43:[function(_dereq_,module,exports){
+},{}],44:[function(_dereq_,module,exports){
+'use strict';
+
+var _ = (window._)
+	, Matcher = _dereq_('./Matcher')
+	;
+
+function truthy() {
+	return _.create(new Matcher(), {
+		matches: function (actualValue) {
+			return !!actualValue;
+		},
+		describeTo: function (description) {
+			description.append('truthy value');
+		}
+	});
+}
+
+module.exports = truthy;
+
+},{"./Matcher":38}],45:[function(_dereq_,module,exports){
 'use strict';
 
 var q = (window.Q);
@@ -1845,7 +1887,7 @@ function promiseThat(reason, actual, matcher) {
 module.exports = promiseThat;
 
 
-},{"./Description":2,"assertion-error":44}],44:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":46}],46:[function(_dereq_,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
