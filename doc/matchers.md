@@ -3,6 +3,25 @@ All examples expect `hamjest` to be available as `__`.
 Many matchers take `valueOrMatcher` as an argument. If you provide a value that is not a matcher, it will be wrapped with `__.equalTo(...)`.
 
 # Builtin matchers
+## General matchers
+
+### equalTo(value)
+Performs a deep comparison between the given and the tested value. See [_.isEqual](https://lodash.com/docs#isEqual) for for details.
+
+    __.assertThat(25, __.equalTo(25)); // Passes
+    __.assertThat(['A', 'B'], __.equalTo(['A', 'B'])); // Passes
+    __.assertThat({some: 'value'}, __.equalTo({some: 'value'})); // Passes
+
+    __.assertThat({other: 'value'}, __.equalTo({some: 'value'})); // Fails
+    __.assertThat('some value', __.equalTo({some: 'value'})); // Fails
+    __.assertThat(25, __.equalTo({some: 'value'})); // Fails
+
+### is(valueOrMatcher)
+Syntactic sugar for redable code and error descriptions. It wraps a `valueOrMatcher` and appends "is " to the description.
+
+    __.assertThat({some: 'value'}, __.equalTo({some: 'value'})); // Passes
+    __.assertThat({some: 'value'}, __.is(__.equalTo({some: 'value'}))); // Same as above
+    __.assertThat({some: 'value'}, __.is({some: 'value'})); // Same as above
 
 ## String matchers
 TODO
@@ -14,7 +33,7 @@ TODO
 Collection matchers can be applied to arrays and objects.
 
 ### everyItem(valueOrMatcher)
-Matches if the given matcher or value matches for every item in the collection
+Matches if the given matcher or value matches every item in the collection:
 
     __.assertThat([1, 2, 3], __.everItem(__.is(__.number()))); // Passes
     __.assertThat({math: 'A', drawing: 'A'}, __.everItem('A'))); // Passes
