@@ -1,7 +1,7 @@
 # Hamjest
 A JavaScript implementation of [Hamcrest](http://hamcrest.org).
 
-See the [matcher documentation](wiki/Matcher-documentation) for a list of available matchers.
+See the [matcher documentation](https://github.com/rluba/hamjest/wiki/Matcher-documentation) for a list of available matchers.
 
 Unlinke other JS Hamcrest libraries, it
 
@@ -47,11 +47,11 @@ You can also add a descriptive message to every assert, if needed:
 	Expected: a number less than <18>
 	     but: was <18>
 
-See the [matcher documentation](wiki/Matcher-documentation) for a list of available matchers.
+See the [matcher documentation](https://github.com/rluba/hamjest/wiki/Matcher-documentation) for a list of available matchers.
 
 Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
 
-See [the documentation](wiki/Hamjest-and-Promises) for details about using Hamjest with promises or asserting asynchronously.
+See the [documentation about promises](https://github.com/rluba/hamjest/wiki/Hamjest-and-Promises) for details about using Hamjest with promises or asserting asynchronously.
 
 ## JSON descriptions
 
