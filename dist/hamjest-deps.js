@@ -184,6 +184,7 @@ var matchers = {
 	falsy: _dereq_('./matchers/falsy'),
 	defined: _dereq_('./matchers/IsDefined').defined,
 	undefined: _dereq_('./matchers/IsDefined').undefined,
+	undef: _dereq_('./matchers/IsDefined').undefined,
 	instanceOf: _dereq_('./matchers/IsInstanceOf').instanceOf,
 	array: _dereq_('./matchers/IsArray').array,
 	bool: _dereq_('./matchers/IsBoolean').bool,

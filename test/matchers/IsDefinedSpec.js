@@ -48,7 +48,7 @@ describe('IsDefined', function () {
 		});
 	});
 
-	describe('undef', function () {
+	describe('undefined', function () {
 		var sut;
 
 		beforeEach(function () {
@@ -88,4 +88,9 @@ describe('IsDefined', function () {
 			});
 		});
 	});
+
+	it('should be available as "undef"', function () {
+		__.assertThat(__.undef, __.equalTo(__.undefined));
+	});
+
 });
