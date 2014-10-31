@@ -5,7 +5,7 @@ Many matchers take `valueOrMatcher` as an argument. If you provide a value that 
 # Builtin matchers
 ## General matchers
 
-### truthy
+### truthy()
 Matches [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) values:
 
 	__.assertThat({}, __.is(__.truthy())); // Passes
@@ -14,7 +14,7 @@ Matches [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) value
 	__.assertThat(undefined, __.is(__.truthy())); // Fails
 	__.assertThat('', __.is(__.truthy())); // Fails
 	
-### falsy
+### falsy()
 Matches [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) values:
 
 	__.assertThat(null, __.is(__.falsy())); // Passes
@@ -23,9 +23,12 @@ Matches [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) values:
 	__.assertThat('Hello', __.is(__.falsy())); // Fails
 	__.assertThat(42, __.is(__.falsy())); // Fails
 
+### anything()
+Matches everything. It's useful as a placeholder when implementing matchers that take optional sub-matchers (eg. `throws`, `fulfilled`, ...).
+
 
 ### equalTo(value)
-Performs a deep comparison between the given and the tested value. See [_.isEqual](https://lodash.com/docs#isEqual) for for details.
+Performs a deep comparison between the given and the tested value. See [_.isEqual](https://lodash.com/docs#isEqual) for details.
 
     __.assertThat(25, __.equalTo(25)); // Passes
     __.assertThat(['A', 'B'], __.equalTo(['A', 'B'])); // Passes
@@ -35,12 +38,43 @@ Performs a deep comparison between the given and the tested value. See [_.isEqua
     __.assertThat('some value', __.equalTo({some: 'value'})); // Fails
     __.assertThat(25, __.equalTo({some: 'value'})); // Fails
 
+### strictlyEqualTo(value)
+Performs strict comparison (`===`) between the given and the tested value:
+
+    var anObj = {};
+    __.assertThat(anObj, __.strictlyEqualTo(anObj)); // Passes
+    __.assertThat(anObj, __.strictlyEqualTo({})); // Fails
+
+
 ### is(valueOrMatcher)
-Syntactic sugar for redable code and error descriptions. It wraps a `valueOrMatcher` and appends "is " to the description.
+Syntactic sugar for readable code and error descriptions. It wraps a `valueOrMatcher` and appends "is " to the description.
 
     __.assertThat({some: 'value'}, __.equalTo({some: 'value'})); // Passes
     __.assertThat({some: 'value'}, __.is(__.equalTo({some: 'value'}))); // Same as above
     __.assertThat({some: 'value'}, __.is({some: 'value'})); // Same as above
+    
+### not(valueOrMatcher)
+Matches if the given matcher fails and vice versa. As usual, if the given value is not a matcher, it is wrapped with `equalTo`.
+
+    __.assertThat(6, __.is(__.not(5))); // Passes
+    __.assertThat(2, __.is(__.not(__.greaterThan(4)))); // Passes
+
+    __.assertThat(5, __.is(__.not(5))); // Fails
+    __.assertThat(5, __.is(__.not(__.greaterThan(4)))); // Fails
+
+### defined()
+Matches everything except `undefined`:
+
+    __.assertThat('example', __.is(__.defined())); // Passes
+
+    __.assertThat(undefined, __.is(__.defined())); // Fails
+	var groundTruth;
+    __.assertThat(groundTruth, __.is(__.defined())); // Fails
+
+
+### undefined() / undef()
+The opposite of `defined()`.
+
 
 ## String matchers
 TODO
