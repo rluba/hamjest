@@ -1,6 +1,8 @@
 # Hamjest
 A JavaScript implementation of [Hamcrest](http://hamcrest.org).
 
+See the [matcher documentation](wiki/Matcher-documentation) for a list of available matchers.
+
 Unlinke other JS Hamcrest libraries, it
 
 * tries to deliver meaningful and readable (mismatch) descriptions, even for arbitrary JavaScript objects,
@@ -45,9 +47,11 @@ You can also add a descriptive message to every assert, if needed:
 	Expected: a number less than <18>
 	     but: was <18>
 
-See the [detailed matcher description](./doc/matchers.md) for a list of available matchers (currently incomplete).
+See the [matcher documentation](wiki/Matcher-documentation) for a list of available matchers.
 
 Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
+
+See [the documentation](wiki/Hamjest-and-Promises) for details about using Hamjest with promises or asserting asynchronously.
 
 ## JSON descriptions
 
@@ -89,20 +93,6 @@ By default, FeatureMatcher tries to find a property with the given feature name 
 	Expected: is animal with name length a number greater than <5>
 	     but: name length of {"name":"bob","age":12} was <3>
 	     
-
-## promiseThat
-`promiseThat` is similar to `assertThat` can be used to wait for a given promise to be fulfilled or rejected before matching it. It returns a promise that will be fulfilled iff the given matcher matches the fulfilled/rejected input promise.
-
-    var promise = q('future value');
-    //Will return a fulfilled promise
-    return __.promiseThat(promise, __.is(__.fulfilled('future value')));
-
-    //Will return a rejected promise because the matcher does not match
-    return __.promiseThat(promise, __.is(__.fulfilled('another value')));
-
-	var deferred = q.defer();
-	// The returned promise will be pending until "deferred"" is rejected or fulfilled.
-    return __.promiseThat(deferred.promise, __.is(__.rejected('an error')));
 
 ## Suggestions
 Do you have an idea how to make a matcher's error description even more readable? Does Hamjest lack a crucial matcher? (I'm sure it does...)
