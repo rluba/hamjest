@@ -59,6 +59,25 @@ describe('assertThat', function () {
 		assertEquals(thrown.message , 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
 	});
 
+	it('should pass diff representations to AssertionError', function () {
+		var thrown;
+
+		var testMatcher = new TestMatcher(function () { return false; });
+		testMatcher.getExpectedForDiff = function () {
+			return 'expected for diff';
+		};
+
+		try {
+			assertThat('foo', testMatcher);
+		}
+		catch (e) {
+			console.log(e);
+			thrown = e;
+		}
+
+		assertEquals(thrown.expected, 'expected for diff');
+	});
+
 	it('should throw if matcher returns a promise', function () {
 		var thrown;
 
