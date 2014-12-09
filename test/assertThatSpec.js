@@ -5,7 +5,6 @@ var AssertionError = require('assertion-error')
 	, assertThat = require('../lib/assertThat')
 	, assertTrue = require('./asserts').assertTrue
 	, assertEquals = require('./asserts').assertEquals
-	, hasProperties = require('../lib/matchers/IsObjectWithProperties').hasProperties
 	, TestMatcher = require('./TestMatcher')
 	;
 
@@ -75,14 +74,11 @@ describe('assertThat', function () {
 			assertThat('foo', testMatcher);
 		}
 		catch (e) {
-			console.log(e);
 			thrown = e;
 		}
 
-		assertThat(thrown, hasProperties({
-			expected: 'expected for diff',
-			actual: 'actual for diff'
-		}));
+		assertEquals(thrown.expected, 'expected for diff');
+		assertEquals(thrown.actual, 'actual for diff');
 	});
 
 	it('should throw if matcher returns a promise', function () {
