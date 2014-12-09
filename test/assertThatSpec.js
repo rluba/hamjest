@@ -66,19 +66,19 @@ describe('assertThat', function () {
 		testMatcher.getExpectedForDiff = function () {
 			return 'expected for diff';
 		};
-		testMatcher.formatActualForDiff = function () {
-			return 'actual for diff';
+		testMatcher.formatActualForDiff = function (actual) {
+			return 'actual for diff: ' + actual;
 		};
 
 		try {
-			assertThat('foo', testMatcher);
+			assertThat('actual value', testMatcher);
 		}
 		catch (e) {
 			thrown = e;
 		}
 
 		assertEquals(thrown.expected, 'expected for diff');
-		assertEquals(thrown.actual, 'actual for diff');
+		assertEquals(thrown.actual, 'actual for diff: actual value');
 	});
 
 	it('should throw if matcher returns a promise', function () {
