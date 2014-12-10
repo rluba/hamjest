@@ -80,6 +80,16 @@ describe('IsObjectWithProperties', function () {
 			});
 		});
 
+		it('should format actual for diff', function () {
+			var simple = IsObjectWithProperties.hasProperties();
+			__.assertThat(simple.formatActualForDiff({a: 1}), __.equalTo({a: 1}));
+		});
+
+		it('should provide expected for diff', function () {
+			var simple = IsObjectWithProperties.hasProperties({a: 1});
+			__.assertThat(simple.getExpectedForDiff(), __.equalTo({a: 1}));
+		});
+
 		describe('with a promising matcher', function () {
 			beforeEach(function () {
 				sut = hasProperties({
