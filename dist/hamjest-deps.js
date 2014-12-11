@@ -3,7 +3,7 @@
 
 module.exports = _dereq_('./lib/hamjest');
 
-},{"./lib/hamjest":5}],2:[function(_dereq_,module,exports){
+},{"./lib/hamjest":6}],2:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -108,10 +108,11 @@ function Description() {
 
 module.exports = Description;
 
-},{"lodash":48}],3:[function(_dereq_,module,exports){
+},{"lodash":49}],3:[function(_dereq_,module,exports){
 'use strict';
 
 var q = _dereq_('q');
+var _ = _dereq_('lodash');
 var AssertionError = _dereq_('assertion-error')
 	, Description = _dereq_('./Description')
 	;
@@ -136,13 +137,24 @@ function assertThat(reason, actual, matcher) {
 			.appendDescriptionOf(matcher)
 			.append('\n     but: ');
 		matcher.describeMismatch(actual, description);
-		throw new AssertionError(description.get(), {}, assertThat);
+
+		var errorProperties = {};
+		if (_.isFunction(matcher.getExpectedForDiff) &&
+			_.isFunction(matcher.formatActualForDiff)) {
+			errorProperties = {
+				showDiff: true,
+				expected: matcher.getExpectedForDiff(),
+				actual: matcher.formatActualForDiff(actual)
+			};
+		}
+
+		throw new AssertionError(description.get(), errorProperties, assertThat);
 	}
 }
 
 module.exports = assertThat;
 
-},{"./Description":2,"assertion-error":46,"q":49}],4:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":47,"lodash":49,"q":50}],4:[function(_dereq_,module,exports){
 'use strict';
 
 var AssertionError = _dereq_('assertion-error')
@@ -154,7 +166,27 @@ function fail(reason) {
 
 module.exports = fail;
 
-},{"assertion-error":46}],5:[function(_dereq_,module,exports){
+},{"assertion-error":47}],5:[function(_dereq_,module,exports){
+'use strict';
+
+module.exports = function () {
+	if (!Error.prototype.toJSON) {
+		Object.defineProperty(Error.prototype, 'toJSON', {
+		    value: function () {
+		        var alt = {};
+
+		        Object.getOwnPropertyNames(this).forEach(function (key) {
+		            alt[key] = this[key];
+		        }, this);
+
+		        return alt;
+		    },
+		    configurable: true
+		});
+	}
+};
+
+},{}],6:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -163,6 +195,8 @@ var _ = _dereq_('lodash')
 	, SubstringMatcher = _dereq_('./matchers/SubstringMatcher')
 	, NumberComparisonMatcher = _dereq_('./matchers/NumberComparisonMatcher')
 	;
+
+_dereq_('./fixErrorJson')();
 
 var asserts = {
 	assertThat: _dereq_('./assertThat'),
@@ -235,7 +269,7 @@ _.extend(hamjest, asserts, matchers, utils);
 
 module.exports = hamjest;
 
-},{"./assertThat":3,"./fail":4,"./matchers/AllOf":6,"./matchers/AnyOf":7,"./matchers/Every":8,"./matchers/FeatureMatcher":9,"./matchers/Is":10,"./matchers/IsAnything":11,"./matchers/IsArray":12,"./matchers/IsArrayContaining":13,"./matchers/IsArrayContainingInAnyOrder":14,"./matchers/IsArrayOrderedBy":15,"./matchers/IsArrayWithItem":16,"./matchers/IsArrayWithItems":17,"./matchers/IsBoolean":18,"./matchers/IsCloseTo":19,"./matchers/IsCollectionWithSize":20,"./matchers/IsDate":21,"./matchers/IsDefined":22,"./matchers/IsEqual":23,"./matchers/IsFulfilled":24,"./matchers/IsFunction":25,"./matchers/IsFunctionThrowing":26,"./matchers/IsInstanceOf":27,"./matchers/IsNot":28,"./matchers/IsNumber":29,"./matchers/IsObject":30,"./matchers/IsObjectWithProperties":31,"./matchers/IsPromise":32,"./matchers/IsRegExp":33,"./matchers/IsRejected":34,"./matchers/IsSame":35,"./matchers/IsString":36,"./matchers/IsStringMatching":37,"./matchers/Matcher":38,"./matchers/NumberComparisonMatcher":39,"./matchers/SubstringMatcher":40,"./matchers/TypeSafeMatcher":41,"./matchers/falsy":42,"./matchers/truthy":44,"./promiseThat":45,"lodash":48}],6:[function(_dereq_,module,exports){
+},{"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/Every":9,"./matchers/FeatureMatcher":10,"./matchers/Is":11,"./matchers/IsAnything":12,"./matchers/IsArray":13,"./matchers/IsArrayContaining":14,"./matchers/IsArrayContainingInAnyOrder":15,"./matchers/IsArrayOrderedBy":16,"./matchers/IsArrayWithItem":17,"./matchers/IsArrayWithItems":18,"./matchers/IsBoolean":19,"./matchers/IsCloseTo":20,"./matchers/IsCollectionWithSize":21,"./matchers/IsDate":22,"./matchers/IsDefined":23,"./matchers/IsEqual":24,"./matchers/IsFulfilled":25,"./matchers/IsFunction":26,"./matchers/IsFunctionThrowing":27,"./matchers/IsInstanceOf":28,"./matchers/IsNot":29,"./matchers/IsNumber":30,"./matchers/IsObject":31,"./matchers/IsObjectWithProperties":32,"./matchers/IsPromise":33,"./matchers/IsRegExp":34,"./matchers/IsRejected":35,"./matchers/IsSame":36,"./matchers/IsString":37,"./matchers/IsStringMatching":38,"./matchers/Matcher":39,"./matchers/NumberComparisonMatcher":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./matchers/falsy":43,"./matchers/truthy":45,"./promiseThat":46,"lodash":49}],7:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash');
@@ -285,7 +319,7 @@ AllOf.allOf = function () {
 
 module.exports = AllOf;
 
-},{"./Matcher":38,"./promiseAgnostic":43,"lodash":48}],7:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":44,"lodash":49}],8:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash');
@@ -314,7 +348,7 @@ AnyOf.anyOf = function () {
 
 module.exports = AnyOf;
 
-},{"./Matcher":38,"./promiseAgnostic":43,"lodash":48}],8:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":44,"lodash":49}],9:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -375,7 +409,7 @@ Every.everyItem = function (matcherOrValue) {
 
 module.exports = Every;
 
-},{"./IsEqual":23,"./TypeSafeMatcher":41,"./promiseAgnostic":43,"lodash":48}],9:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./TypeSafeMatcher":42,"./promiseAgnostic":44,"lodash":49}],10:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -420,7 +454,7 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 
 module.exports = FeatureMatcher;
 
-},{"./IsEqual":23,"./Matcher":38,"./promiseAgnostic":43,"lodash":48}],10:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":44,"lodash":49}],11:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -440,7 +474,9 @@ var Is = acceptingMatcher(function Is(innerMatcher) {
 		},
 		describeMismatch: function (value, description) {
 			return innerMatcher.describeMismatch(value, description);
-		}
+		},
+		getExpectedForDiff: innerMatcher.getExpectedForDiff,
+		formatActualForDiff: innerMatcher.formatActualForDiff
 	});
 });
 
@@ -450,7 +486,7 @@ Is.is = function (innerMatcher) {
 
 module.exports = Is;
 
-},{"./IsEqual":23,"./Matcher":38,"lodash":48}],11:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"lodash":49}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -474,7 +510,7 @@ IsAnything.anything = function () {
 
 module.exports = IsAnything;
 
-},{"./Matcher":38,"lodash":48}],12:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":49}],13:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -499,7 +535,7 @@ IsArray.array = function () {
 
 module.exports = IsArray;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],13:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -573,7 +609,7 @@ IsArrayContaining.contains = function () {
 
 module.exports = IsArrayContaining;
 
-},{"./IsArray":12,"./IsEqual":23,"./promiseAgnostic":43,"lodash":48}],14:[function(_dereq_,module,exports){
+},{"./IsArray":13,"./IsEqual":24,"./promiseAgnostic":44,"lodash":49}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -649,7 +685,7 @@ IsArrayContainingInAnyOrder.containsInAnyOrder = function () {
 
 module.exports = IsArrayContainingInAnyOrder;
 
-},{"./IsArray":12,"./IsEqual":23,"lodash":48}],15:[function(_dereq_,module,exports){
+},{"./IsArray":13,"./IsEqual":24,"lodash":49}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -705,7 +741,7 @@ IsArrayOrderedBy.orderedBy = function (comp, compDescription) {
 
 module.exports = IsArrayOrderedBy;
 
-},{"./IsArray":12,"lodash":48}],16:[function(_dereq_,module,exports){
+},{"./IsArray":13,"lodash":49}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -758,7 +794,7 @@ IsArrayWithItem.hasItem = function (matcherOrValue) {
 
 module.exports = IsArrayWithItem;
 
-},{"./IsArray":12,"./IsEqual":23,"./promiseAgnostic":43,"lodash":48}],17:[function(_dereq_,module,exports){
+},{"./IsArray":13,"./IsEqual":24,"./promiseAgnostic":44,"lodash":49}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -803,7 +839,7 @@ IsArrayWithItems.hasItems = function () {
 
 module.exports = IsArrayWithItems;
 
-},{"./AllOf":6,"./IsArray":12,"./IsArrayWithItem":16,"./IsEqual":23,"lodash":48}],18:[function(_dereq_,module,exports){
+},{"./AllOf":7,"./IsArray":13,"./IsArrayWithItem":17,"./IsEqual":24,"lodash":49}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -828,7 +864,7 @@ IsBoolean.bool = function () {
 
 module.exports = IsBoolean;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],19:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],20:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -872,7 +908,7 @@ IsCloseTo.closeTo = function (threshold, delta) {
 
 module.exports = IsCloseTo;
 
-},{"../assertThat":3,"./Is":10,"./IsNumber":29,"lodash":48}],20:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":11,"./IsNumber":30,"lodash":49}],21:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -900,7 +936,7 @@ IsCollectionWithSize.hasSize = function (matcherOrValue) {
 
 module.exports = IsCollectionWithSize;
 
-},{"./FeatureMatcher":9,"./TypeSafeMatcher":41,"lodash":48}],21:[function(_dereq_,module,exports){
+},{"./FeatureMatcher":10,"./TypeSafeMatcher":42,"lodash":49}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -925,7 +961,7 @@ IsDate.date = function () {
 
 module.exports = IsDate;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],22:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],23:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -954,7 +990,7 @@ IsDefined.undefined = function () {
 
 module.exports = IsDefined;
 
-},{"./IsNot":28,"./Matcher":38,"lodash":48}],23:[function(_dereq_,module,exports){
+},{"./IsNot":29,"./Matcher":39,"lodash":49}],24:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -968,7 +1004,9 @@ function IsEqual(expectedValue) {
 		},
 		describeTo: function (description) {
 			description.appendValue(expectedValue);
-		}
+		},
+		getExpectedForDiff: function () { return expectedValue; },
+		formatActualForDiff: function (actual) { return actual; }
 	});
 }
 
@@ -993,7 +1031,7 @@ IsEqual.acceptingMatcher = function (innerFunction) {
 
 module.exports = IsEqual;
 
-},{"./Matcher":38,"lodash":48}],24:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":49}],25:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1058,7 +1096,7 @@ IsFulfilled.isFulfilledWith = IsFulfilled.fulfilled;
 
 module.exports = IsFulfilled;
 
-},{"./IsAnything":11,"./IsEqual":23,"./IsPromise":32,"lodash":48,"q":49}],25:[function(_dereq_,module,exports){
+},{"./IsAnything":12,"./IsEqual":24,"./IsPromise":33,"lodash":49,"q":50}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1083,7 +1121,7 @@ IsFunction.func = function () {
 
 module.exports = IsFunction;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],26:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1135,7 +1173,7 @@ IsFunctionThrowing.throws = function (operand) {
 
 module.exports = IsFunctionThrowing;
 
-},{"./IsAnything":11,"./IsEqual":23,"./IsFunction":25,"lodash":48}],27:[function(_dereq_,module,exports){
+},{"./IsAnything":12,"./IsEqual":24,"./IsFunction":26,"lodash":49}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1187,7 +1225,7 @@ IsInstanceOf.instanceOf = function (operand) {
 
 module.exports = IsInstanceOf;
 
-},{"../assertThat":3,"./Is":10,"./IsFunction":25,"./Matcher":38,"lodash":48}],28:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":11,"./IsFunction":26,"./Matcher":39,"lodash":49}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1222,7 +1260,7 @@ IsNot.not = function (innerMatcher) {
 
 module.exports = IsNot;
 
-},{"./IsEqual":23,"./Matcher":38,"./promiseAgnostic":43,"lodash":48}],29:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":44,"lodash":49}],30:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1247,7 +1285,7 @@ IsNumber.number = function () {
 
 module.exports = IsNumber;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],30:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],31:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1272,7 +1310,7 @@ IsObject.object = function () {
 
 module.exports = IsObject;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],31:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1347,7 +1385,7 @@ IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
 
 module.exports = IsObjectWithProperties;
 
-},{"./IsDefined":22,"./IsEqual":23,"./IsObject":30,"./promiseAgnostic":43,"lodash":48}],32:[function(_dereq_,module,exports){
+},{"./IsDefined":23,"./IsEqual":24,"./IsObject":31,"./promiseAgnostic":44,"lodash":49}],33:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1373,7 +1411,7 @@ IsPromise.promise = function () {
 
 module.exports = IsPromise;
 
-},{"./TypeSafeMatcher":41,"lodash":48,"q":49}],33:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49,"q":50}],34:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1398,7 +1436,7 @@ IsRegExp.regExp = function () {
 
 module.exports = IsRegExp;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],34:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],35:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1464,7 +1502,7 @@ IsRejected.isRejectedWith = IsRejected.rejected;
 
 module.exports = IsRejected;
 
-},{"./IsAnything":11,"./IsEqual":23,"./IsPromise":32,"lodash":48,"q":49}],35:[function(_dereq_,module,exports){
+},{"./IsAnything":12,"./IsEqual":24,"./IsPromise":33,"lodash":49,"q":50}],36:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1488,7 +1526,7 @@ IsSame.strictlyEqualTo = function (operand) {
 
 module.exports = IsSame;
 
-},{"./Matcher":38,"lodash":48}],36:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":49}],37:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1513,7 +1551,7 @@ IsString.string = function () {
 
 module.exports = IsString;
 
-},{"./TypeSafeMatcher":41,"lodash":48}],37:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":49}],38:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1552,7 +1590,7 @@ IsStringMatching.matchesPattern = function (stringOrPattern) {
 
 module.exports = IsStringMatching;
 
-},{"../assertThat":3,"./AnyOf":7,"./IsRegExp":33,"./IsString":36,"lodash":48}],38:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./AnyOf":8,"./IsRegExp":34,"./IsString":37,"lodash":49}],39:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1582,7 +1620,7 @@ Matcher.isMatcher = function (matcherOrValue) {
 
 module.exports = Matcher;
 
-},{"lodash":48}],39:[function(_dereq_,module,exports){
+},{"lodash":49}],40:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1639,7 +1677,7 @@ _.extend(NumberComparisonMatcher, {
 
 module.exports = NumberComparisonMatcher;
 
-},{"../assertThat":3,"./Is":10,"./IsNumber":29,"lodash":48}],40:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":11,"./IsNumber":30,"lodash":49}],41:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1667,7 +1705,9 @@ function SubstringMatcher(substring, relation, matchesString) {
 			description
 				.append('was ')
 				.appendValue(actual);
-		}
+		},
+		getExpectedForDiff: function () { return substring; },
+		formatActualForDiff: function (actual) { return actual; }
 	});
 }
 
@@ -1691,7 +1731,7 @@ _.extend(SubstringMatcher, {
 
 module.exports = SubstringMatcher;
 
-},{"../assertThat":3,"./Is":10,"./IsString":36,"lodash":48}],41:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":11,"./IsString":37,"lodash":49}],42:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1738,7 +1778,7 @@ function TypeSafeMatcher() {
 
 module.exports = TypeSafeMatcher;
 
-},{"./Matcher":38,"lodash":48}],42:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":49}],43:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1758,7 +1798,7 @@ function falsy() {
 
 module.exports = falsy;
 
-},{"./Matcher":38,"lodash":48}],43:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":49}],44:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash');
@@ -1837,7 +1877,7 @@ var promiseAgnostic = {
 
 module.exports = promiseAgnostic;
 
-},{"lodash":48,"q":49}],44:[function(_dereq_,module,exports){
+},{"lodash":49,"q":50}],45:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1857,12 +1897,13 @@ function truthy() {
 
 module.exports = truthy;
 
-},{"./Matcher":38,"lodash":48}],45:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":49}],46:[function(_dereq_,module,exports){
 'use strict';
 
 var q = _dereq_('q');
 var AssertionError = _dereq_('assertion-error');
 var Description = _dereq_('./Description');
+var _ = _dereq_('lodash');
 
 function promiseThat(reason, actual, matcher) {
 	if (arguments.length === 2) {
@@ -1879,7 +1920,23 @@ function promiseThat(reason, actual, matcher) {
 				.appendDescriptionOf(matcher)
 				.append('\n     but: ');
 			return q(matcher.describeMismatch(actual, description)).then(function () {
-				throw new AssertionError(description.get(), {}, promiseThat);
+				if (!_.isFunction(matcher.getExpectedForDiff) ||
+					!_.isFunction(matcher.formatActualForDiff)) {
+					return {};
+				}
+
+				return q.all([
+					matcher.getExpectedForDiff(),
+					matcher.formatActualForDiff(actual)
+				]).spread(function (expected, actual) {
+					return {
+						showDiff: true,
+						expected: expected,
+						actual: actual
+					};
+				});
+			}).then(function (errorProperties) {
+				throw new AssertionError(description.get(), errorProperties, promiseThat);
 			});
 		}
 	});
@@ -1888,7 +1945,7 @@ function promiseThat(reason, actual, matcher) {
 module.exports = promiseThat;
 
 
-},{"./Description":2,"assertion-error":46,"q":49}],46:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":47,"lodash":49,"q":50}],47:[function(_dereq_,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
@@ -2000,7 +2057,7 @@ AssertionError.prototype.toJSON = function (stack) {
   return props;
 };
 
-},{}],47:[function(_dereq_,module,exports){
+},{}],48:[function(_dereq_,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2065,7 +2122,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],48:[function(_dereq_,module,exports){
+},{}],49:[function(_dereq_,module,exports){
 (function (global){
 /**
  * @license
@@ -8854,7 +8911,7 @@ process.chdir = function (dir) {
 }.call(this));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],49:[function(_dereq_,module,exports){
+},{}],50:[function(_dereq_,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -10795,6 +10852,6 @@ return Q;
 });
 
 }).call(this,_dereq_("FWaASH"))
-},{"FWaASH":47}]},{},[1])
+},{"FWaASH":48}]},{},[1])
 (1)
 });
