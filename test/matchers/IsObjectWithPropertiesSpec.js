@@ -104,7 +104,7 @@ describe('IsObjectWithProperties', function () {
 				__.assertThat(diffObjects, __.everyItem(__.not(__.hasProperty('foo'))));
 			});
 
-			it('should use diff from new-style diff-capable nested matcher', function () {
+			it('should use diff from diff-capable nested matcher', function () {
 				var testMatcher = new TestMatcher(function () { return false; });
 				testMatcher.getDiffItems = function (actual) {
 					return {
@@ -112,23 +112,6 @@ describe('IsObjectWithProperties', function () {
 						actual: 'actual from nested: ' + actual
 					};
 				};
-				var sutWithNestedMatcher = hasProperties({a: testMatcher});
-				var diffObjects = sutWithNestedMatcher.getDiffItems({a: 1});
-				__.assertThat(diffObjects, __.hasProperties({
-					expected: {a: 'expected from nested'},
-					actual: {a: 'actual from nested: 1'}
-				}));
-			});
-
-			it('should use diff from old-style diff-capable nested matcher', function () {
-				var testMatcher = new TestMatcher(function () { return false; });
-				testMatcher.getExpectedForDiff = function () {
-					return 'expected from nested';
-				};
-				testMatcher.formatActualForDiff = function (actual) {
-					return 'actual from nested: ' + actual;
-				};
-
 				var sutWithNestedMatcher = hasProperties({a: testMatcher});
 				var diffObjects = sutWithNestedMatcher.getDiffItems({a: 1});
 				__.assertThat(diffObjects, __.hasProperties({
