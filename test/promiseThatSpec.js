@@ -157,4 +157,27 @@ describe('promiseThat', function () {
 
 		deferred.resolve();
 	});
+
+	it('should pass diff representations to AssertionError', function (done) {
+		var testMatcher = new TestMatcher(function () { return false; });
+		testMatcher.getExpectedForDiff = function () {
+			return 'expected for diff';
+		};
+		testMatcher.formatActualForDiff = function (actual) {
+			return q('actual for diff: ' + actual);
+		};
+
+		promiseThat('actual value', testMatcher).done(
+			function () {
+				fail('Should not be fulfilled');
+			},
+			function (reason) {
+				__.assertThat(reason, __.hasProperties({
+					expected: 'expected for diff',
+					actual: 'actual for diff: actual value'
+				}));
+				done();
+			}
+		);
+	});
 });
