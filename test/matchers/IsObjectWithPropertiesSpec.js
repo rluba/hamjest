@@ -97,6 +97,11 @@ describe('IsObjectWithProperties', function () {
 				var diffObjects = sut.getDiffItems({name: 'Joe', children: 0});
 				__.assertThat(diffObjects, __.everyItem(__.not(__.hasProperty('name'))));
 			});
+
+			it('should omit extra properties', function () {
+				var diffObjects = sut.getDiffItems({foo: 'bar'});
+				__.assertThat(diffObjects, __.everyItem(__.not(__.hasProperty('foo'))));
+			});
 		});
 
 		describe('with a promising matcher', function () {
