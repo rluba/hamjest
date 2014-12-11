@@ -80,14 +80,23 @@ describe('IsObjectWithProperties', function () {
 			});
 		});
 
-		it('should format actual for diff', function () {
-			var simple = IsObjectWithProperties.hasProperties();
-			__.assertThat(simple.formatActualForDiff({a: 1}), __.equalTo({a: 1}));
-		});
+		describe('diff', function() {
+			it('should exist', function () {
+				__.assertThat(sut.getDiffItems({}), __.hasProperties({
+					expected: __.defined(),
+					actual: __.defined()
+				}));
+			});
 
-		it('should provide expected for diff', function () {
-			var simple = IsObjectWithProperties.hasProperties({a: 1});
-			__.assertThat(simple.getExpectedForDiff(), __.equalTo({a: 1}));
+			it('should contain mismatched properties', function () {
+				var diffObjects = sut.getDiffItems(new Person('Jim', 2));
+				__.assertThat(diffObjects, __.everyItem(__.hasProperty('name')));
+			});
+
+			it('should omit matched properties', function () {
+				var diffObjects = sut.getDiffItems({name: 'Joe', children: 0});
+				__.assertThat(diffObjects, __.everyItem(__.not(__.hasProperty('name'))));
+			});
 		});
 
 		describe('with a promising matcher', function () {
