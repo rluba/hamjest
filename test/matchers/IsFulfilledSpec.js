@@ -242,5 +242,71 @@ describe('IsFulfilled', function () {
 				});
 			});
 		});
+
+		describe('with a promising matcher', function () {
+			var sut;
+			beforeEach(function () {
+				sut = fulfilled(__.contains(__.willBe('expected')));
+			});
+
+			it('should match fulfilled promise with matching values', function (done) {
+				var aFulfilledPromise = q([
+					q('expected')
+				]);
+
+				sut.matches(aFulfilledPromise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
+			});
+
+			it('should not match fulfilled promise with nonmatching value', function (done) {
+				var aFulfilledPromise = q([
+					q('another value')
+				]);
+
+				sut.matches(aFulfilledPromise).done(function (value) {
+					assertFalse(value);
+					done();
+				});
+			});
+
+			it('should wait for pending promises', function (done) {
+				var deferred = q.defer();
+				var aFulfilledPromiseContainingAPendingPromise = q([deferred.promise]);
+
+				sut.matches(aFulfilledPromiseContainingAPendingPromise).done(function (value) {
+					assertTrue(value);
+					done();
+				});
+
+				deferred.resolve('expected');
+			});
+
+			describe('description', function () {
+				var description;
+
+				beforeEach(function () {
+					description = new Description();
+				});
+
+				it('should contain matcher description', function () {
+
+					sut.describeTo(description);
+
+					__.assertThat(description.get(), __.equalTo('a promise fulfilled with [a promise fulfilled with "expected"]'));
+				});
+
+				it('should contain mismatch description', function (done) {
+
+					var actual = q([q('another value')]);
+
+					sut.describeMismatch(actual, description).done(function () {
+						__.assertThat(description.get(), __.equalTo('fulfillment value: item 0: fulfillment value: was "another value"\n'));
+						done();
+					});
+				});
+			});
+		});
 	});
 });
