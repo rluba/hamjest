@@ -217,6 +217,7 @@ var matchers = {
 	equalTo: IsEqual.equalTo,
 	truthy: _dereq_('./matchers/truthy'),
 	falsy: _dereq_('./matchers/falsy'),
+	falsey: _dereq_('./matchers/falsy'),
 	defined: _dereq_('./matchers/IsDefined').defined,
 	undefined: _dereq_('./matchers/IsDefined').undefined,
 	undef: _dereq_('./matchers/IsDefined').undefined,
