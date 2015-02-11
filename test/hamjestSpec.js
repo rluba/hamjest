@@ -11,4 +11,10 @@ describe('hamjest', function () {
 			assertFalse(_.isUndefined(value), 'Undefined entry for key: ' + key);
 		});
 	});
+
+	it('should export Description', function () {
+		var __ = hamjest;
+
+		__.assertThat(hamjest, __.hasProperty('Description'));
+	});
 });

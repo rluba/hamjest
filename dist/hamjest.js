@@ -267,7 +267,8 @@ var matchers = {
 var utils = {
 	isMatcher: Matcher.isMatcher,
 	asMatcher: IsEqual.asMatcher,
-	acceptingMatcher: IsEqual.acceptingMatcher
+	acceptingMatcher: IsEqual.acceptingMatcher,
+	Description: _dereq_('./Description')
 };
 
 var hamjest = {};
@@ -275,7 +276,7 @@ _.extend(hamjest, asserts, matchers, utils);
 
 module.exports = hamjest;
 
-},{"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsCollectionWithSize":22,"./matchers/IsDate":23,"./matchers/IsDefined":24,"./matchers/IsEqual":25,"./matchers/IsFulfilled":26,"./matchers/IsFunction":27,"./matchers/IsFunctionThrowing":28,"./matchers/IsInstanceOf":29,"./matchers/IsNot":30,"./matchers/IsNumber":31,"./matchers/IsObject":32,"./matchers/IsObjectWithProperties":33,"./matchers/IsPromise":34,"./matchers/IsRegExp":35,"./matchers/IsRejected":36,"./matchers/IsSame":37,"./matchers/IsString":38,"./matchers/IsStringMatching":39,"./matchers/Matcher":40,"./matchers/NumberComparisonMatcher":41,"./matchers/SubstringMatcher":42,"./matchers/TypeSafeMatcher":43,"./matchers/falsy":44,"./matchers/truthy":46,"./promiseThat":47}],7:[function(_dereq_,module,exports){
+},{"./Description":2,"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsCollectionWithSize":22,"./matchers/IsDate":23,"./matchers/IsDefined":24,"./matchers/IsEqual":25,"./matchers/IsFulfilled":26,"./matchers/IsFunction":27,"./matchers/IsFunctionThrowing":28,"./matchers/IsInstanceOf":29,"./matchers/IsNot":30,"./matchers/IsNumber":31,"./matchers/IsObject":32,"./matchers/IsObjectWithProperties":33,"./matchers/IsPromise":34,"./matchers/IsRegExp":35,"./matchers/IsRejected":36,"./matchers/IsSame":37,"./matchers/IsString":38,"./matchers/IsStringMatching":39,"./matchers/Matcher":40,"./matchers/NumberComparisonMatcher":41,"./matchers/SubstringMatcher":42,"./matchers/TypeSafeMatcher":43,"./matchers/falsy":44,"./matchers/truthy":46,"./promiseThat":47}],7:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._);
