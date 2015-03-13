@@ -53,7 +53,7 @@ describe('hasSize', function () {
 
 			sut.describeTo(description);
 
-			__.assertThat(description.get(), __.equalTo('a collection with size a number greater than <2>'));
+			__.assertThat(description.get(), __.equalTo('a collection or string with size a number greater than <2>'));
 		});
 
 		it('should contain mismatched value and size', function () {
