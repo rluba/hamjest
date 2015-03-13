@@ -108,7 +108,7 @@ function Description() {
 
 module.exports = Description;
 
-},{"lodash":50}],3:[function(_dereq_,module,exports){
+},{"lodash":51}],3:[function(_dereq_,module,exports){
 'use strict';
 
 var q = _dereq_('q');
@@ -154,7 +154,7 @@ function assertThat(reason, actual, matcher) {
 
 module.exports = assertThat;
 
-},{"./Description":2,"assertion-error":48,"lodash":50,"q":51}],4:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":49,"lodash":51,"q":52}],4:[function(_dereq_,module,exports){
 'use strict';
 
 var AssertionError = _dereq_('assertion-error')
@@ -166,7 +166,7 @@ function fail(reason) {
 
 module.exports = fail;
 
-},{"assertion-error":48}],5:[function(_dereq_,module,exports){
+},{"assertion-error":49}],5:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -251,7 +251,8 @@ var matchers = {
 	contains: _dereq_('./matchers/IsArrayContaining').contains,
 	containsInAnyOrder: _dereq_('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
 	orderedBy: _dereq_('./matchers/IsArrayOrderedBy').orderedBy,
-	hasSize: _dereq_('./matchers/IsCollectionWithSize').hasSize,
+	hasSize: _dereq_('./matchers/hasSize'),
+	isEmpty: _dereq_('./matchers/isEmpty'),
 	hasProperties: _dereq_('./matchers/IsObjectWithProperties').hasProperties,
 	hasProperty: _dereq_('./matchers/IsObjectWithProperties').hasProperty,
 	throws: _dereq_('./matchers/IsFunctionThrowing').throws,
@@ -276,7 +277,7 @@ _.extend(hamjest, asserts, matchers, utils);
 
 module.exports = hamjest;
 
-},{"./Description":2,"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsCollectionWithSize":22,"./matchers/IsDate":23,"./matchers/IsDefined":24,"./matchers/IsEqual":25,"./matchers/IsFulfilled":26,"./matchers/IsFunction":27,"./matchers/IsFunctionThrowing":28,"./matchers/IsInstanceOf":29,"./matchers/IsNot":30,"./matchers/IsNumber":31,"./matchers/IsObject":32,"./matchers/IsObjectWithProperties":33,"./matchers/IsPromise":34,"./matchers/IsRegExp":35,"./matchers/IsRejected":36,"./matchers/IsSame":37,"./matchers/IsString":38,"./matchers/IsStringMatching":39,"./matchers/Matcher":40,"./matchers/NumberComparisonMatcher":41,"./matchers/SubstringMatcher":42,"./matchers/TypeSafeMatcher":43,"./matchers/falsy":44,"./matchers/truthy":46,"./promiseThat":47,"lodash":50}],7:[function(_dereq_,module,exports){
+},{"./Description":2,"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsDate":22,"./matchers/IsDefined":23,"./matchers/IsEqual":24,"./matchers/IsFulfilled":25,"./matchers/IsFunction":26,"./matchers/IsFunctionThrowing":27,"./matchers/IsInstanceOf":28,"./matchers/IsNot":29,"./matchers/IsNumber":30,"./matchers/IsObject":31,"./matchers/IsObjectWithProperties":32,"./matchers/IsPromise":33,"./matchers/IsRegExp":34,"./matchers/IsRejected":35,"./matchers/IsSame":36,"./matchers/IsString":37,"./matchers/IsStringMatching":38,"./matchers/Matcher":39,"./matchers/NumberComparisonMatcher":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./matchers/falsy":43,"./matchers/hasSize":44,"./matchers/isEmpty":45,"./matchers/truthy":47,"./promiseThat":48,"lodash":51}],7:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash');
@@ -326,7 +327,7 @@ AllOf.allOf = function () {
 
 module.exports = AllOf;
 
-},{"./Matcher":40,"./promiseAgnostic":45,"lodash":50}],8:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":46,"lodash":51}],8:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash');
@@ -355,7 +356,7 @@ AnyOf.anyOf = function () {
 
 module.exports = AnyOf;
 
-},{"./Matcher":40,"./promiseAgnostic":45,"lodash":50}],9:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":46,"lodash":51}],9:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -412,7 +413,7 @@ _.extend(DateComparisonMatcher, {
 
 module.exports = DateComparisonMatcher;
 
-},{"../assertThat":3,"./Is":12,"./IsDate":23,"lodash":50}],10:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsDate":22,"lodash":51}],10:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -473,7 +474,7 @@ Every.everyItem = function (matcherOrValue) {
 
 module.exports = Every;
 
-},{"./IsEqual":25,"./TypeSafeMatcher":43,"./promiseAgnostic":45,"lodash":50}],11:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./TypeSafeMatcher":42,"./promiseAgnostic":46,"lodash":51}],11:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -518,7 +519,7 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 
 module.exports = FeatureMatcher;
 
-},{"./IsEqual":25,"./Matcher":40,"./promiseAgnostic":45,"lodash":50}],12:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":46,"lodash":51}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -550,7 +551,7 @@ Is.is = function (innerMatcher) {
 
 module.exports = Is;
 
-},{"./IsEqual":25,"./Matcher":40,"lodash":50}],13:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"lodash":51}],13:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -574,7 +575,7 @@ IsAnything.anything = function () {
 
 module.exports = IsAnything;
 
-},{"./Matcher":40,"lodash":50}],14:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":51}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -599,7 +600,7 @@ IsArray.array = function () {
 
 module.exports = IsArray;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],15:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -673,7 +674,7 @@ IsArrayContaining.contains = function () {
 
 module.exports = IsArrayContaining;
 
-},{"./IsArray":14,"./IsEqual":25,"./promiseAgnostic":45,"lodash":50}],16:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":46,"lodash":51}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -749,7 +750,7 @@ IsArrayContainingInAnyOrder.containsInAnyOrder = function () {
 
 module.exports = IsArrayContainingInAnyOrder;
 
-},{"./IsArray":14,"./IsEqual":25,"lodash":50}],17:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24,"lodash":51}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -805,7 +806,7 @@ IsArrayOrderedBy.orderedBy = function (comp, compDescription) {
 
 module.exports = IsArrayOrderedBy;
 
-},{"./IsArray":14,"lodash":50}],18:[function(_dereq_,module,exports){
+},{"./IsArray":14,"lodash":51}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -858,7 +859,7 @@ IsArrayWithItem.hasItem = function (matcherOrValue) {
 
 module.exports = IsArrayWithItem;
 
-},{"./IsArray":14,"./IsEqual":25,"./promiseAgnostic":45,"lodash":50}],19:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":46,"lodash":51}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -903,7 +904,7 @@ IsArrayWithItems.hasItems = function () {
 
 module.exports = IsArrayWithItems;
 
-},{"./AllOf":7,"./IsArray":14,"./IsArrayWithItem":18,"./IsEqual":25,"lodash":50}],20:[function(_dereq_,module,exports){
+},{"./AllOf":7,"./IsArray":14,"./IsArrayWithItem":18,"./IsEqual":24,"lodash":51}],20:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -928,7 +929,7 @@ IsBoolean.bool = function () {
 
 module.exports = IsBoolean;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],21:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],21:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -972,35 +973,7 @@ IsCloseTo.closeTo = function (threshold, delta) {
 
 module.exports = IsCloseTo;
 
-},{"../assertThat":3,"./Is":12,"./IsNumber":31,"lodash":50}],22:[function(_dereq_,module,exports){
-'use strict';
-
-var _ = _dereq_('lodash')
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
-	, FeatureMatcher = _dereq_('./FeatureMatcher')
-	;
-
-function IsCollectionWithSize(matcherOrValue) {
-	var innerMatcher = new FeatureMatcher(matcherOrValue, 'a collection with size', 'size', function (item) {
-		return _.size(item);
-	});
-	return _.create(new TypeSafeMatcher(), {
-		isExpectedType: function (actual) {
-			return _.isString(actual) || _.isObject(actual);
-		},
-		matchesSafely: innerMatcher.matches,
-		describeTo: innerMatcher.describeTo,
-		describeMismatchSafely: innerMatcher.describeMismatch
-	});
-}
-
-IsCollectionWithSize.hasSize = function (matcherOrValue) {
-	return new IsCollectionWithSize(matcherOrValue);
-};
-
-module.exports = IsCollectionWithSize;
-
-},{"./FeatureMatcher":11,"./TypeSafeMatcher":43,"lodash":50}],23:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsNumber":30,"lodash":51}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1025,7 +998,7 @@ IsDate.date = function () {
 
 module.exports = IsDate;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],24:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],23:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1054,7 +1027,7 @@ IsDefined.undefined = function () {
 
 module.exports = IsDefined;
 
-},{"./IsNot":30,"./Matcher":40,"lodash":50}],25:[function(_dereq_,module,exports){
+},{"./IsNot":29,"./Matcher":39,"lodash":51}],24:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1095,7 +1068,7 @@ IsEqual.acceptingMatcher = function (innerFunction) {
 
 module.exports = IsEqual;
 
-},{"./Matcher":40,"lodash":50}],26:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":51}],25:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1160,7 +1133,7 @@ IsFulfilled.isFulfilledWith = IsFulfilled.fulfilled;
 
 module.exports = IsFulfilled;
 
-},{"./IsAnything":13,"./IsEqual":25,"./IsPromise":34,"lodash":50,"q":51}],27:[function(_dereq_,module,exports){
+},{"./IsAnything":13,"./IsEqual":24,"./IsPromise":33,"lodash":51,"q":52}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1185,7 +1158,7 @@ IsFunction.func = function () {
 
 module.exports = IsFunction;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],28:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1237,7 +1210,7 @@ IsFunctionThrowing.throws = function (operand) {
 
 module.exports = IsFunctionThrowing;
 
-},{"./IsAnything":13,"./IsEqual":25,"./IsFunction":27,"lodash":50}],29:[function(_dereq_,module,exports){
+},{"./IsAnything":13,"./IsEqual":24,"./IsFunction":26,"lodash":51}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1289,7 +1262,7 @@ IsInstanceOf.instanceOf = function (operand) {
 
 module.exports = IsInstanceOf;
 
-},{"../assertThat":3,"./Is":12,"./IsFunction":27,"./Matcher":40,"lodash":50}],30:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsFunction":26,"./Matcher":39,"lodash":51}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1324,7 +1297,7 @@ IsNot.not = function (innerMatcher) {
 
 module.exports = IsNot;
 
-},{"./IsEqual":25,"./Matcher":40,"./promiseAgnostic":45,"lodash":50}],31:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":46,"lodash":51}],30:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1349,7 +1322,7 @@ IsNumber.number = function () {
 
 module.exports = IsNumber;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],32:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],31:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1374,7 +1347,7 @@ IsObject.object = function () {
 
 module.exports = IsObject;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],33:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1449,7 +1422,7 @@ IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
 
 module.exports = IsObjectWithProperties;
 
-},{"./IsDefined":24,"./IsEqual":25,"./IsObject":32,"./promiseAgnostic":45,"lodash":50}],34:[function(_dereq_,module,exports){
+},{"./IsDefined":23,"./IsEqual":24,"./IsObject":31,"./promiseAgnostic":46,"lodash":51}],33:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1475,7 +1448,7 @@ IsPromise.promise = function () {
 
 module.exports = IsPromise;
 
-},{"./TypeSafeMatcher":43,"lodash":50,"q":51}],35:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51,"q":52}],34:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1500,7 +1473,7 @@ IsRegExp.regExp = function () {
 
 module.exports = IsRegExp;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],36:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],35:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1566,7 +1539,7 @@ IsRejected.isRejectedWith = IsRejected.rejected;
 
 module.exports = IsRejected;
 
-},{"./IsAnything":13,"./IsEqual":25,"./IsPromise":34,"lodash":50,"q":51}],37:[function(_dereq_,module,exports){
+},{"./IsAnything":13,"./IsEqual":24,"./IsPromise":33,"lodash":51,"q":52}],36:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1590,7 +1563,7 @@ IsSame.strictlyEqualTo = function (operand) {
 
 module.exports = IsSame;
 
-},{"./Matcher":40,"lodash":50}],38:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":51}],37:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1615,7 +1588,7 @@ IsString.string = function () {
 
 module.exports = IsString;
 
-},{"./TypeSafeMatcher":43,"lodash":50}],39:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42,"lodash":51}],38:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1654,7 +1627,7 @@ IsStringMatching.matchesPattern = function (stringOrPattern) {
 
 module.exports = IsStringMatching;
 
-},{"../assertThat":3,"./AnyOf":8,"./IsRegExp":35,"./IsString":38,"lodash":50}],40:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./AnyOf":8,"./IsRegExp":34,"./IsString":37,"lodash":51}],39:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1684,7 +1657,7 @@ Matcher.isMatcher = function (matcherOrValue) {
 
 module.exports = Matcher;
 
-},{"lodash":50}],41:[function(_dereq_,module,exports){
+},{"lodash":51}],40:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1694,7 +1667,7 @@ var _ = _dereq_('lodash')
 	, number = _dereq_('./IsNumber').number
 	;
 
-function NumberComparisonMatcher(threshold, relation, matchesNumber) {
+function NumberComparisonMatcher(relation, threshold, matchesNumber) {
 	assertThat(threshold, is(number()));
 
 	return _.create(new IsNumber(), {
@@ -1718,22 +1691,22 @@ function NumberComparisonMatcher(threshold, relation, matchesNumber) {
 
 _.extend(NumberComparisonMatcher, {
 	greaterThan: function (threshold) {
-		return new NumberComparisonMatcher(threshold, 'greater than', function (actual) {
+		return new NumberComparisonMatcher('greater than', threshold, function (actual) {
 			return actual > threshold;
 		});
 	},
 	greaterThanOrEqualTo: function (threshold) {
-		return new NumberComparisonMatcher(threshold, 'greater than or equal to', function (actual) {
+		return new NumberComparisonMatcher('greater than or equal to', threshold, function (actual) {
 			return actual >= threshold;
 		});
 	},
 	lessThan: function (threshold) {
-		return new NumberComparisonMatcher(threshold, 'less than', function (actual) {
+		return new NumberComparisonMatcher('less than', threshold, function (actual) {
 			return actual < threshold;
 		});
 	},
 	lessThanOrEqualTo: function (threshold) {
-		return new NumberComparisonMatcher(threshold, 'less than or equal to', function (actual) {
+		return new NumberComparisonMatcher('less than or equal to', threshold, function (actual) {
 			return actual <= threshold;
 		});
 	}
@@ -1741,7 +1714,7 @@ _.extend(NumberComparisonMatcher, {
 
 module.exports = NumberComparisonMatcher;
 
-},{"../assertThat":3,"./Is":12,"./IsNumber":31,"lodash":50}],42:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsNumber":30,"lodash":51}],41:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1795,7 +1768,7 @@ _.extend(SubstringMatcher, {
 
 module.exports = SubstringMatcher;
 
-},{"../assertThat":3,"./Is":12,"./IsString":38,"lodash":50}],43:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsString":37,"lodash":51}],42:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1842,7 +1815,7 @@ function TypeSafeMatcher() {
 
 module.exports = TypeSafeMatcher;
 
-},{"./Matcher":40,"lodash":50}],44:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":51}],43:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1862,7 +1835,43 @@ function falsy() {
 
 module.exports = falsy;
 
-},{"./Matcher":40,"lodash":50}],45:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":51}],44:[function(_dereq_,module,exports){
+'use strict';
+
+var _ = _dereq_('lodash')
+	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, FeatureMatcher = _dereq_('./FeatureMatcher')
+	;
+
+module.exports = function (matcherOrValue) {
+	var innerMatcher = new FeatureMatcher(matcherOrValue, 'a collection or string with size', 'size', function (item) {
+		return _.size(item);
+	});
+	return _.create(new TypeSafeMatcher(), {
+		isExpectedType: function (actual) {
+			return _.isString(actual) || _.isObject(actual);
+		},
+		matchesSafely: innerMatcher.matches,
+		describeTo: innerMatcher.describeTo,
+		describeMismatchSafely: innerMatcher.describeMismatch
+	});
+};
+
+},{"./FeatureMatcher":11,"./TypeSafeMatcher":42,"lodash":51}],45:[function(_dereq_,module,exports){
+'use strict';
+
+var _ = _dereq_('lodash');
+var hasSize = _dereq_('./hasSize');
+
+module.exports = function () {
+	return _.extend(hasSize(0), {
+		describeTo: function (description) {
+			description.append('an empty collection or string');
+		}
+	});
+};
+
+},{"./hasSize":44,"lodash":51}],46:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash');
@@ -1941,7 +1950,7 @@ var promiseAgnostic = {
 
 module.exports = promiseAgnostic;
 
-},{"lodash":50,"q":51}],46:[function(_dereq_,module,exports){
+},{"lodash":51,"q":52}],47:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
@@ -1961,7 +1970,7 @@ function truthy() {
 
 module.exports = truthy;
 
-},{"./Matcher":40,"lodash":50}],47:[function(_dereq_,module,exports){
+},{"./Matcher":39,"lodash":51}],48:[function(_dereq_,module,exports){
 'use strict';
 
 var q = _dereq_('q');
@@ -2009,7 +2018,7 @@ function promiseThat(reason, actual, matcher) {
 module.exports = promiseThat;
 
 
-},{"./Description":2,"assertion-error":48,"lodash":50,"q":51}],48:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":49,"lodash":51,"q":52}],49:[function(_dereq_,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
@@ -2121,7 +2130,7 @@ AssertionError.prototype.toJSON = function (stack) {
   return props;
 };
 
-},{}],49:[function(_dereq_,module,exports){
+},{}],50:[function(_dereq_,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2186,7 +2195,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],50:[function(_dereq_,module,exports){
+},{}],51:[function(_dereq_,module,exports){
 (function (global){
 /**
  * @license
@@ -8975,7 +8984,7 @@ process.chdir = function (dir) {
 }.call(this));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],51:[function(_dereq_,module,exports){
+},{}],52:[function(_dereq_,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -10916,6 +10925,6 @@ return Q;
 });
 
 }).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":49}]},{},[1])
+},{"JkpR2F":50}]},{},[1])
 (1)
 });
