@@ -337,10 +337,13 @@ var Matcher = _dereq_('./Matcher');
 var promiseAgnostic = _dereq_('./promiseAgnostic');
 
 function AnyOf(matchers) {
+	var __ = _dereq_('../..');
+
 	return _.create(new Matcher(), {
 		matches: function (actual) {
 			var results = _.map(matchers, function (matcher) {
-				return matcher.matches(actual);
+
+				return __.asMatcher(matcher).matches(actual);
 			});
 
 			return promiseAgnostic.matchesAggregate(results, _.any);
@@ -357,7 +360,7 @@ AnyOf.anyOf = function () {
 
 module.exports = AnyOf;
 
-},{"./Matcher":39,"./promiseAgnostic":47,"lodash":54}],9:[function(_dereq_,module,exports){
+},{"../..":1,"./Matcher":39,"./promiseAgnostic":47,"lodash":54}],9:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = _dereq_('lodash')
