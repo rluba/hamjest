@@ -11,7 +11,7 @@ describe('AnyOf', function () {
 
 	describe('anyOf', function () {
 		var anyOf = AnyOf.anyOf;
-		var sut = anyOf(__.containsString('expected value'), __.containsString('some value'));
+		var sut = anyOf('expected value', __.containsString('some'));
 
 		it('should match if any matcher matches', function () {
 			assertTrue(sut.matches('expected value'));
@@ -33,7 +33,7 @@ describe('AnyOf', function () {
 
 				sut.describeTo(description);
 
-				__.assertThat(description.get(), __.equalTo('(a string containing "expected value" or a string containing "some value")'));
+				__.assertThat(description.get(), __.equalTo('("expected value" or a string containing "some")'));
 			});
 		});
 	});
