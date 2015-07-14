@@ -22,13 +22,6 @@ function asSelfDescribing(value) {
 	}
 }
 
-function escapeSpecialCharacters(value) {
-	return value.replace(/\n/g, '\\n')
-		.replace(/\r/g, '\\r')
-		.replace(/\t/g, '\\t')
-		.replace(/"/g, '\\"');
-}
-
 function Description() {
 	var value = '';
 	return _.create({}, {
@@ -48,7 +41,7 @@ function Description() {
 				this.append('null');
 			} else if (_.isString(value)) {
 				this.append('"');
-				this.append(escapeSpecialCharacters(value));
+				this.append(value);
 				this.append('"');
 			} else if (_.isNumber(value)) {
 				this.append('<');
