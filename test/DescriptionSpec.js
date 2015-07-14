@@ -28,11 +28,11 @@ describe('Description', function () {
 		assertEquals(sut.get(), '"a string"');
 	});
 
-	it('should describe string values with escaped special characters', function () {
+	it('should not escape string values', function () {
 
 		sut.appendValue('a string with\nnewlines\n,\ttabs\t,\rcarriage returns\r and "quotes"');
 
-		assertEquals(sut.get(), '"a string with\\nnewlines\\n,\\ttabs\\t,\\rcarriage returns\\r and \\"quotes\\""');
+		assertEquals(sut.get(), '"a string with\nnewlines\n,\ttabs\t,\rcarriage returns\r and "quotes""');
 	});
 
 	it('should wrap numbers in angular brackets', function () {
