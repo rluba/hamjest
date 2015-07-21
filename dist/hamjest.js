@@ -188,6 +188,7 @@ var _ = (window._)
 	, SubstringMatcher = _dereq_('./matchers/SubstringMatcher')
 	, NumberComparisonMatcher = _dereq_('./matchers/NumberComparisonMatcher')
 	, DateComparisonMatcher = _dereq_('./matchers/DateComparisonMatcher')
+	, Description = _dereq_('./Description')
 	;
 
 _dereq_('./fixErrorJson')();
@@ -263,7 +264,12 @@ var utils = {
 	isMatcher: Matcher.isMatcher,
 	asMatcher: _dereq_('./utils/asMatcher'),
 	acceptingMatcher: _dereq_('./utils/acceptingMatcher'),
-	Description: _dereq_('./Description')
+	Description: Description,
+	describe: function (matcher) {
+		return new Description()
+			.appendDescriptionOf(matcher)
+			.get();
+	}
 };
 
 var hamjest = {};

@@ -17,4 +17,14 @@ describe('hamjest', function () {
 
 		__.assertThat(hamjest, __.hasProperty('Description'));
 	});
+
+	describe('.describe()', function() {
+		it('should allow to fetch the description of a given matcher', function () {
+			var __ = hamjest;
+
+			var result = __.describe(__.hasSize(5));
+
+			__.assertThat(result, __.is('a collection or string with size <5>'));
+		});
+	});
 });
