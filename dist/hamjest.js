@@ -195,6 +195,7 @@ var _ = (window._)
 	, SubstringMatcher = _dereq_('./matchers/SubstringMatcher')
 	, NumberComparisonMatcher = _dereq_('./matchers/NumberComparisonMatcher')
 	, DateComparisonMatcher = _dereq_('./matchers/DateComparisonMatcher')
+	, Description = _dereq_('./Description')
 	;
 
 _dereq_('./fixErrorJson')();
@@ -269,7 +270,12 @@ var utils = {
 	isMatcher: Matcher.isMatcher,
 	asMatcher: IsEqual.asMatcher,
 	acceptingMatcher: IsEqual.acceptingMatcher,
-	Description: _dereq_('./Description')
+	Description: Description,
+	describe: function (matcher) {
+		return new Description()
+			.appendDescriptionOf(matcher)
+			.get();
+	}
 };
 
 var hamjest = {};
@@ -2090,6 +2096,8 @@ function AssertionError (message, _props, ssf) {
   ssf = ssf || arguments.callee;
   if (ssf && Error.captureStackTrace) {
     Error.captureStackTrace(this, ssf);
+  } else {
+    this.stack = new Error().stack;
   }
 }
 
