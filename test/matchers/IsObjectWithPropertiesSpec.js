@@ -5,6 +5,7 @@ var IsObjectWithProperties = require('../../lib/matchers/IsObjectWithProperties'
 	, __ = require('../../lib/hamjest')
 	;
 var deferMatcher = require('../deferMatcher');
+var TestMatcher = require('../TestMatcher');
 
 describe('IsObjectWithProperties', function () {
 
@@ -77,6 +78,61 @@ describe('IsObjectWithProperties', function () {
 				sut.describeMismatch(7, description);
 
 				__.assertThat(description.get(), __.equalTo('was a number (<7>)'));
+			});
+		});
+
+		describe('diff', function() {
+			it('should exist', function () {
+				__.assertThat(sut.getDiffItems({}), __.hasProperties({
+					expected: __.defined(),
+					actual: __.defined()
+				}));
+			});
+
+			it('should contain mismatched properties', function () {
+				var diffObjects = sut.getDiffItems(new Person('Jim', 2));
+				__.assertThat(diffObjects, __.everyItem(__.hasProperty('name')));
+			});
+
+			it('should omit matched properties', function () {
+				var diffObjects = sut.getDiffItems({name: 'Joe', children: 0});
+				__.assertThat(diffObjects, __.everyItem(__.not(__.hasProperty('name'))));
+			});
+
+			it('should omit extra properties', function () {
+				var diffObjects = sut.getDiffItems({foo: 'bar'});
+				__.assertThat(diffObjects, __.everyItem(__.not(__.hasProperty('foo'))));
+			});
+
+			it('should use diff from diff-capable nested matcher', function () {
+				var testMatcher = new TestMatcher(function () { return false; });
+				testMatcher.getDiffItems = function (actual) {
+					return {
+						expected: 'expected from nested',
+						actual: 'actual from nested: ' + actual
+					};
+				};
+				var sutWithNestedMatcher = hasProperties({a: testMatcher});
+				var diffObjects = sutWithNestedMatcher.getDiffItems({a: 1});
+				__.assertThat(diffObjects, __.hasProperties({
+					expected: {a: 'expected from nested'},
+					actual: {a: 'actual from nested: 1'}
+				}));
+			});
+
+			it('should use actual and mismatch description from non-diff-capable nested matcher', function () {
+				var testMatcher = new TestMatcher(function () { return false; });
+
+				var description = new Description();
+				testMatcher.describeTo(description);
+
+				var sutWithNestedMatcher = hasProperties({a: testMatcher});
+				var diffObjects = sutWithNestedMatcher.getDiffItems({a: 1});
+
+				__.assertThat(diffObjects, __.hasProperties({
+					expected: {a: description.get()},
+					actual: {a: 1}
+				}));
 			});
 		});
 

@@ -6,7 +6,6 @@ var AssertionError = require('assertion-error')
 	, __ = require('../../lib/hamjest')
 	, assertTrue = require('../asserts').assertTrue
 	, assertFalse = require('../asserts').assertFalse
-	, assertEquals = require('../asserts').assertEquals
 	;
 
 describe('SubstringMatcher', function () {
@@ -41,12 +40,11 @@ describe('SubstringMatcher', function () {
 			assertFalse(sut.matches(5));
 		});
 
-		it('should provide expected for diff', function () {
-			assertEquals('a value', sut.getExpectedForDiff());
-		});
-
-		it('should format actual for diff', function() {
-			assertEquals('foo', sut.formatActualForDiff('foo'));
+		it('should provide diff items', function () {
+			__.assertThat(sut.getDiffItems('foo'), __.equalTo({
+				expected: 'a value',
+				actual: 'foo'
+			}));
 		});
 
 		describe('description', function () {

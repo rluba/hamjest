@@ -160,11 +160,11 @@ describe('promiseThat', function () {
 
 	it('should pass diff representations to AssertionError', function (done) {
 		var testMatcher = new TestMatcher(function () { return false; });
-		testMatcher.getExpectedForDiff = function () {
-			return 'expected for diff';
-		};
-		testMatcher.formatActualForDiff = function (actual) {
-			return q('actual for diff: ' + actual);
+		testMatcher.getDiffItems = function (actual) {
+			return {
+				expected: 'expected for diff',
+				actual: q('actual for diff: ' + actual)
+			};
 		};
 
 		promiseThat('actual value', testMatcher).done(

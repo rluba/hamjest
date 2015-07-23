@@ -63,11 +63,11 @@ describe('assertThat', function () {
 		var thrown;
 
 		var testMatcher = new TestMatcher(function () { return false; });
-		testMatcher.getExpectedForDiff = function () {
-			return 'expected for diff';
-		};
-		testMatcher.formatActualForDiff = function (actual) {
-			return 'actual for diff: ' + actual;
+		testMatcher.getDiffItems = function (actual) {
+			return {
+				expected: 'expected for diff',
+				actual: 'actual for diff: ' + actual
+			};
 		};
 
 		try {
