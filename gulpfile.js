@@ -30,7 +30,8 @@ gulp.task('test', function () {
 
 gulp.task('build', ['test'], function () {
 	var b = browserify({
-		entries: './hamjest.js'
+		entries: './hamjest.js',
+		debug: true
 	});
 
 	return b.bundle()
