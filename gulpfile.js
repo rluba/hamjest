@@ -13,7 +13,7 @@ var jsFiles = [
 	'test/**/*.js'
 ];
 
-gulp.task('default', ['lint', 'build']);
+gulp.task('default', ['build']);
 
 gulp.task('lint', function () {
 	return gulp.src(jsFiles)
@@ -28,7 +28,7 @@ gulp.task('test', function () {
 		}));
 });
 
-gulp.task('build', ['test'], function () {
+gulp.task('build', ['lint', 'test'], function () {
 	var b = browserify({
 		entries: './hamjest.js',
 		debug: true
