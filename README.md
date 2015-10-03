@@ -125,6 +125,16 @@ var __ = hamjest;
 __.assertThat('2007-05-01', __.startsWith('2007'));
 ```
 
+# Development
+
+You need [Gulp](http://gulpjs.com) to lint and test the project and build the browser version.
+
+```Shell
+npm install -g gulp
+```
+
+Use `gulp build` to lint and test the project and update the browser files. Use `gulp dev` during development to run linting and tests whenever any JS file changes.
+
 # Breaking changes between versions
 ## v0.x to v1.0
 ### promiseThat
