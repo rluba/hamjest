@@ -1,9 +1,8 @@
 'use strict';
 
-var hasSize = require('../../lib/matchers/hasSize')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var hasSize = require('../../lib/matchers/hasSize');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('hasSize', function () {
 

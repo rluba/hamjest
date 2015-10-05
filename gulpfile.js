@@ -17,8 +17,12 @@ gulp.task('default', ['build']);
 
 gulp.task('lint', function () {
 	return gulp.src(jsFiles)
-		.pipe($.jshint())
-		.pipe($.jshint.reporter('jshint-stylish'));
+		.pipe($.eslint())
+		.pipe($.eslint.format())
+		.pipe($.eslint.failAfterError())
+        .pipe($.jscs())
+        .pipe($.jscs.reporter())
+        .pipe($.jscs.reporter('fail'));
 });
 
 gulp.task('test', function () {
@@ -50,5 +54,5 @@ gulp.task('clean', function (done) {
 });
 
 gulp.task('dev', function () {
-    gulp.watch(jsFiles, ['lint', 'test']);
+	gulp.watch(jsFiles, ['lint', 'test']);
 });

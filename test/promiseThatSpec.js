@@ -1,13 +1,11 @@
 'use strict';
 
-
-var q = require('q')
-	, AssertionError = require('assertion-error')
-	, __ = require('../lib/hamjest')
-	, promiseThat = require('../lib/promiseThat')
-	, fail = require('./asserts').fail
-	, TestMatcher = require('./TestMatcher')
-	;
+var q = require('q');
+var AssertionError = require('assertion-error');
+var __ = require('../lib/hamjest');
+var promiseThat = require('../lib/promiseThat');
+var fail = require('./asserts').fail;
+var TestMatcher = require('./TestMatcher');
 var _ = require('lodash');
 
 describe('promiseThat', function () {
@@ -118,7 +116,8 @@ describe('promiseThat', function () {
 		});
 
 		promiseThat('a value', rejectingMatcher)
-			.done(function () {
+			.done(
+				function () {
 					fail('Should not be fulfilled');
 				},
 				function (reason) {

@@ -1,9 +1,8 @@
 'use strict';
 
-var IsDefined = require('../../lib/matchers/IsDefined')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var IsDefined = require('../../lib/matchers/IsDefined');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('IsDefined', function () {
 

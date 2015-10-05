@@ -2,7 +2,7 @@
 
 var q = require('q');
 
-function deferMatcher (matcher) {
+function deferMatcher(matcher) {
 	return {
 		matches: function (actual) {
 			return q().then(function () {

@@ -1,9 +1,8 @@
 'use strict';
 
-var _ = require('lodash')
-	, hamjest = require('../lib/hamjest')
-	, assertFalse = require('./asserts').assertFalse
-	;
+var _ = require('lodash');
+var hamjest = require('../lib/hamjest');
+var assertFalse = require('./asserts').assertFalse;
 
 describe('hamjest', function () {
 	it('should not export undefined matchers', function () {
@@ -18,7 +17,7 @@ describe('hamjest', function () {
 		__.assertThat(hamjest, __.hasProperty('Description'));
 	});
 
-	describe('.describe()', function() {
+	describe('.describe()', function () {
 		it('should allow to fetch the description of a given matcher', function () {
 			var __ = hamjest;
 

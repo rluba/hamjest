@@ -1,13 +1,12 @@
 'use strict';
 
-var AssertionError = require('assertion-error')
-	, IsInstanceOf = require('../../lib/matchers/IsInstanceOf')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	, zoo = require('../zoo')
-	;
+var AssertionError = require('assertion-error');
+var IsInstanceOf = require('../../lib/matchers/IsInstanceOf');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
+var zoo = require('../zoo');
 
 var Animal = zoo.Animal;
 var Rodent = zoo.Rodent;

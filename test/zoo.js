@@ -1,9 +1,8 @@
 'use strict';
 
-var _ = require('lodash')
-	, assertTrue = require('./asserts').assertTrue
-	, assertFalse = require('./asserts').assertFalse
-	;
+var _ = require('lodash');
+var assertTrue = require('./asserts').assertTrue;
+var assertFalse = require('./asserts').assertFalse;
 
 // Simple object hierarchy for testing
 function Animal(name) {
@@ -13,12 +12,12 @@ function Animal(name) {
 function Rodent(name) {
 	Animal.call(this, name);
 }
-Rodent.prototype = _.create(Animal.prototype, { 'constructor': Rodent });
+Rodent.prototype = _.create(Animal.prototype, {'constructor': Rodent});
 
 function Squirrel(name) {
 	Rodent.call(this, name);
 }
-Squirrel.prototype = _.create(Rodent.prototype, { 'constructor': Squirrel });
+Squirrel.prototype = _.create(Rodent.prototype, {'constructor': Squirrel});
 
 assertTrue(new Animal() instanceof Animal);
 assertTrue(new Rodent() instanceof Animal);

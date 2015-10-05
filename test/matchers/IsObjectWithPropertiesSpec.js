@@ -1,9 +1,8 @@
 'use strict';
 
-var IsObjectWithProperties = require('../../lib/matchers/IsObjectWithProperties')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var IsObjectWithProperties = require('../../lib/matchers/IsObjectWithProperties');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 var deferMatcher = require('../deferMatcher');
 
 describe('IsObjectWithProperties', function () {
@@ -12,7 +11,7 @@ describe('IsObjectWithProperties', function () {
 		var hasProperties = IsObjectWithProperties.hasProperties;
 
 		function Person(name, children) {
-			this.name = name,
+			this.name = name;
 			this.children = children;
 		}
 

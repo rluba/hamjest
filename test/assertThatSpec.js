@@ -1,12 +1,11 @@
 'use strict';
 
 var q = require('q');
-var AssertionError = require('assertion-error')
-	, assertThat = require('../lib/assertThat')
-	, assertTrue = require('./asserts').assertTrue
-	, assertEquals = require('./asserts').assertEquals
-	, TestMatcher = require('./TestMatcher')
-	;
+var AssertionError = require('assertion-error');
+var assertThat = require('../lib/assertThat');
+var assertTrue = require('./asserts').assertTrue;
+var assertEquals = require('./asserts').assertEquals;
+var TestMatcher = require('./TestMatcher');
 
 describe('assertThat', function () {
 	it('should do nothing on success', function () {
@@ -56,7 +55,7 @@ describe('assertThat', function () {
 		}
 
 		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertEquals(thrown.message , 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
+		assertEquals(thrown.message, 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
 	});
 
 	it('should pass diff representations to AssertionError', function () {
@@ -94,6 +93,6 @@ describe('assertThat', function () {
 		}
 
 		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertEquals(thrown.message , 'Matcher returned a promise instead of a boolean - use promiseThat for promising matchers!');
+		assertEquals(thrown.message, 'Matcher returned a promise instead of a boolean - use promiseThat for promising matchers!');
 	});
 });

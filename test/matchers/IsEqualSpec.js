@@ -1,12 +1,11 @@
 'use strict';
 
-var _ = require('lodash')
-	, IsEqual = require('../../lib/matchers/IsEqual')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	;
+var _ = require('lodash');
+var IsEqual = require('../../lib/matchers/IsEqual');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
 
 describe('IsEqual', function () {
 

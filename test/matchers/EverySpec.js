@@ -1,9 +1,8 @@
 'use strict';
 
-var Every = require('../../lib/matchers/Every')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var Every = require('../../lib/matchers/Every');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('Every', function () {
 

@@ -1,10 +1,9 @@
 'use strict';
 
-var AssertionError = require('assertion-error')
-	, IsCloseTo = require('../../lib/matchers/IsCloseTo')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var AssertionError = require('assertion-error');
+var IsCloseTo = require('../../lib/matchers/IsCloseTo');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('IsCloseTo', function () {
 

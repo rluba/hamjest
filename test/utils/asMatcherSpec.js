@@ -17,11 +17,11 @@ describe('asMatcher', function () {
 	});
 
 	it('should wrap values in equalTo matchers', function () {
-		var value = { member: 'a member value' };
+		var value = {member: 'a member value'};
 
 		var resultMatcher = asMatcher(value);
 
 		assertTrue(__.isMatcher(resultMatcher), 'Should wrap value');
-		assertTrue(resultMatcher.matches({ member: 'a member value' }));
+		assertTrue(resultMatcher.matches({member: 'a member value'}));
 	});
 });

@@ -1,11 +1,10 @@
 'use strict';
 
-var IsRegExp = require('../../lib/matchers/IsRegExp')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	;
+var IsRegExp = require('../../lib/matchers/IsRegExp');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
 
 describe('IsRegExp', function () {
 

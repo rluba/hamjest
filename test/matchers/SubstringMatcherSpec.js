@@ -1,13 +1,12 @@
 'use strict';
 
-var AssertionError = require('assertion-error')
-	, SubstringMatcher = require('../../lib/matchers/SubstringMatcher')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	, assertEquals = require('../asserts').assertEquals
-	;
+var AssertionError = require('assertion-error');
+var SubstringMatcher = require('../../lib/matchers/SubstringMatcher');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
+var assertEquals = require('../asserts').assertEquals;
 
 describe('SubstringMatcher', function () {
 
@@ -45,7 +44,7 @@ describe('SubstringMatcher', function () {
 			assertEquals('a value', sut.getExpectedForDiff());
 		});
 
-		it('should format actual for diff', function() {
+		it('should format actual for diff', function () {
 			assertEquals('foo', sut.formatActualForDiff('foo'));
 		});
 
@@ -92,7 +91,6 @@ describe('SubstringMatcher', function () {
 				startsWith(7);
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
-
 
 		it('should match strings starting with...', function () {
 			assertTrue(sut.matches('a value'));
@@ -153,7 +151,6 @@ describe('SubstringMatcher', function () {
 				endsWith(7);
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
-
 
 		it('should match strings ending with...', function () {
 			assertTrue(sut.matches('a value'));

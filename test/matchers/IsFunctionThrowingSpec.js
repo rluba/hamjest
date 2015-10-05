@@ -1,12 +1,11 @@
 'use strict';
 
-var AssertionError = require('assertion-error')
-	, IsFunctionThrowing = require('../../lib/matchers/IsFunctionThrowing')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	;
+var AssertionError = require('assertion-error');
+var IsFunctionThrowing = require('../../lib/matchers/IsFunctionThrowing');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
 
 describe('IsFunctionThrowing', function () {
 

@@ -1,12 +1,11 @@
 'use strict';
 
 var q = require('q');
-var AllOf = require('../../lib/matchers/AllOf')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	;
+var AllOf = require('../../lib/matchers/AllOf');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
 var deferMatcher = require('../deferMatcher');
 
 describe('AllOf', function () {

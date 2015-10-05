@@ -1,10 +1,9 @@
 'use strict';
 
-var AssertionError = require('assertion-error')
-	, IsStringMatching = require('../../lib/matchers/IsStringMatching')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var AssertionError = require('assertion-error');
+var IsStringMatching = require('../../lib/matchers/IsStringMatching');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('IsStringMatching', function () {
 

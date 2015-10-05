@@ -1,10 +1,9 @@
 'use strict';
 
-var Matcher = require('../../lib/matchers/Matcher')
-	, equalTo = require('../../lib/matchers/IsEqual').equalTo
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	;
+var Matcher = require('../../lib/matchers/Matcher');
+var equalTo = require('../../lib/matchers/IsEqual').equalTo;
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
 
 describe('Matcher', function () {
 

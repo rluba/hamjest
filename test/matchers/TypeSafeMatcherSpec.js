@@ -1,10 +1,9 @@
 'use strict';
 
-var _ = require('lodash')
-	,TypeSafeMatcher = require('../../lib/matchers/TypeSafeMatcher')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var _ = require('lodash');
+var TypeSafeMatcher = require('../../lib/matchers/TypeSafeMatcher');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('TypeSafeMatcher', function () {
 	var sut;
