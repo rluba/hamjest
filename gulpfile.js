@@ -17,12 +17,12 @@ gulp.task('default', ['build']);
 
 gulp.task('lint', function () {
 	return gulp.src(jsFiles)
-        .pipe($.jscs())
-        .pipe($.jscs.reporter())
-        .pipe($.jscs.reporter('fail'))
 		.pipe($.eslint())
 		.pipe($.eslint.format())
-		.pipe($.eslint.failAfterError());
+		.pipe($.eslint.failAfterError())
+        .pipe($.jscs())
+        .pipe($.jscs.reporter())
+        .pipe($.jscs.reporter('fail'));
 });
 
 gulp.task('test', function () {

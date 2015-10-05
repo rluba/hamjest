@@ -1,9 +1,8 @@
 'use strict';
 
-var IsArrayOrderedBy = require('../../lib/matchers/IsArrayOrderedBy')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var IsArrayOrderedBy = require('../../lib/matchers/IsArrayOrderedBy');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('IsArrayOrderedBy', function () {
 

@@ -1,8 +1,7 @@
 'use strict';
 
-var AssertionError = require('assertion-error')
-	, __ = require('../lib/hamjest');
-
+var AssertionError = require('assertion-error');
+var __ = require('../lib/hamjest');
 
 describe('fail', function () {
 	it('with a reason: should throw an AssertionError with the reason', function () {

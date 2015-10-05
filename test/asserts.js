@@ -1,8 +1,7 @@
 'use strict';
 
-var _ = require('lodash')
-	, AssertionError = require('assertion-error')
-	;
+var _ = require('lodash');
+var AssertionError = require('assertion-error');
 
 var asserts = {
 	assertTrue: function (value, message) {

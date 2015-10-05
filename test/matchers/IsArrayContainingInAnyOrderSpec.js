@@ -1,9 +1,8 @@
 'use strict';
 
-var IsArrayContainingInAnyOrder = require('../../lib/matchers/IsArrayContainingInAnyOrder')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var IsArrayContainingInAnyOrder = require('../../lib/matchers/IsArrayContainingInAnyOrder');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('IsArrayContainingInAnyOrder', function () {
 

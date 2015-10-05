@@ -1,9 +1,8 @@
 'use strict';
 
-var IsArrayContaining = require('../../lib/matchers/IsArrayContaining')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var IsArrayContaining = require('../../lib/matchers/IsArrayContaining');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('IsArrayContaining', function () {
 

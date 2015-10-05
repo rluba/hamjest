@@ -1,10 +1,9 @@
 'use strict';
 
 var _ = require('lodash');
-var isEmpty = require('../../lib/matchers/isEmpty')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var isEmpty = require('../../lib/matchers/isEmpty');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 
 describe('isEmptySpec', function () {
 

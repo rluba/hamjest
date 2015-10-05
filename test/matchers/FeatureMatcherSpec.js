@@ -1,11 +1,10 @@
 'use strict';
 
-var _ = require('lodash')
-	, FeatureMatcher = require('../../lib/matchers/FeatureMatcher')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, Animal = require('../zoo').Animal
-	;
+var _ = require('lodash');
+var FeatureMatcher = require('../../lib/matchers/FeatureMatcher');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var Animal = require('../zoo').Animal;
 
 describe('FeatureMatcher', function () {
 

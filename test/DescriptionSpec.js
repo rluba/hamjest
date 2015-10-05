@@ -1,11 +1,10 @@
 'use strict';
 
-var _ = require('lodash')
-	, __ = require('../lib/hamjest')
-	, Description = require('../lib/Description')
-	, Matcher = require('../lib/matchers/Matcher')
-	, assertEquals = require('./asserts').assertEquals
-	;
+var _ = require('lodash');
+var __ = require('../lib/hamjest');
+var Description = require('../lib/Description');
+var Matcher = require('../lib/matchers/Matcher');
+var assertEquals = require('./asserts').assertEquals;
 
 describe('Description', function () {
 	var sut;

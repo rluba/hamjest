@@ -1,9 +1,8 @@
 'use strict';
 
-var IsObjectWithProperties = require('../../lib/matchers/IsObjectWithProperties')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	;
+var IsObjectWithProperties = require('../../lib/matchers/IsObjectWithProperties');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
 var deferMatcher = require('../deferMatcher');
 
 describe('IsObjectWithProperties', function () {

@@ -1,12 +1,11 @@
 'use strict';
 
-var AssertionError = require('assertion-error')
-	, DateComparisonMatcher = require('../../lib/matchers/DateComparisonMatcher')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	;
+var AssertionError = require('assertion-error');
+var DateComparisonMatcher = require('../../lib/matchers/DateComparisonMatcher');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
 
 describe('DateComparisonMatcher', function () {
 

@@ -1,12 +1,11 @@
 'use strict';
 
-var q = require('q')
-	, IsRejected = require('../../lib/matchers/IsRejected')
-	, Description = require('../../lib/Description')
-	, __ = require('../../lib/hamjest')
-	, assertTrue = require('../asserts').assertTrue
-	, assertFalse = require('../asserts').assertFalse
-	;
+var q = require('q');
+var IsRejected = require('../../lib/matchers/IsRejected');
+var Description = require('../../lib/Description');
+var __ = require('../../lib/hamjest');
+var assertTrue = require('../asserts').assertTrue;
+var assertFalse = require('../asserts').assertFalse;
 
 describe('IsRejected', function () {
 
