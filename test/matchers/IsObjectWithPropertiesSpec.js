@@ -12,7 +12,7 @@ describe('IsObjectWithProperties', function () {
 		var hasProperties = IsObjectWithProperties.hasProperties;
 
 		function Person(name, children) {
-			this.name = name,
+			this.name = name;
 			this.children = children;
 		}
 
