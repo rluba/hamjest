@@ -97,13 +97,17 @@ describe('Description', function () {
 			assertEquals(sut.get(), 'a matcher description');
 		});
 
-		// TODO: Parameterize with more values
-		it('should append value of simple types', function () {
+		_.forEach([
+			[5, '<5>'],
+			['XX', '"XX"']
+		], _.spread(function (value, expectedDescription) {
+			it('should append value of simple types:' + value, function () {
 
-			sut.appendDescriptionOf(5);
+				sut.appendDescriptionOf(value);
 
-			assertEquals(sut.get(), '<5>');
-		});
+				assertEquals(sut.get(), expectedDescription);
+			});
+		}));
 	});
 
 	it('should show name of functions', function () {
