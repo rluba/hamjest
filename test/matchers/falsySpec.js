@@ -11,14 +11,16 @@ describe('falsy', function () {
 	});
 
 	_.forEach([
-		true,
-		'a string',
-		5,
-		[],
-		{}
-	], function (value) {
+		[true, 'was true'],
+		['a string', 'was "a string"'],
+		[5, 'was <5>'],
+		[[], 'was []'],
+		[{}, 'was {}']
+	], function (option) {
+		var value = option[0];
+		var expectedDescription = option[1];
 		it('should not match truthy values: ' + value, function () {
-			__.assertThat(sut.matches(value), __.is(false));
+			__.assertThat(sut, __.failsToMatch(value, expectedDescription));
 		});
 	});
 
@@ -29,29 +31,14 @@ describe('falsy', function () {
 		''
 	], function (value) {
 		it('should match falsy values: ' + value, function () {
-			__.assertThat(sut.matches(value), __.is(true));
+			__.assertThat(sut, __.matches(value));
 		});
 	});
 
 	describe('description', function () {
-		var description;
-
-		beforeEach(function () {
-			description = new Description();
-		});
-
 		it('should be concise', function () {
 
-			sut.describeTo(description);
-
-			__.assertThat(description.get(), __.equalTo('falsy value'));
-		});
-
-		it('should contain mismatched value', function () {
-
-			sut.describeMismatch(5, description);
-
-			__.assertThat(description.get(), __.equalTo('was <5>'));
+			__.assertThat(sut, __.hasDescription('falsy value'));
 		});
 	});
 });

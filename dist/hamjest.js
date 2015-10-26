@@ -38,7 +38,12 @@ function Description() {
 			return this;
 		},
 		appendDescriptionOf: function (selfDescribing) {
-			selfDescribing.describeTo(this);
+			if (selfDescribing && _.isFunction(selfDescribing.describeTo)) {
+				selfDescribing.describeTo(this);
+			}
+			else {
+				this.appendValue(selfDescribing);
+			}
 			return this;
 		},
 		appendValue: function (value) {
@@ -154,7 +159,7 @@ function assertThat(reason, actual, matcher) {
 
 module.exports = assertThat;
 
-},{"./Description":2,"assertion-error":49}],4:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":52}],4:[function(_dereq_,module,exports){
 'use strict';
 
 var AssertionError = _dereq_('assertion-error')
@@ -166,7 +171,7 @@ function fail(reason) {
 
 module.exports = fail;
 
-},{"assertion-error":49}],5:[function(_dereq_,module,exports){
+},{"assertion-error":52}],5:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -235,6 +240,9 @@ var matchers = {
 	startsWith: SubstringMatcher.startsWith,
 	endsWith: SubstringMatcher.endsWith,
 	matchesPattern: _dereq_('./matchers/IsStringMatching').matchesPattern,
+	matches: _dereq_('./matchers/matches'),
+	failsToMatch: _dereq_('./matchers/failsToMatch'),
+	hasDescription: _dereq_('./matchers/hasDescription'),
 	lessThan: NumberComparisonMatcher.lessThan,
 	lessThanOrEqualTo: NumberComparisonMatcher.lessThanOrEqualTo,
 	greaterThan: NumberComparisonMatcher.greaterThan,
@@ -283,7 +291,7 @@ _.extend(hamjest, asserts, matchers, utils);
 
 module.exports = hamjest;
 
-},{"./Description":2,"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsDate":22,"./matchers/IsDefined":23,"./matchers/IsEqual":24,"./matchers/IsFulfilled":25,"./matchers/IsFunction":26,"./matchers/IsFunctionThrowing":27,"./matchers/IsInstanceOf":28,"./matchers/IsNot":29,"./matchers/IsNumber":30,"./matchers/IsObject":31,"./matchers/IsObjectWithProperties":32,"./matchers/IsPromise":33,"./matchers/IsRegExp":34,"./matchers/IsRejected":35,"./matchers/IsSame":36,"./matchers/IsString":37,"./matchers/IsStringMatching":38,"./matchers/Matcher":39,"./matchers/NumberComparisonMatcher":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./matchers/falsy":43,"./matchers/hasSize":44,"./matchers/isEmpty":45,"./matchers/truthy":47,"./promiseThat":48}],7:[function(_dereq_,module,exports){
+},{"./Description":2,"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsDate":22,"./matchers/IsDefined":23,"./matchers/IsEqual":24,"./matchers/IsFulfilled":25,"./matchers/IsFunction":26,"./matchers/IsFunctionThrowing":27,"./matchers/IsInstanceOf":28,"./matchers/IsNot":29,"./matchers/IsNumber":30,"./matchers/IsObject":31,"./matchers/IsObjectWithProperties":32,"./matchers/IsPromise":33,"./matchers/IsRegExp":34,"./matchers/IsRejected":35,"./matchers/IsSame":36,"./matchers/IsString":37,"./matchers/IsStringMatching":38,"./matchers/Matcher":39,"./matchers/NumberComparisonMatcher":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./matchers/failsToMatch":43,"./matchers/falsy":44,"./matchers/hasDescription":45,"./matchers/hasSize":46,"./matchers/isEmpty":47,"./matchers/matches":48,"./matchers/truthy":50,"./promiseThat":51}],7:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._);
@@ -333,7 +341,7 @@ AllOf.allOf = function () {
 
 module.exports = AllOf;
 
-},{"./Matcher":39,"./promiseAgnostic":46}],8:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":49}],8:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._);
@@ -362,7 +370,7 @@ AnyOf.anyOf = function () {
 
 module.exports = AnyOf;
 
-},{"./Matcher":39,"./promiseAgnostic":46}],9:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":49}],9:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -480,7 +488,7 @@ Every.everyItem = function (matcherOrValue) {
 
 module.exports = Every;
 
-},{"./IsEqual":24,"./TypeSafeMatcher":42,"./promiseAgnostic":46}],11:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./TypeSafeMatcher":42,"./promiseAgnostic":49}],11:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -525,7 +533,7 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 
 module.exports = FeatureMatcher;
 
-},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":46}],12:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":49}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -680,7 +688,7 @@ IsArrayContaining.contains = function () {
 
 module.exports = IsArrayContaining;
 
-},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":46}],16:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":49}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -865,7 +873,7 @@ IsArrayWithItem.hasItem = function (matcherOrValue) {
 
 module.exports = IsArrayWithItem;
 
-},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":46}],19:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":49}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1303,7 +1311,7 @@ IsNot.not = function (innerMatcher) {
 
 module.exports = IsNot;
 
-},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":46}],30:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":49}],30:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1428,7 +1436,7 @@ IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
 
 module.exports = IsObjectWithProperties;
 
-},{"./IsDefined":23,"./IsEqual":24,"./IsObject":31,"./promiseAgnostic":46}],33:[function(_dereq_,module,exports){
+},{"./IsDefined":23,"./IsEqual":24,"./IsObject":31,"./promiseAgnostic":49}],33:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1824,6 +1832,63 @@ module.exports = TypeSafeMatcher;
 },{"./Matcher":39}],43:[function(_dereq_,module,exports){
 'use strict';
 
+var _ = (window._);
+var Description = _dereq_('./../Description');
+var TypeSafeMatcher = _dereq_('./TypeSafeMatcher');
+var anything = _dereq_('./IsAnything').anything;
+var asMatcher = _dereq_('./IsEqual').asMatcher;
+var isMatcher = _dereq_('./Matcher').isMatcher;
+
+function failsToMatch(target, descriptionMatcher) {
+	descriptionMatcher = descriptionMatcher ? asMatcher(descriptionMatcher) : anything();
+	return _.create(new TypeSafeMatcher(), {
+		isExpectedType: function (actual) {
+			return isMatcher(actual);
+		},
+		matchesSafely: function (actual) {
+			if (actual.matches(target)) {
+				return false;
+			}
+
+			var mismatchDescription = new Description();
+			actual.describeMismatch(target, mismatchDescription);
+			return descriptionMatcher.matches(mismatchDescription.get());
+		},
+		describeTo: function (description) {
+			description.append('a matcher failing to match ')
+				.appendValue(target)
+				.append(' with mismatch description "')
+				.appendDescriptionOf(descriptionMatcher)
+				.append('"');
+		},
+		describeMismatchSafely: function (actual, description) {
+			description
+				.append('matcher with description ')
+				.appendValue(new Description()
+					.appendDescriptionOf(actual)
+					.get()
+				);
+
+			if (actual.matches(target)) {
+				description.append(' matched');
+				return;
+			}
+			else {
+				var mismatchDescription = new Description();
+				actual.describeMismatch(target, mismatchDescription);
+
+				description.append(': mismatch description ');
+				descriptionMatcher.describeMismatch(mismatchDescription.get(), description);
+			}
+		}
+	});
+}
+
+module.exports = failsToMatch;
+
+},{"./../Description":2,"./IsAnything":13,"./IsEqual":24,"./Matcher":39,"./TypeSafeMatcher":42}],44:[function(_dereq_,module,exports){
+'use strict';
+
 var _ = (window._)
 	, Matcher = _dereq_('./Matcher')
 	;
@@ -1841,7 +1906,43 @@ function falsy() {
 
 module.exports = falsy;
 
-},{"./Matcher":39}],44:[function(_dereq_,module,exports){
+},{"./Matcher":39}],45:[function(_dereq_,module,exports){
+'use strict';
+
+var _ = (window._);
+var Description = _dereq_('./../Description');
+var TypeSafeMatcher = _dereq_('./TypeSafeMatcher');
+var anything = _dereq_('./IsAnything').anything;
+var acceptingMatcher = _dereq_('./IsEqual').acceptingMatcher;
+var asMatcher = _dereq_('./IsEqual').asMatcher;
+var isMatcher = _dereq_('./Matcher').isMatcher;
+
+module.exports = acceptingMatcher(function hasDescription(descriptionMatcher) {
+	return _.create(new TypeSafeMatcher(), {
+		isExpectedType: function (actual) {
+			return isMatcher(actual);
+		},
+		matchesSafely: function (actual) {
+			var actualDescription = new Description()
+				.appendDescriptionOf(actual)
+				.get();
+			return descriptionMatcher.matches(actualDescription);
+		},
+		describeTo: function (description) {
+			description.append('a matcher with description: ')
+				.appendDescriptionOf(descriptionMatcher);
+		},
+		describeMismatchSafely: function (actual, description) {
+			description.append('matcher description ');
+			var actualDescription = new Description()
+				.appendDescriptionOf(actual)
+				.get();
+			descriptionMatcher.describeMismatch(actualDescription, description);
+		}
+	});
+});
+
+},{"./../Description":2,"./IsAnything":13,"./IsEqual":24,"./Matcher":39,"./TypeSafeMatcher":42}],46:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1863,7 +1964,7 @@ module.exports = function (matcherOrValue) {
 	});
 };
 
-},{"./FeatureMatcher":11,"./TypeSafeMatcher":42}],45:[function(_dereq_,module,exports){
+},{"./FeatureMatcher":11,"./TypeSafeMatcher":42}],47:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._);
@@ -1877,7 +1978,45 @@ module.exports = function () {
 	});
 };
 
-},{"./hasSize":44}],46:[function(_dereq_,module,exports){
+},{"./hasSize":46}],48:[function(_dereq_,module,exports){
+'use strict';
+
+var _ = (window._);
+var Description = _dereq_('./../Description');
+var TypeSafeMatcher = _dereq_('./TypeSafeMatcher');
+var isMatcher = _dereq_('./Matcher').isMatcher;
+
+function matches(target) {
+	return _.create(new TypeSafeMatcher(), {
+		isExpectedType: function (actual) {
+			return isMatcher(actual);
+		},
+		matchesSafely: function (actual) {
+			return actual.matches(target);
+		},
+		describeTo: function (description) {
+			description.append('a matcher matching ')
+				.appendValue(target);
+		},
+		describeMismatchSafely: function (actual, description) {
+			var mismatchDescription = new Description();
+			actual.describeMismatch(target, mismatchDescription);
+
+			description
+				.append('matcher with description ')
+				.appendValue(new Description()
+					.appendDescriptionOf(actual)
+					.get()
+				)
+				.append(' failed to match and explained: ')
+				.appendValue(mismatchDescription.get());
+		}
+	});
+}
+
+module.exports = matches;
+
+},{"./../Description":2,"./Matcher":39,"./TypeSafeMatcher":42}],49:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._);
@@ -1956,7 +2095,7 @@ var promiseAgnostic = {
 
 module.exports = promiseAgnostic;
 
-},{}],47:[function(_dereq_,module,exports){
+},{}],50:[function(_dereq_,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1976,7 +2115,7 @@ function truthy() {
 
 module.exports = truthy;
 
-},{"./Matcher":39}],48:[function(_dereq_,module,exports){
+},{"./Matcher":39}],51:[function(_dereq_,module,exports){
 'use strict';
 
 var q = (window.Q);
@@ -2024,7 +2163,7 @@ function promiseThat(reason, actual, matcher) {
 module.exports = promiseThat;
 
 
-},{"./Description":2,"assertion-error":49}],49:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":52}],52:[function(_dereq_,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
