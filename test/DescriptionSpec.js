@@ -85,6 +85,28 @@ describe('Description', function () {
 		assertEquals(sut.get(), '[<5>, a matcher description, "foo"]');
 	});
 
+	describe('appendDescriptionOf(matcherOrValue)', function () {
+		it('should append matcher description', function () {
+			var matcher = _.create(new Matcher(), {
+				describeTo: function (description) {
+					description.append('a matcher description');
+				}
+			});
+
+			sut.appendDescriptionOf(matcher);
+
+			assertEquals(sut.get(), 'a matcher description');
+		});
+
+		// TODO: Parameterize with more values
+		it('should append value of simple types', function () {
+
+			sut.appendDescriptionOf(5);
+
+			assertEquals(sut.get(), '<5>');
+		});
+	});
+
 	it('should show name of functions', function () {
 		function aNamedFunction() {
 		}
