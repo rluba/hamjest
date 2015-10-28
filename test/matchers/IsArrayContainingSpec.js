@@ -56,7 +56,7 @@ describe('IsArrayContaining', function () {
 
 				sut.describeMismatch([5, 6, 7], description);
 
-				__.assertThat(description.get(), __.equalTo('item 0: was a number (<5>)\nitem 1: was <6>\nnot matched: <7>'));
+				__.assertThat(description.get(), __.equalTo('item 0: was a Number (<5>)\nitem 1: was <6>\nnot matched: <7>'));
 			});
 
 			it('should contain surplus items', function () {
@@ -77,7 +77,7 @@ describe('IsArrayContaining', function () {
 
 				sut.describeMismatch({an: 'object'}, description);
 
-				__.assertThat(description.get(), __.equalTo('was a object ({"an":"object"})'));
+				__.assertThat(description.get(), __.equalTo('was a Object ({"an":"object"})'));
 			});
 		});
 	});

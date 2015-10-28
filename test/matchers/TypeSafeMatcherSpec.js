@@ -33,5 +33,12 @@ describe('TypeSafeMatcher', function () {
 
 			__.assertThat(description.get(), __.equalTo('was undefined'));
 		});
+
+		it('should describe null as "null"', function () {
+
+			sut.describeMismatch(null, description);
+
+			__.assertThat(description.get(), __.equalTo('was null'));
+		});
 	});
 });

@@ -2,7 +2,6 @@
 
 var _ = require('lodash');
 var __ = require('../../lib/hamjest');
-var Description = require('../../lib/Description');
 
 describe('falsy', function () {
 	var sut;

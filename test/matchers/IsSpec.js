@@ -43,7 +43,7 @@ describe('Is', function () {
 			var matcher = is(__.containsString('a value'));
 			matcher.describeMismatch(7, description);
 
-			__.assertThat(description.get(), __.equalTo('was a number (<7>)'));
+			__.assertThat(description.get(), __.equalTo('was a Number (<7>)'));
 		});
 	});
 });
