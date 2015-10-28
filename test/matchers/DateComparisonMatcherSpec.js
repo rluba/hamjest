@@ -65,7 +65,7 @@ describe('DateComparisonMatcher', function () {
 
 				sut.describeMismatch({an: 'object'}, description);
 
-				__.assertThat(description.get(), __.equalTo('was a object ({"an":"object"})'));
+				__.assertThat(description.get(), __.equalTo('was a Object ({"an":"object"})'));
 			});
 		});
 	});
@@ -123,7 +123,7 @@ describe('DateComparisonMatcher', function () {
 
 				sut.describeMismatch({an: 'object'}, description);
 
-				__.assertThat(description.get(), __.equalTo('was a object ({"an":"object"})'));
+				__.assertThat(description.get(), __.equalTo('was a Object ({"an":"object"})'));
 			});
 		});
 	});
@@ -181,7 +181,7 @@ describe('DateComparisonMatcher', function () {
 
 				sut.describeMismatch({an: 'object'}, description);
 
-				__.assertThat(description.get(), __.equalTo('was a object ({"an":"object"})'));
+				__.assertThat(description.get(), __.equalTo('was a Object ({"an":"object"})'));
 			});
 		});
 	});
@@ -239,7 +239,7 @@ describe('DateComparisonMatcher', function () {
 
 				sut.describeMismatch({an: 'object'}, description);
 
-				__.assertThat(description.get(), __.equalTo('was a object ({"an":"object"})'));
+				__.assertThat(description.get(), __.equalTo('was a Object ({"an":"object"})'));
 			});
 		});
 	});
