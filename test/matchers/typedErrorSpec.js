@@ -2,10 +2,8 @@
 
 var _ = require('lodash');
 var __ = require('../../lib/hamjest');
-var Description = require('../../lib/Description');
 
 describe('typedError', function () {
-
 	it('should match if type and message string match', function () {
 		var sut = __.typedError(Error, 'Just a message');
 
