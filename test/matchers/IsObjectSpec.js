@@ -47,7 +47,7 @@ describe('IsObject', function () {
 
 				sut.describeMismatch('a string value', description);
 
-				__.assertThat(description.get(), __.equalTo('was a string ("a string value")'));
+				__.assertThat(description.get(), __.equalTo('was a String ("a string value")'));
 			});
 		});
 	});

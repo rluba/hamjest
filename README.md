@@ -42,7 +42,7 @@ __.assertThat(sut, __.hasProperties({name: __.string(), age: __.greaterThan(18)}
 
 AssertionError: 
 Expected: an object with {name: a string, age: a number greater than <18>}
-     but: name was a number (<1337>)
+     but: name was a Number (<1337>)
 ```
 
 You can also add a descriptive message to every assert, if needed:

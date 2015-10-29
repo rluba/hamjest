@@ -62,21 +62,21 @@ describe('Every', function () {
 
 				sut.describeMismatch([1, 'a', 2], description);
 
-				__.assertThat(description.get(), __.equalTo('item <0> was a number (<1>), item <2> was a number (<2>)'));
+				__.assertThat(description.get(), __.equalTo('item <0> was a Number (<1>), item <2> was a Number (<2>)'));
 			});
 
 			it('should contain mismatched values', function () {
 
 				sut.describeMismatch({x: 'a', y: 2}, description);
 
-				__.assertThat(description.get(), __.equalTo('item "y" was a number (<2>)'));
+				__.assertThat(description.get(), __.equalTo('item "y" was a Number (<2>)'));
 			});
 
 			it('should fit for non-arrays', function () {
 
 				sut.describeMismatch(7, description);
 
-				__.assertThat(description.get(), __.equalTo('was a number (<7>)'));
+				__.assertThat(description.get(), __.equalTo('was a Number (<7>)'));
 			});
 		});
 	});
