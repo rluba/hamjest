@@ -24,10 +24,7 @@
   "bugs": {
     "url": "https://github.com/rluba/hamjest/issues"
   },
-  "license": {
-    "type": "MIT",
-    "url": "https://raw.github.com/rluba/hamjest/master/LICENSE"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/rluba/hamjest.git"
