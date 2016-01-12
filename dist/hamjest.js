@@ -1,9 +1,9 @@
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.hamjest=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-module.exports = _dereq_('./lib/hamjest');
+module.exports = require('./lib/hamjest');
 
-},{"./lib/hamjest":6}],2:[function(_dereq_,module,exports){
+},{"./lib/hamjest":6}],2:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -113,13 +113,13 @@ function Description() {
 
 module.exports = Description;
 
-},{}],3:[function(_dereq_,module,exports){
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var q = (window.Q);
 var _ = (window._);
-var AssertionError = _dereq_('assertion-error')
-	, Description = _dereq_('./Description')
+var AssertionError = require('assertion-error')
+	, Description = require('./Description')
 	;
 
 function assertThat(reason, actual, matcher) {
@@ -159,10 +159,10 @@ function assertThat(reason, actual, matcher) {
 
 module.exports = assertThat;
 
-},{"./Description":2,"assertion-error":56}],4:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":56}],4:[function(require,module,exports){
 'use strict';
 
-var AssertionError = _dereq_('assertion-error')
+var AssertionError = require('assertion-error')
 	;
 
 function fail(reason) {
@@ -171,7 +171,7 @@ function fail(reason) {
 
 module.exports = fail;
 
-},{"assertion-error":56}],5:[function(_dereq_,module,exports){
+},{"assertion-error":56}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -191,58 +191,58 @@ module.exports = function () {
 	}
 };
 
-},{}],6:[function(_dereq_,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsEqual = _dereq_('./matchers/IsEqual')
-	, Matcher = _dereq_('./matchers/Matcher')
-	, SubstringMatcher = _dereq_('./matchers/SubstringMatcher')
-	, NumberComparisonMatcher = _dereq_('./matchers/NumberComparisonMatcher')
-	, DateComparisonMatcher = _dereq_('./matchers/DateComparisonMatcher')
-	, Description = _dereq_('./Description')
+	, IsEqual = require('./matchers/IsEqual')
+	, Matcher = require('./matchers/Matcher')
+	, SubstringMatcher = require('./matchers/SubstringMatcher')
+	, NumberComparisonMatcher = require('./matchers/NumberComparisonMatcher')
+	, DateComparisonMatcher = require('./matchers/DateComparisonMatcher')
+	, Description = require('./Description')
 	;
 
-_dereq_('./fixErrorJson')();
+require('./fixErrorJson')();
 
 var asserts = {
-	assertThat: _dereq_('./assertThat'),
-	promiseThat: _dereq_('./promiseThat'),
-	fail: _dereq_('./fail')
+	assertThat: require('./assertThat'),
+	promiseThat: require('./promiseThat'),
+	fail: require('./fail')
 };
 
 var matchers = {
 	Matcher: Matcher,
-	TypeSafeMatcher: _dereq_('./matchers/TypeSafeMatcher'),
-	FeatureMatcher: _dereq_('./matchers/FeatureMatcher'),
+	TypeSafeMatcher: require('./matchers/TypeSafeMatcher'),
+	FeatureMatcher: require('./matchers/FeatureMatcher'),
 
-	anything: _dereq_('./matchers/IsAnything').anything,
-	strictlyEqualTo: _dereq_('./matchers/IsSame').strictlyEqualTo,
-	is: _dereq_('./matchers/Is').is,
-	not: _dereq_('./matchers/IsNot').not,
+	anything: require('./matchers/IsAnything').anything,
+	strictlyEqualTo: require('./matchers/IsSame').strictlyEqualTo,
+	is: require('./matchers/Is').is,
+	not: require('./matchers/IsNot').not,
 	equalTo: IsEqual.equalTo,
-	truthy: _dereq_('./matchers/truthy'),
-	falsy: _dereq_('./matchers/falsy'),
-	falsey: _dereq_('./matchers/falsy'),
-	defined: _dereq_('./matchers/IsDefined').defined,
-	undefined: _dereq_('./matchers/IsDefined').undefined,
-	undef: _dereq_('./matchers/IsDefined').undefined,
-	instanceOf: _dereq_('./matchers/IsInstanceOf').instanceOf,
-	array: _dereq_('./matchers/IsArray').array,
-	bool: _dereq_('./matchers/IsBoolean').bool,
-	date: _dereq_('./matchers/IsDate').date,
-	func: _dereq_('./matchers/IsFunction').func,
-	number: _dereq_('./matchers/IsNumber').number,
-	object: _dereq_('./matchers/IsObject').object,
-	regExp: _dereq_('./matchers/IsRegExp').regExp,
-	string: _dereq_('./matchers/IsString').string,
+	truthy: require('./matchers/truthy'),
+	falsy: require('./matchers/falsy'),
+	falsey: require('./matchers/falsy'),
+	defined: require('./matchers/IsDefined').defined,
+	undefined: require('./matchers/IsDefined').undefined,
+	undef: require('./matchers/IsDefined').undefined,
+	instanceOf: require('./matchers/IsInstanceOf').instanceOf,
+	array: require('./matchers/IsArray').array,
+	bool: require('./matchers/IsBoolean').bool,
+	date: require('./matchers/IsDate').date,
+	func: require('./matchers/IsFunction').func,
+	number: require('./matchers/IsNumber').number,
+	object: require('./matchers/IsObject').object,
+	regExp: require('./matchers/IsRegExp').regExp,
+	string: require('./matchers/IsString').string,
 	containsString: SubstringMatcher.containsString,
 	startsWith: SubstringMatcher.startsWith,
 	endsWith: SubstringMatcher.endsWith,
-	matchesPattern: _dereq_('./matchers/IsStringMatching').matchesPattern,
-	matches: _dereq_('./matchers/matches'),
-	failsToMatch: _dereq_('./matchers/failsToMatch'),
-	hasDescription: _dereq_('./matchers/hasDescription'),
+	matchesPattern: require('./matchers/IsStringMatching').matchesPattern,
+	matches: require('./matchers/matches'),
+	failsToMatch: require('./matchers/failsToMatch'),
+	hasDescription: require('./matchers/hasDescription'),
 	lessThan: NumberComparisonMatcher.lessThan,
 	lessThanOrEqualTo: NumberComparisonMatcher.lessThanOrEqualTo,
 	greaterThan: NumberComparisonMatcher.greaterThan,
@@ -251,29 +251,29 @@ var matchers = {
 	afterOrEqualTo: DateComparisonMatcher.afterOrEqualTo,
 	before: DateComparisonMatcher.before,
 	beforeOrEqualTo: DateComparisonMatcher.beforeOrEqualTo,
-	closeTo: _dereq_('./matchers/IsCloseTo').closeTo,
-	allOf: _dereq_('./matchers/AllOf').allOf,
-	anyOf: _dereq_('./matchers/AnyOf').anyOf,
-	everyItem: _dereq_('./matchers/Every').everyItem,
-	hasItem: _dereq_('./matchers/IsArrayWithItem').hasItem,
-	hasItems: _dereq_('./matchers/IsArrayWithItems').hasItems,
-	contains: _dereq_('./matchers/IsArrayContaining').contains,
-	containsInAnyOrder: _dereq_('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
-	orderedBy: _dereq_('./matchers/IsArrayOrderedBy').orderedBy,
-	hasSize: _dereq_('./matchers/hasSize'),
-	isEmpty: _dereq_('./matchers/isEmpty'),
-	hasProperties: _dereq_('./matchers/IsObjectWithProperties').hasProperties,
-	hasProperty: _dereq_('./matchers/IsObjectWithProperties').hasProperty,
-	throws: _dereq_('./matchers/IsFunctionThrowing').throws,
-	returns: _dereq_('./matchers/returns'),
-	typedError: _dereq_('./matchers/typedError'),
-	promise: _dereq_('./matchers/IsPromise').promise,
-	fulfilled: _dereq_('./matchers/IsFulfilled').fulfilled,
-	isFulfilledWith: _dereq_('./matchers/IsFulfilled').isFulfilledWith,
-	willBe: _dereq_('./matchers/IsFulfilled').isFulfilledWith,
-	rejected: _dereq_('./matchers/IsRejected').rejected,
-	isRejectedWith: _dereq_('./matchers/IsRejected').isRejectedWith,
-	promiseAllOf: _dereq_('./matchers/AllOf').allOf
+	closeTo: require('./matchers/IsCloseTo').closeTo,
+	allOf: require('./matchers/AllOf').allOf,
+	anyOf: require('./matchers/AnyOf').anyOf,
+	everyItem: require('./matchers/Every').everyItem,
+	hasItem: require('./matchers/IsArrayWithItem').hasItem,
+	hasItems: require('./matchers/IsArrayWithItems').hasItems,
+	contains: require('./matchers/IsArrayContaining').contains,
+	containsInAnyOrder: require('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
+	orderedBy: require('./matchers/IsArrayOrderedBy').orderedBy,
+	hasSize: require('./matchers/hasSize'),
+	isEmpty: require('./matchers/isEmpty'),
+	hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,
+	hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,
+	throws: require('./matchers/IsFunctionThrowing').throws,
+	returns: require('./matchers/returns'),
+	typedError: require('./matchers/typedError'),
+	promise: require('./matchers/IsPromise').promise,
+	fulfilled: require('./matchers/IsFulfilled').fulfilled,
+	isFulfilledWith: require('./matchers/IsFulfilled').isFulfilledWith,
+	willBe: require('./matchers/IsFulfilled').isFulfilledWith,
+	rejected: require('./matchers/IsRejected').rejected,
+	isRejectedWith: require('./matchers/IsRejected').isRejectedWith,
+	promiseAllOf: require('./matchers/AllOf').allOf
 };
 
 var utils = {
@@ -293,12 +293,12 @@ _.extend(hamjest, asserts, matchers, utils);
 
 module.exports = hamjest;
 
-},{"./Description":2,"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsDate":22,"./matchers/IsDefined":23,"./matchers/IsEqual":24,"./matchers/IsFulfilled":25,"./matchers/IsFunction":26,"./matchers/IsFunctionThrowing":27,"./matchers/IsInstanceOf":28,"./matchers/IsNot":29,"./matchers/IsNumber":30,"./matchers/IsObject":31,"./matchers/IsObjectWithProperties":32,"./matchers/IsPromise":33,"./matchers/IsRegExp":34,"./matchers/IsRejected":35,"./matchers/IsSame":36,"./matchers/IsString":37,"./matchers/IsStringMatching":38,"./matchers/Matcher":39,"./matchers/NumberComparisonMatcher":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./matchers/failsToMatch":43,"./matchers/falsy":44,"./matchers/hasDescription":45,"./matchers/hasSize":46,"./matchers/isEmpty":47,"./matchers/matches":48,"./matchers/returns":50,"./matchers/truthy":51,"./matchers/typedError":52,"./promiseThat":53}],7:[function(_dereq_,module,exports){
+},{"./Description":2,"./assertThat":3,"./fail":4,"./fixErrorJson":5,"./matchers/AllOf":7,"./matchers/AnyOf":8,"./matchers/DateComparisonMatcher":9,"./matchers/Every":10,"./matchers/FeatureMatcher":11,"./matchers/Is":12,"./matchers/IsAnything":13,"./matchers/IsArray":14,"./matchers/IsArrayContaining":15,"./matchers/IsArrayContainingInAnyOrder":16,"./matchers/IsArrayOrderedBy":17,"./matchers/IsArrayWithItem":18,"./matchers/IsArrayWithItems":19,"./matchers/IsBoolean":20,"./matchers/IsCloseTo":21,"./matchers/IsDate":22,"./matchers/IsDefined":23,"./matchers/IsEqual":24,"./matchers/IsFulfilled":25,"./matchers/IsFunction":26,"./matchers/IsFunctionThrowing":27,"./matchers/IsInstanceOf":28,"./matchers/IsNot":29,"./matchers/IsNumber":30,"./matchers/IsObject":31,"./matchers/IsObjectWithProperties":32,"./matchers/IsPromise":33,"./matchers/IsRegExp":34,"./matchers/IsRejected":35,"./matchers/IsSame":36,"./matchers/IsString":37,"./matchers/IsStringMatching":38,"./matchers/Matcher":39,"./matchers/NumberComparisonMatcher":40,"./matchers/SubstringMatcher":41,"./matchers/TypeSafeMatcher":42,"./matchers/failsToMatch":43,"./matchers/falsy":44,"./matchers/hasDescription":45,"./matchers/hasSize":46,"./matchers/isEmpty":47,"./matchers/matches":48,"./matchers/returns":50,"./matchers/truthy":51,"./matchers/typedError":52,"./promiseThat":53}],7:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
-var Matcher = _dereq_('./Matcher');
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var Matcher = require('./Matcher');
+var promiseAgnostic = require('./promiseAgnostic');
 
 function AllOf(matchers) {
 	return _.create(new Matcher(), {
@@ -343,13 +343,13 @@ AllOf.allOf = function () {
 
 module.exports = AllOf;
 
-},{"./Matcher":39,"./promiseAgnostic":49}],8:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":49}],8:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
-var Matcher = _dereq_('./Matcher');
+var Matcher = require('./Matcher');
 
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var promiseAgnostic = require('./promiseAgnostic');
 
 function AnyOf(matchers) {
 	return _.create(new Matcher(), {
@@ -372,14 +372,14 @@ AnyOf.anyOf = function () {
 
 module.exports = AnyOf;
 
-},{"./Matcher":39,"./promiseAgnostic":49}],9:[function(_dereq_,module,exports){
+},{"./Matcher":39,"./promiseAgnostic":49}],9:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsDate = _dereq_('./IsDate')
-	, assertThat = _dereq_('../assertThat')
-	, is = _dereq_('./Is').is
-	, date = _dereq_('./IsDate').date
+	, IsDate = require('./IsDate')
+	, assertThat = require('../assertThat')
+	, is = require('./Is').is
+	, date = require('./IsDate').date
 	;
 
 function DateComparisonMatcher(threshold, relation, matchesNumber) {
@@ -429,14 +429,14 @@ _.extend(DateComparisonMatcher, {
 
 module.exports = DateComparisonMatcher;
 
-},{"../assertThat":3,"./Is":12,"./IsDate":22}],10:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsDate":22}],10:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
-	, acceptingMatcher = _dereq_('./IsEqual').acceptingMatcher
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
+	, acceptingMatcher = require('./IsEqual').acceptingMatcher
 	;
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var promiseAgnostic = require('./promiseAgnostic');
 
 var Every = acceptingMatcher(function Every(matcher) {
 	return _.create(new TypeSafeMatcher(), {
@@ -490,15 +490,15 @@ Every.everyItem = function (matcherOrValue) {
 
 module.exports = Every;
 
-},{"./IsEqual":24,"./TypeSafeMatcher":42,"./promiseAgnostic":49}],11:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./TypeSafeMatcher":42,"./promiseAgnostic":49}],11:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
+	, Matcher = require('./Matcher')
+	, asMatcher = require('./IsEqual').asMatcher
 	;
 
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var promiseAgnostic = require('./promiseAgnostic');
 
 function FeatureMatcher(valueOrMatcher, featureDescription, featureName, featureFunction) {
 	var matcher = asMatcher(valueOrMatcher);
@@ -535,12 +535,12 @@ function FeatureMatcher(valueOrMatcher, featureDescription, featureName, feature
 
 module.exports = FeatureMatcher;
 
-},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":49}],12:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":49}],12:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
-	, acceptingMatcher = _dereq_('./IsEqual').acceptingMatcher
+	, Matcher = require('./Matcher')
+	, acceptingMatcher = require('./IsEqual').acceptingMatcher
 	;
 
 var Is = acceptingMatcher(function Is(innerMatcher) {
@@ -567,11 +567,11 @@ Is.is = function (innerMatcher) {
 
 module.exports = Is;
 
-},{"./IsEqual":24,"./Matcher":39}],13:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39}],13:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
+	, Matcher = require('./Matcher')
 	;
 
 function IsAnything() {
@@ -591,11 +591,11 @@ IsAnything.anything = function () {
 
 module.exports = IsAnything;
 
-},{"./Matcher":39}],14:[function(_dereq_,module,exports){
+},{"./Matcher":39}],14:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsArray() {
@@ -616,15 +616,15 @@ IsArray.array = function () {
 
 module.exports = IsArray;
 
-},{"./TypeSafeMatcher":42}],15:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],15:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsArray = _dereq_('./IsArray')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
+	, IsArray = require('./IsArray')
+	, asMatcher = require('./IsEqual').asMatcher
 	;
 
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var promiseAgnostic = require('./promiseAgnostic');
 
 function IsArrayContaining(itemsOrMatchers) {
 	var matchers = _.map(itemsOrMatchers, asMatcher);
@@ -690,12 +690,12 @@ IsArrayContaining.contains = function () {
 
 module.exports = IsArrayContaining;
 
-},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":49}],16:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":49}],16:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsArray = _dereq_('./IsArray')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
+	, IsArray = require('./IsArray')
+	, asMatcher = require('./IsEqual').asMatcher
 	;
 
 // TODO: Make promise agnostic
@@ -766,11 +766,11 @@ IsArrayContainingInAnyOrder.containsInAnyOrder = function () {
 
 module.exports = IsArrayContainingInAnyOrder;
 
-},{"./IsArray":14,"./IsEqual":24}],17:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24}],17:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsArray = _dereq_('./IsArray')
+	, IsArray = require('./IsArray')
 	;
 
 function IsArrayOrderedBy(comp, compDescription) {
@@ -822,14 +822,14 @@ IsArrayOrderedBy.orderedBy = function (comp, compDescription) {
 
 module.exports = IsArrayOrderedBy;
 
-},{"./IsArray":14}],18:[function(_dereq_,module,exports){
+},{"./IsArray":14}],18:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsArray = _dereq_('./IsArray')
-	, acceptingMatcher = _dereq_('./IsEqual').acceptingMatcher
+	, IsArray = require('./IsArray')
+	, acceptingMatcher = require('./IsEqual').acceptingMatcher
 	;
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var promiseAgnostic = require('./promiseAgnostic');
 
 var IsArrayWithItem = acceptingMatcher(function IsArrayWithItem(matcher) {
 	return _.create(new IsArray(), {
@@ -875,14 +875,14 @@ IsArrayWithItem.hasItem = function (matcherOrValue) {
 
 module.exports = IsArrayWithItem;
 
-},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":49}],19:[function(_dereq_,module,exports){
+},{"./IsArray":14,"./IsEqual":24,"./promiseAgnostic":49}],19:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsArray = _dereq_('./IsArray')
-	, hasItem = _dereq_('./IsArrayWithItem').hasItem
-	, AllOf = _dereq_('./AllOf')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
+	, IsArray = require('./IsArray')
+	, hasItem = require('./IsArrayWithItem').hasItem
+	, AllOf = require('./AllOf')
+	, asMatcher = require('./IsEqual').asMatcher
 	;
 
 var IsArrayWithItems = function IsArrayWithItems(items) {
@@ -920,11 +920,11 @@ IsArrayWithItems.hasItems = function () {
 
 module.exports = IsArrayWithItems;
 
-},{"./AllOf":7,"./IsArray":14,"./IsArrayWithItem":18,"./IsEqual":24}],20:[function(_dereq_,module,exports){
+},{"./AllOf":7,"./IsArray":14,"./IsArrayWithItem":18,"./IsEqual":24}],20:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsBoolean() {
@@ -945,14 +945,14 @@ IsBoolean.bool = function () {
 
 module.exports = IsBoolean;
 
-},{"./TypeSafeMatcher":42}],21:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],21:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsNumber = _dereq_('./IsNumber')
-	, assertThat = _dereq_('../assertThat')
-	, is = _dereq_('./Is').is
-	, number = _dereq_('./IsNumber').number
+	, IsNumber = require('./IsNumber')
+	, assertThat = require('../assertThat')
+	, is = require('./Is').is
+	, number = require('./IsNumber').number
 	;
 
 function IsCloseTo(threshold, delta) {
@@ -989,11 +989,11 @@ IsCloseTo.closeTo = function (threshold, delta) {
 
 module.exports = IsCloseTo;
 
-},{"../assertThat":3,"./Is":12,"./IsNumber":30}],22:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsNumber":30}],22:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsDate() {
@@ -1014,12 +1014,12 @@ IsDate.date = function () {
 
 module.exports = IsDate;
 
-},{"./TypeSafeMatcher":42}],23:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],23:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
-	, not = _dereq_('./IsNot').not
+	, Matcher = require('./Matcher')
+	, not = require('./IsNot').not
 	;
 
 function IsDefined() {
@@ -1043,11 +1043,11 @@ IsDefined.undefined = function () {
 
 module.exports = IsDefined;
 
-},{"./IsNot":29,"./Matcher":39}],24:[function(_dereq_,module,exports){
+},{"./IsNot":29,"./Matcher":39}],24:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
+	, Matcher = require('./Matcher')
 	;
 
 function IsEqual(expectedValue) {
@@ -1084,14 +1084,14 @@ IsEqual.acceptingMatcher = function (innerFunction) {
 
 module.exports = IsEqual;
 
-},{"./Matcher":39}],25:[function(_dereq_,module,exports){
+},{"./Matcher":39}],25:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
 	, q = (window.Q)
-	, IsPromise = _dereq_('./IsPromise')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
-	, anything = _dereq_('./IsAnything').anything
+	, IsPromise = require('./IsPromise')
+	, asMatcher = require('./IsEqual').asMatcher
+	, anything = require('./IsAnything').anything
 	;
 
 function IsFulfilled(valueOrMatcher) {
@@ -1149,11 +1149,11 @@ IsFulfilled.isFulfilledWith = IsFulfilled.fulfilled;
 
 module.exports = IsFulfilled;
 
-},{"./IsAnything":13,"./IsEqual":24,"./IsPromise":33}],26:[function(_dereq_,module,exports){
+},{"./IsAnything":13,"./IsEqual":24,"./IsPromise":33}],26:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsFunction() {
@@ -1174,13 +1174,13 @@ IsFunction.func = function () {
 
 module.exports = IsFunction;
 
-},{"./TypeSafeMatcher":42}],27:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],27:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsFunction = _dereq_('./IsFunction')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
-	, anything = _dereq_('./IsAnything').anything
+	, IsFunction = require('./IsFunction')
+	, asMatcher = require('./IsEqual').asMatcher
+	, anything = require('./IsAnything').anything
 	;
 
 function IsFunctionThrowing(valueOrMatcher) {
@@ -1226,17 +1226,17 @@ IsFunctionThrowing.throws = function (operand) {
 
 module.exports = IsFunctionThrowing;
 
-},{"./IsAnything":13,"./IsEqual":24,"./IsFunction":26}],28:[function(_dereq_,module,exports){
+},{"./IsAnything":13,"./IsEqual":24,"./IsFunction":26}],28:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
-	, assertThat = _dereq_('../assertThat')
-	, is = _dereq_('./Is').is
-	, func = _dereq_('./IsFunction').func
+	, Matcher = require('./Matcher')
+	, assertThat = require('../assertThat')
+	, is = require('./Is').is
+	, func = require('./IsFunction').func
 	;
-var getType = _dereq_('../utils/getType');
-var getTypeName = _dereq_('../utils/getTypeName');
+var getType = require('../utils/getType');
+var getTypeName = require('../utils/getTypeName');
 
 function IsInstanceOf(expectedType) {
 	assertThat(expectedType, is(func()));
@@ -1272,14 +1272,14 @@ IsInstanceOf.instanceOf = function (operand) {
 
 module.exports = IsInstanceOf;
 
-},{"../assertThat":3,"../utils/getType":54,"../utils/getTypeName":55,"./Is":12,"./IsFunction":26,"./Matcher":39}],29:[function(_dereq_,module,exports){
+},{"../assertThat":3,"../utils/getType":54,"../utils/getTypeName":55,"./Is":12,"./IsFunction":26,"./Matcher":39}],29:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
-	, acceptingMatcher = _dereq_('./IsEqual').acceptingMatcher
+	, Matcher = require('./Matcher')
+	, acceptingMatcher = require('./IsEqual').acceptingMatcher
 	;
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var promiseAgnostic = require('./promiseAgnostic');
 
 var IsNot = acceptingMatcher(function IsNot(innerMatcher) {
 	return _.create(new Matcher(), {
@@ -1307,11 +1307,11 @@ IsNot.not = function (innerMatcher) {
 
 module.exports = IsNot;
 
-},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":49}],30:[function(_dereq_,module,exports){
+},{"./IsEqual":24,"./Matcher":39,"./promiseAgnostic":49}],30:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsNumber() {
@@ -1332,11 +1332,11 @@ IsNumber.number = function () {
 
 module.exports = IsNumber;
 
-},{"./TypeSafeMatcher":42}],31:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],31:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsObject() {
@@ -1357,15 +1357,15 @@ IsObject.object = function () {
 
 module.exports = IsObject;
 
-},{"./TypeSafeMatcher":42}],32:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],32:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsObject = _dereq_('./IsObject')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
-	, defined = _dereq_('./IsDefined').defined
+	, IsObject = require('./IsObject')
+	, asMatcher = require('./IsEqual').asMatcher
+	, defined = require('./IsDefined').defined
 	;
-var promiseAgnostic = _dereq_('./promiseAgnostic');
+var promiseAgnostic = require('./promiseAgnostic');
 
 function IsObjectWithProperties(properties) {
 	var propertyMatchers = _.mapValues(properties, asMatcher);
@@ -1432,12 +1432,12 @@ IsObjectWithProperties.hasProperty = function (name, valueOrMatcher) {
 
 module.exports = IsObjectWithProperties;
 
-},{"./IsDefined":23,"./IsEqual":24,"./IsObject":31,"./promiseAgnostic":49}],33:[function(_dereq_,module,exports){
+},{"./IsDefined":23,"./IsEqual":24,"./IsObject":31,"./promiseAgnostic":49}],33:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
 	, q = (window.Q)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsPromise() {
@@ -1458,11 +1458,11 @@ IsPromise.promise = function () {
 
 module.exports = IsPromise;
 
-},{"./TypeSafeMatcher":42}],34:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],34:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsRegExp() {
@@ -1483,14 +1483,14 @@ IsRegExp.regExp = function () {
 
 module.exports = IsRegExp;
 
-},{"./TypeSafeMatcher":42}],35:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],35:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
 	, q = (window.Q)
-	, IsPromise = _dereq_('./IsPromise')
-	, asMatcher = _dereq_('./IsEqual').asMatcher
-	, anything = _dereq_('./IsAnything').anything
+	, IsPromise = require('./IsPromise')
+	, asMatcher = require('./IsEqual').asMatcher
+	, anything = require('./IsAnything').anything
 	;
 
 function IsRejected(valueOrMatcher) {
@@ -1549,11 +1549,11 @@ IsRejected.isRejectedWith = IsRejected.rejected;
 
 module.exports = IsRejected;
 
-},{"./IsAnything":13,"./IsEqual":24,"./IsPromise":33}],36:[function(_dereq_,module,exports){
+},{"./IsAnything":13,"./IsEqual":24,"./IsPromise":33}],36:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
+	, Matcher = require('./Matcher')
 	;
 
 function IsSame(expectedValue) {
@@ -1573,11 +1573,11 @@ IsSame.strictlyEqualTo = function (operand) {
 
 module.exports = IsSame;
 
-},{"./Matcher":39}],37:[function(_dereq_,module,exports){
+},{"./Matcher":39}],37:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
 	;
 
 function IsString() {
@@ -1598,15 +1598,15 @@ IsString.string = function () {
 
 module.exports = IsString;
 
-},{"./TypeSafeMatcher":42}],38:[function(_dereq_,module,exports){
+},{"./TypeSafeMatcher":42}],38:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsString = _dereq_('./IsString')
-	, assertThat = _dereq_('../assertThat')
-	, anyOf = _dereq_('./AnyOf').anyOf
-	, string = _dereq_('./IsString').string
-	, regExp = _dereq_('./IsRegExp').regExp
+	, IsString = require('./IsString')
+	, assertThat = require('../assertThat')
+	, anyOf = require('./AnyOf').anyOf
+	, string = require('./IsString').string
+	, regExp = require('./IsRegExp').regExp
 	;
 
 function IsStringMatching(stringOrPattern) {
@@ -1637,7 +1637,7 @@ IsStringMatching.matchesPattern = function (stringOrPattern) {
 
 module.exports = IsStringMatching;
 
-},{"../assertThat":3,"./AnyOf":8,"./IsRegExp":34,"./IsString":37}],39:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./AnyOf":8,"./IsRegExp":34,"./IsString":37}],39:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
@@ -1667,14 +1667,14 @@ Matcher.isMatcher = function (matcherOrValue) {
 
 module.exports = Matcher;
 
-},{}],40:[function(_dereq_,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsNumber = _dereq_('./IsNumber')
-	, assertThat = _dereq_('../assertThat')
-	, is = _dereq_('./Is').is
-	, number = _dereq_('./IsNumber').number
+	, IsNumber = require('./IsNumber')
+	, assertThat = require('../assertThat')
+	, is = require('./Is').is
+	, number = require('./IsNumber').number
 	;
 
 function NumberComparisonMatcher(relation, threshold, matchesNumber) {
@@ -1724,14 +1724,14 @@ _.extend(NumberComparisonMatcher, {
 
 module.exports = NumberComparisonMatcher;
 
-},{"../assertThat":3,"./Is":12,"./IsNumber":30}],41:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsNumber":30}],41:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, IsString = _dereq_('./IsString')
-	, assertThat = _dereq_('../assertThat')
-	, is = _dereq_('./Is').is
-	, string = _dereq_('./IsString').string
+	, IsString = require('./IsString')
+	, assertThat = require('../assertThat')
+	, is = require('./Is').is
+	, string = require('./IsString').string
 	;
 
 function SubstringMatcher(substring, relation, matchesString) {
@@ -1778,13 +1778,13 @@ _.extend(SubstringMatcher, {
 
 module.exports = SubstringMatcher;
 
-},{"../assertThat":3,"./Is":12,"./IsString":37}],42:[function(_dereq_,module,exports){
+},{"../assertThat":3,"./Is":12,"./IsString":37}],42:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
+	, Matcher = require('./Matcher')
 	;
-var getType = _dereq_('../utils/getType');
+var getType = require('../utils/getType');
 
 function TypeSafeMatcher() {
 	return _.create(new Matcher(), {
@@ -1827,15 +1827,15 @@ function TypeSafeMatcher() {
 
 module.exports = TypeSafeMatcher;
 
-},{"../utils/getType":54,"./Matcher":39}],43:[function(_dereq_,module,exports){
+},{"../utils/getType":54,"./Matcher":39}],43:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
-var Description = _dereq_('./../Description');
-var TypeSafeMatcher = _dereq_('./TypeSafeMatcher');
-var anything = _dereq_('./IsAnything').anything;
-var asMatcher = _dereq_('./IsEqual').asMatcher;
-var isMatcher = _dereq_('./Matcher').isMatcher;
+var Description = require('./../Description');
+var TypeSafeMatcher = require('./TypeSafeMatcher');
+var anything = require('./IsAnything').anything;
+var asMatcher = require('./IsEqual').asMatcher;
+var isMatcher = require('./Matcher').isMatcher;
 
 function failsToMatch(target, descriptionMatcher) {
 	descriptionMatcher = descriptionMatcher ? asMatcher(descriptionMatcher) : anything();
@@ -1884,11 +1884,11 @@ function failsToMatch(target, descriptionMatcher) {
 
 module.exports = failsToMatch;
 
-},{"./../Description":2,"./IsAnything":13,"./IsEqual":24,"./Matcher":39,"./TypeSafeMatcher":42}],44:[function(_dereq_,module,exports){
+},{"./../Description":2,"./IsAnything":13,"./IsEqual":24,"./Matcher":39,"./TypeSafeMatcher":42}],44:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
+	, Matcher = require('./Matcher')
 	;
 
 function falsy() {
@@ -1904,14 +1904,14 @@ function falsy() {
 
 module.exports = falsy;
 
-},{"./Matcher":39}],45:[function(_dereq_,module,exports){
+},{"./Matcher":39}],45:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
-var Description = _dereq_('./../Description');
-var TypeSafeMatcher = _dereq_('./TypeSafeMatcher');
-var acceptingMatcher = _dereq_('./IsEqual').acceptingMatcher;
-var isMatcher = _dereq_('./Matcher').isMatcher;
+var Description = require('./../Description');
+var TypeSafeMatcher = require('./TypeSafeMatcher');
+var acceptingMatcher = require('./IsEqual').acceptingMatcher;
+var isMatcher = require('./Matcher').isMatcher;
 
 module.exports = acceptingMatcher(function hasDescription(descriptionMatcher) {
 	return _.create(new TypeSafeMatcher(), {
@@ -1938,12 +1938,12 @@ module.exports = acceptingMatcher(function hasDescription(descriptionMatcher) {
 	});
 });
 
-},{"./../Description":2,"./IsEqual":24,"./Matcher":39,"./TypeSafeMatcher":42}],46:[function(_dereq_,module,exports){
+},{"./../Description":2,"./IsEqual":24,"./Matcher":39,"./TypeSafeMatcher":42}],46:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, TypeSafeMatcher = _dereq_('./TypeSafeMatcher')
-	, FeatureMatcher = _dereq_('./FeatureMatcher')
+	, TypeSafeMatcher = require('./TypeSafeMatcher')
+	, FeatureMatcher = require('./FeatureMatcher')
 	;
 
 module.exports = function (matcherOrValue) {
@@ -1960,11 +1960,11 @@ module.exports = function (matcherOrValue) {
 	});
 };
 
-},{"./FeatureMatcher":11,"./TypeSafeMatcher":42}],47:[function(_dereq_,module,exports){
+},{"./FeatureMatcher":11,"./TypeSafeMatcher":42}],47:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
-var hasSize = _dereq_('./hasSize');
+var hasSize = require('./hasSize');
 
 module.exports = function () {
 	return _.extend(hasSize(0), {
@@ -1974,13 +1974,13 @@ module.exports = function () {
 	});
 };
 
-},{"./hasSize":46}],48:[function(_dereq_,module,exports){
+},{"./hasSize":46}],48:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
-var Description = _dereq_('./../Description');
-var TypeSafeMatcher = _dereq_('./TypeSafeMatcher');
-var isMatcher = _dereq_('./Matcher').isMatcher;
+var Description = require('./../Description');
+var TypeSafeMatcher = require('./TypeSafeMatcher');
+var isMatcher = require('./Matcher').isMatcher;
 
 function matches(target) {
 	return _.create(new TypeSafeMatcher(), {
@@ -2012,7 +2012,7 @@ function matches(target) {
 
 module.exports = matches;
 
-},{"./../Description":2,"./Matcher":39,"./TypeSafeMatcher":42}],49:[function(_dereq_,module,exports){
+},{"./../Description":2,"./Matcher":39,"./TypeSafeMatcher":42}],49:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
@@ -2091,14 +2091,14 @@ var promiseAgnostic = {
 
 module.exports = promiseAgnostic;
 
-},{}],50:[function(_dereq_,module,exports){
+},{}],50:[function(require,module,exports){
 'use strict';
 
 var _ = (window._);
-var func = _dereq_('./IsFunction').func;
-var anything = _dereq_('./IsAnything').anything;
-var asMatcher = _dereq_('./IsEqual').asMatcher;
-var getType = _dereq_('../utils/getType');
+var func = require('./IsFunction').func;
+var anything = require('./IsAnything').anything;
+var asMatcher = require('./IsEqual').asMatcher;
+var getType = require('../utils/getType');
 
 module.exports = function returns(resultMatcherOrValue) {
 	var resultMatcher = resultMatcherOrValue ? asMatcher(resultMatcherOrValue) : anything();
@@ -2134,11 +2134,11 @@ module.exports = function returns(resultMatcherOrValue) {
 	});
 };
 
-},{"../utils/getType":54,"./IsAnything":13,"./IsEqual":24,"./IsFunction":26}],51:[function(_dereq_,module,exports){
+},{"../utils/getType":54,"./IsAnything":13,"./IsEqual":24,"./IsFunction":26}],51:[function(require,module,exports){
 'use strict';
 
 var _ = (window._)
-	, Matcher = _dereq_('./Matcher')
+	, Matcher = require('./Matcher')
 	;
 
 function truthy() {
@@ -2154,12 +2154,12 @@ function truthy() {
 
 module.exports = truthy;
 
-},{"./Matcher":39}],52:[function(_dereq_,module,exports){
+},{"./Matcher":39}],52:[function(require,module,exports){
 'use strict';
 
-var asMatcher = _dereq_('./IsEqual').asMatcher;
-var getType = _dereq_('../utils/getType');
-var getTypeName = _dereq_('../utils/getTypeName');
+var asMatcher = require('./IsEqual').asMatcher;
+var getType = require('../utils/getType');
+var getTypeName = require('../utils/getTypeName');
 
 module.exports = function typedError(errorType, messageMatcherOrValue) {
 	var messageMatcher = asMatcher(messageMatcherOrValue);
@@ -2201,12 +2201,12 @@ module.exports = function typedError(errorType, messageMatcherOrValue) {
 	};
 };
 
-},{"../utils/getType":54,"../utils/getTypeName":55,"./IsEqual":24}],53:[function(_dereq_,module,exports){
+},{"../utils/getType":54,"../utils/getTypeName":55,"./IsEqual":24}],53:[function(require,module,exports){
 'use strict';
 
 var q = (window.Q);
-var AssertionError = _dereq_('assertion-error');
-var Description = _dereq_('./Description');
+var AssertionError = require('assertion-error');
+var Description = require('./Description');
 var _ = (window._);
 
 function promiseThat(reason, actual, matcher) {
@@ -2249,10 +2249,10 @@ function promiseThat(reason, actual, matcher) {
 module.exports = promiseThat;
 
 
-},{"./Description":2,"assertion-error":56}],54:[function(_dereq_,module,exports){
+},{"./Description":2,"assertion-error":56}],54:[function(require,module,exports){
 'use strict';
 
-var getTypeName = _dereq_('./getTypeName');
+var getTypeName = require('./getTypeName');
 
 module.exports = function (value) {
 	if (!value.constructor) {
@@ -2261,7 +2261,7 @@ module.exports = function (value) {
 	return getTypeName(value.constructor);
 };
 
-},{"./getTypeName":55}],55:[function(_dereq_,module,exports){
+},{"./getTypeName":55}],55:[function(require,module,exports){
 'use strict';
 
 module.exports = function getName(type) {
@@ -2272,7 +2272,7 @@ module.exports = function getName(type) {
 	return type.name;
 };
 
-},{}],56:[function(_dereq_,module,exports){
+},{}],56:[function(require,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
@@ -2386,6 +2386,4 @@ AssertionError.prototype.toJSON = function (stack) {
   return props;
 };
 
-},{}]},{},[1])
-(1)
-});
+},{}]},{},[1]);
