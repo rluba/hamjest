@@ -57,10 +57,12 @@ module.exports = function (grunt) {
 				src: ['hamjest.js'],
 				dest: 'dist/hamjest.js',
 				options: {
-					'global-shim': {
-						'lodash': '_',
-						'q': 'Q'
-					},
+					transform: [
+						[{
+							'lodash': '_',
+							'q': 'Q'
+						}, 'browserify-global-shim']
+					],
 					standalone: 'hamjest'
 				}
 			},
