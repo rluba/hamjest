@@ -57,6 +57,7 @@ gulp.task('test:browser', ['build'], function (done) {
 gulp.task('build', ['lint', 'test'], function () {
 	var b = browserify({
 		entries: './index.js',
+		standalone: 'hamjest',
 		debug: true
 	});
 
