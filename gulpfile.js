@@ -13,7 +13,9 @@ var jsFiles = [
 	'test/**/*.js'
 ];
 
-gulp.task('default', ['build']);
+gulp.task('default', ['clean'], function () {
+	return gulp.start(['build']);
+});
 
 gulp.task('lint', function () {
 	return gulp.src(jsFiles)
@@ -49,8 +51,8 @@ gulp.task('build', ['lint', 'test'], function () {
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('clean', function (done) {
-	del('./dist', done);
+gulp.task('clean', function () {
+	return del('./dist');
 });
 
 gulp.task('dev', function () {
