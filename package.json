@@ -54,7 +54,8 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "lint": "grunt jshint"
+    "test": "gulp test",
+    "lint": "gulp lint",
+    "build": "gulp build"
   }
 }
