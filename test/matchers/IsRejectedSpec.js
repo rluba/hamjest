@@ -143,7 +143,7 @@ describe('IsRejected', function () {
 					var actual = q.reject('another reason');
 
 					sut.describeMismatch(actual, description).done(function () {
-						__.assertThat(description.get(), __.equalTo('was rejected with "another reason"'));
+						__.assertThat(description.get(), __.equalTo('rejection value was "another reason"'));
 						done();
 					});
 				});
@@ -223,11 +223,11 @@ describe('IsRejected', function () {
 					});
 				});
 
-				it('should contain mismatched reason', function (done) {
+				it('should contain mismatched description', function (done) {
 					var actual = q.reject('another reason');
 
 					sut.describeMismatch(actual, description).done(function () {
-						__.assertThat(description.get(), __.equalTo('was rejected with "another reason"'));
+						__.assertThat(description.get(), __.equalTo('rejection value was "another reason"'));
 						done();
 					});
 				});
