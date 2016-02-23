@@ -6,6 +6,7 @@ var browserify = require('browserify');
 var del = require('del');
 var sourceStream = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var KarmaServer = require('karma').Server;
 
 var jsFiles = [
 	'*.js',
@@ -14,7 +15,7 @@ var jsFiles = [
 ];
 
 gulp.task('default', ['clean'], function () {
-	return gulp.start(['build']);
+	return gulp.start(['build', 'test:browser']);
 });
 
 gulp.task('lint', function () {
@@ -34,6 +35,23 @@ gulp.task('test:node', function () {
 		.pipe($.mocha({
 			reporter: 'spec'
 		}));
+});
+
+gulp.task('test:browser', ['build'], function (done) {
+	var karmaConfig = {
+		browsers: ['Chrome', 'Firefox'],
+		frameworks: ['mocha'],
+		reporters: ['progress'],
+		autoWatch: false,
+		singleRun: true,
+		files: [
+			'dist/hamjest.js',
+			'test/browser/**/*.js'
+		]
+	};
+
+	var server = new KarmaServer(karmaConfig, done);
+	server.start();
 });
 
 gulp.task('build', ['lint', 'test'], function () {
