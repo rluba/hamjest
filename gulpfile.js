@@ -22,13 +22,15 @@ gulp.task('lint', function () {
 		.pipe($.eslint())
 		.pipe($.eslint.format())
 		.pipe($.eslint.failAfterError())
-        .pipe($.jscs())
-        .pipe($.jscs.reporter())
-        .pipe($.jscs.reporter('fail'));
+		.pipe($.jscs())
+		.pipe($.jscs.reporter())
+		.pipe($.jscs.reporter('fail'));
 });
 
-gulp.task('test', function () {
-	return gulp.src('test/**/*Spec.js', {read: false})
+gulp.task('test', ['test:node']);
+
+gulp.task('test:node', function () {
+	return gulp.src('test/node/**/*Spec.js', {read: false})
 		.pipe($.mocha({
 			reporter: 'spec'
 		}));
@@ -36,7 +38,7 @@ gulp.task('test', function () {
 
 gulp.task('build', ['lint', 'test'], function () {
 	var b = browserify({
-		entries: './hamjest.js',
+		entries: './index.js',
 		debug: true
 	});
 

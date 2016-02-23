@@ -1,0 +1,10 @@
+{
+	env: {
+		node: false,
+		browser: true
+	},
+	rules: {
+		'strict': [2, 'function'],
+		'no-console': 2
+	}
+}
