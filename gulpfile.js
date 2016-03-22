@@ -1,24 +1,24 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
-var browserify = require('browserify');
-var del = require('del');
-var sourceStream = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var KarmaServer = require('karma').Server;
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
+const browserify = require('browserify');
+const del = require('del');
+const sourceStream = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const KarmaServer = require('karma').Server;
 
-var jsFiles = [
+const jsFiles = [
 	'*.js',
 	'lib/**/*.js',
 	'test/**/*.js'
 ];
 
-gulp.task('default', ['clean'], function () {
+gulp.task('default', ['clean'], () => {
 	return gulp.start(['build', 'test:browser']);
 });
 
-gulp.task('lint', function () {
+gulp.task('lint', () => {
 	return gulp.src(jsFiles)
 		.pipe($.eslint())
 		.pipe($.eslint.format())
@@ -30,15 +30,15 @@ gulp.task('lint', function () {
 
 gulp.task('test', ['test:node']);
 
-gulp.task('test:node', function () {
+gulp.task('test:node', () => {
 	return gulp.src('test/node/**/*Spec.js', {read: false})
 		.pipe($.mocha({
 			reporter: 'spec'
 		}));
 });
 
-gulp.task('test:browser', ['build'], function (done) {
-	var karmaConfig = {
+gulp.task('test:browser', ['build'], (done) => {
+	const karmaConfig = {
 		browsers: ['Chrome', 'Firefox'],
 		frameworks: ['mocha'],
 		reporters: ['progress'],
@@ -50,16 +50,16 @@ gulp.task('test:browser', ['build'], function (done) {
 		]
 	};
 
-	var server = new KarmaServer(karmaConfig, done);
+	const server = new KarmaServer(karmaConfig, done);
 	server.start();
 });
 
-gulp.task('build', ['lint', 'test'], function () {
-	var b = browserify({
+gulp.task('build', ['lint', 'test'], () => {
+	const b = browserify({
 		entries: './index.js',
 		standalone: 'hamjest',
 		debug: true
-	});
+	}).transform('babelify', {presets: ['es2015']});
 
 	return b.bundle()
 		.pipe(sourceStream('hamjest.js'))
@@ -72,10 +72,10 @@ gulp.task('build', ['lint', 'test'], function () {
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
 	return del('./dist');
 });
 
-gulp.task('dev', function () {
+gulp.task('dev', () => {
 	gulp.watch(jsFiles, ['lint', 'test']);
 });

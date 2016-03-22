@@ -1,33 +1,33 @@
 'use strict';
 
-var __ = require('../../../lib/hamjest');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
+const __ = require('../../../lib/hamjest');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
 
-describe('AnyOf', function () {
+describe('AnyOf', () => {
 
-	describe('anyOf', function () {
-		var sut;
-		beforeEach(function () {
+	describe('anyOf', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.anyOf('expected value', __.containsString('some'));
 		});
 
-		it('should match if any matcher matches', function () {
+		it('should match if any matcher matches', () => {
 			assertTrue(sut.matches('expected value'));
 			assertTrue(sut.matches('some value'));
 		});
 
-		it('should not match if no matcher matches', function () {
+		it('should not match if no matcher matches', () => {
 			assertFalse(sut.matches('different value'));
 		});
 
-		describe('description', function () {
-			var description;
-			beforeEach(function () {
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain each matcher', function () {
+			it('should contain each matcher', () => {
 
 				sut.describeTo(description);
 

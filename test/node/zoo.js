@@ -1,8 +1,8 @@
 'use strict';
 
-var _ = require('lodash');
-var assertTrue = require('./asserts').assertTrue;
-var assertFalse = require('./asserts').assertFalse;
+const _ = require('lodash');
+const assertTrue = require('./asserts').assertTrue;
+const assertFalse = require('./asserts').assertFalse;
 
 // Simple object hierarchy for testing
 function Animal(name) {

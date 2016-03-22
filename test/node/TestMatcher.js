@@ -1,10 +1,10 @@
 'use strict';
 
-var _ = require('lodash');
-var __ = require('../..');
+const _ = require('lodash');
+const __ = require('../..');
 
-var TestMatcher = function (matchesFn) {
-	matchesFn = matchesFn || function () { return true; };
+const TestMatcher = function (matchesFn) {
+	matchesFn = matchesFn || (() => true);
 	return _.create(new __.Matcher(), {
 		matches: matchesFn,
 		describeTo: function (description) {

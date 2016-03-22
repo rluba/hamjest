@@ -1,17 +1,17 @@
 'use strict';
 
-var _ = require('lodash');
-var __ = require('../../..');
+const _ = require('lodash');
+const __ = require('../../..');
 
-describe('typedError', function () {
-	it('should match if type and message string match', function () {
-		var sut = __.typedError(Error, 'Just a message');
+describe('typedError', () => {
+	it('should match if type and message string match', () => {
+		const sut = __.typedError(Error, 'Just a message');
 
 		__.assertThat(sut, __.matches(new Error('Just a message')));
 	});
 
-	it('should match if type and message matcher match', function () {
-		var sut = __.typedError(Error, __.containsString('Just'));
+	it('should match if type and message matcher match', () => {
+		const sut = __.typedError(Error, __.containsString('Just'));
 
 		__.assertThat(sut, __.matches(new Error('Just another message')));
 	});
@@ -22,19 +22,19 @@ describe('typedError', function () {
 		[new Error('Unexpected message'), 'message was "Unexpected message"'],
 		[{message: 'Very expected'}, 'type was Object'],
 		[{message: 'Unexpected message'}, 'type was Object, message was "Unexpected message"'],
-	], function (args) {
-		var error = args[0];
-		var expectedDescription = args[1];
-		it('should not match if type or message do not match: ' + error, function () {
-			var sut = __.typedError(Error, __.containsString('Very expected'));
+	], (args) => {
+		const error = args[0];
+		const expectedDescription = args[1];
+		it('should not match if type or message do not match: ' + error, () => {
+			const sut = __.typedError(Error, __.containsString('Very expected'));
 
 			__.assertThat(sut, __.failsToMatch(error, expectedDescription));
 		});
 	});
 
-	describe('description', function () {
-		it('should contain expected type and message', function () {
-			var sut = __.typedError(Error, __.containsString('Very expected'));
+	describe('description', () => {
+		it('should contain expected type and message', () => {
+			const sut = __.typedError(Error, __.containsString('Very expected'));
 
 			__.assertThat(sut, __.hasDescription('an error of type Error with message a string containing "Very expected"'));
 		});

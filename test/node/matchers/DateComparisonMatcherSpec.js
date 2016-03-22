@@ -1,27 +1,27 @@
 'use strict';
 
-var AssertionError = require('assertion-error');
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
+const AssertionError = require('assertion-error');
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
 
-describe('DateComparisonMatcher', function () {
+describe('DateComparisonMatcher', () => {
 
-	var thresholdDate = new Date('2014-07-14T12:00:00');
+	const thresholdDate = new Date('2014-07-14T12:00:00');
 
-	describe('after', function () {
-		var sut;
-		beforeEach(function () {
+	describe('after', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.after(thresholdDate);
 		});
 
-		it('should throw for non-date arguments', function () {
-			__.assertThat(function () {
+		it('should throw for non-date arguments', () => {
+			__.assertThat(() => {
 				__.after(5);
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
-		it('should match dates correctly', function () {
+		it('should match dates correctly', () => {
 			assertTrue(sut.matches(new Date('2014-07-15T11:00:00')));
 			assertTrue(sut.matches(new Date('2014-07-14T13:00:00')));
 			assertFalse(sut.matches(new Date('2014-07-14T12:00:00')));
@@ -29,33 +29,33 @@ describe('DateComparisonMatcher', function () {
 			assertFalse(sut.matches(new Date('2014-07-13T13:00:00')));
 		});
 
-		it('should not match non-dates', function () {
+		it('should not match non-dates', () => {
 			assertFalse(sut.matches());
 			assertFalse(sut.matches(8));
 		});
 
-		describe('description', function () {
-			var description;
-			beforeEach(function () {
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain value', function () {
+			it('should contain value', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('a date after "2014-07-14T12:00:00.000Z"'));
 			});
 
-			it('should contain mismatched date', function () {
-				var mismatch = new Date('2014-07-14T11:00:00');
+			it('should contain mismatched date', () => {
+				const mismatch = new Date('2014-07-14T11:00:00');
 
 				sut.describeMismatch(mismatch, description);
 
 				__.assertThat(description.get(), __.equalTo('was "2014-07-14T11:00:00.000Z"'));
 			});
 
-			it('should contain non-date values', function () {
+			it('should contain non-date values', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 
@@ -64,19 +64,19 @@ describe('DateComparisonMatcher', function () {
 		});
 	});
 
-	describe('afterOrEqualTo', function () {
-		var sut;
-		beforeEach(function () {
+	describe('afterOrEqualTo', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.afterOrEqualTo(thresholdDate);
 		});
 
-		it('should throw for non-date arguments', function () {
-			__.assertThat(function () {
+		it('should throw for non-date arguments', () => {
+			__.assertThat(() => {
 				__.afterOrEqualTo(5);
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
-		it('should match dates correctly', function () {
+		it('should match dates correctly', () => {
 			assertTrue(sut.matches(new Date('2014-07-15T11:00:00')));
 			assertTrue(sut.matches(new Date('2014-07-14T13:00:00')));
 			assertTrue(sut.matches(new Date('2014-07-14T12:00:00')));
@@ -84,33 +84,33 @@ describe('DateComparisonMatcher', function () {
 			assertFalse(sut.matches(new Date('2014-07-13T13:00:00')));
 		});
 
-		it('should not match non-dates', function () {
+		it('should not match non-dates', () => {
 			assertFalse(sut.matches());
 			assertFalse(sut.matches(8));
 		});
 
-		describe('description', function () {
-			var description;
-			beforeEach(function () {
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain value', function () {
+			it('should contain value', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('a date after or equal to "2014-07-14T12:00:00.000Z"'));
 			});
 
-			it('should contain mismatched date', function () {
-				var mismatch = new Date('2014-07-14T11:00:00');
+			it('should contain mismatched date', () => {
+				const mismatch = new Date('2014-07-14T11:00:00');
 
 				sut.describeMismatch(mismatch, description);
 
 				__.assertThat(description.get(), __.equalTo('was "2014-07-14T11:00:00.000Z"'));
 			});
 
-			it('should contain non-date values', function () {
+			it('should contain non-date values', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 
@@ -119,19 +119,19 @@ describe('DateComparisonMatcher', function () {
 		});
 	});
 
-	describe('before', function () {
-		var sut;
-		beforeEach(function () {
+	describe('before', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.before(thresholdDate);
 		});
 
-		it('should throw for non-date arguments', function () {
-			__.assertThat(function () {
+		it('should throw for non-date arguments', () => {
+			__.assertThat(() => {
 				__.before(5);
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
-		it('should match dates correctly', function () {
+		it('should match dates correctly', () => {
 			assertFalse(sut.matches(new Date('2014-07-15T11:00:00')));
 			assertFalse(sut.matches(new Date('2014-07-14T13:00:00')));
 			assertFalse(sut.matches(new Date('2014-07-14T12:00:00')));
@@ -139,33 +139,33 @@ describe('DateComparisonMatcher', function () {
 			assertTrue(sut.matches(new Date('2014-07-13T13:00:00')));
 		});
 
-		it('should not match non-dates', function () {
+		it('should not match non-dates', () => {
 			assertFalse(sut.matches());
 			assertFalse(sut.matches(8));
 		});
 
-		describe('description', function () {
-			var description;
-			beforeEach(function () {
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain value', function () {
+			it('should contain value', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('a date before "2014-07-14T12:00:00.000Z"'));
 			});
 
-			it('should contain mismatched date', function () {
-				var mismatch = new Date('2014-07-14T13:00:00');
+			it('should contain mismatched date', () => {
+				const mismatch = new Date('2014-07-14T13:00:00');
 
 				sut.describeMismatch(mismatch, description);
 
 				__.assertThat(description.get(), __.equalTo('was "2014-07-14T13:00:00.000Z"'));
 			});
 
-			it('should contain non-date values', function () {
+			it('should contain non-date values', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 
@@ -174,19 +174,19 @@ describe('DateComparisonMatcher', function () {
 		});
 	});
 
-	describe('beforeOrEqualTo', function () {
-		var sut;
-		beforeEach(function () {
+	describe('beforeOrEqualTo', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.beforeOrEqualTo(thresholdDate);
 		});
 
-		it('should throw for non-date arguments', function () {
-			__.assertThat(function () {
+		it('should throw for non-date arguments', () => {
+			__.assertThat(() => {
 				__.beforeOrEqualTo(5);
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
-		it('should match dates correctly', function () {
+		it('should match dates correctly', () => {
 			assertFalse(sut.matches(new Date('2014-07-15T11:00:00')));
 			assertFalse(sut.matches(new Date('2014-07-14T13:00:00')));
 			assertTrue(sut.matches(new Date('2014-07-14T12:00:00')));
@@ -194,33 +194,33 @@ describe('DateComparisonMatcher', function () {
 			assertTrue(sut.matches(new Date('2014-07-13T13:00:00')));
 		});
 
-		it('should not match non-dates', function () {
+		it('should not match non-dates', () => {
 			assertFalse(sut.matches());
 			assertFalse(sut.matches(8));
 		});
 
-		describe('description', function () {
-			var description;
-			beforeEach(function () {
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain value', function () {
+			it('should contain value', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('a date before or equal to "2014-07-14T12:00:00.000Z"'));
 			});
 
-			it('should contain mismatched date', function () {
-				var mismatch = new Date('2014-07-14T13:00:00');
+			it('should contain mismatched date', () => {
+				const mismatch = new Date('2014-07-14T13:00:00');
 
 				sut.describeMismatch(mismatch, description);
 
 				__.assertThat(description.get(), __.equalTo('was "2014-07-14T13:00:00.000Z"'));
 			});
 
-			it('should contain non-date values', function () {
+			it('should contain non-date values', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 

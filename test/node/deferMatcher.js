@@ -1,13 +1,11 @@
 'use strict';
 
-var q = require('q');
+const q = require('q');
 
 function deferMatcher(matcher) {
 	return {
 		matches: function (actual) {
-			return q().then(function () {
-				return matcher.matches(actual);
-			});
+			return q().then(() => matcher.matches(actual));
 		},
 		describeTo: function (description) {
 			description.append('deferred: ');
@@ -15,9 +13,7 @@ function deferMatcher(matcher) {
 		},
 		describeMismatch: function (actual, description) {
 			description.append('deferred: ');
-			return q().then(function () {
-				return matcher.describeMismatch(actual, description);
-			});
+			return q().then(() => matcher.describeMismatch(actual, description));
 		}
 	};
 }

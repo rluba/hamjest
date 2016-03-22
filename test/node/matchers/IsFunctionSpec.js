@@ -1,48 +1,48 @@
 'use strict';
 
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
 
-describe('IsFunction', function () {
+describe('IsFunction', () => {
 
-	describe('func', function () {
-		var sut;
-		beforeEach(function () {
+	describe('func', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.func();
 		});
 
-		it('should match any func', function () {
+		it('should match any func', () => {
 			function namedFunction() {
 
 			}
-			assertTrue(sut.matches(function () {}));
+			assertTrue(sut.matches(() => {}));
 			assertTrue(sut.matches(namedFunction));
 			assertTrue(sut.matches(String));
 			assertTrue(sut.matches(__.Description));
 		});
 
-		it('should not match non-funcs', function () {
+		it('should not match non-funcs', () => {
 			assertFalse(sut.matches(7));
 			assertFalse(sut.matches({}));
 			assertFalse(sut.matches('a string'));
 		});
 
-		describe('description', function () {
-			var description;
+		describe('description', () => {
+			let description;
 
-			beforeEach(function () {
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should be nice', function () {
+			it('should be nice', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('a function'));
 			});
 
-			it('should contain non-func values', function () {
+			it('should contain non-func values', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 

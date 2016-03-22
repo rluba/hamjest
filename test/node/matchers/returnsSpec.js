@@ -1,49 +1,49 @@
 'use strict';
 
-var _ = require('lodash');
-var __ = require('../../..');
+const _ = require('lodash');
+const __ = require('../../..');
 
-describe('returns(valueOrMatcher)', function () {
+describe('returns(valueOrMatcher)', () => {
 
-	describe('without an argument', function () {
-		it('should match if the given function returns', function () {
-			var sut = __.returns();
+	describe('without an argument', () => {
+		it('should match if the given function returns', () => {
+			const sut = __.returns();
 
 			__.assertThat(sut, __.matches(_.constant(null)));
 		});
 
-		describe('description', function () {
-			it('should be concise', function () {
-				var sut = __.returns();
+		describe('description', () => {
+			it('should be concise', () => {
+				const sut = __.returns();
 
 				__.assertThat(sut, __.hasDescription('a function returning anything'));
 			});
 		});
 	});
 
-	describe('with a value argument', function () {
-		it('should match if the given function\'s return value matches the given value', function () {
-			var sut = __.returns('the one true value');
+	describe('with a value argument', () => {
+		it('should match if the given function\'s return value matches the given value', () => {
+			const sut = __.returns('the one true value');
 
 			__.assertThat(sut, __.matches(_.constant('the one true value')));
 		});
 
-		it('should not match if return value does not match', function () {
-			var sut = __.returns('the one true value');
+		it('should not match if return value does not match', () => {
+			const sut = __.returns('the one true value');
 
 			__.assertThat(sut, __.failsToMatch(_.constant('unexpected'), 'return value was "unexpected"'));
 		});
 	});
 
-	describe('with a matcher argument', function () {
-		it('should match if the given function\'s return value matches the given matcher', function () {
-			var sut = __.returns(__.containsString('true value'));
+	describe('with a matcher argument', () => {
+		it('should match if the given function\'s return value matches the given matcher', () => {
+			const sut = __.returns(__.containsString('true value'));
 
 			__.assertThat(sut, __.matches(_.constant('the one true value')));
 		});
 
-		it('should not match if return value does not match', function () {
-			var sut = __.returns(__.containsString('Very expected'));
+		it('should not match if return value does not match', () => {
+			const sut = __.returns(__.containsString('Very expected'));
 
 			__.assertThat(sut, __.failsToMatch(_.constant('unexpected'), 'return value was "unexpected"'));
 		});
@@ -52,11 +52,11 @@ describe('returns(valueOrMatcher)', function () {
 	_.forEach([
 		[undefined, 'was undefined'],
 		[null, 'was null'],
-	], function (args) {
-		var fn = args[0];
-		var expectedDescription = args[1];
-		it('should not match if given value is not a function: ' + fn, function () {
-			var sut = __.returns(__.anything());
+	], (args) => {
+		const fn = args[0];
+		const expectedDescription = args[1];
+		it('should not match if given value is not a function: ' + fn, () => {
+			const sut = __.returns(__.anything());
 
 			__.assertThat(sut, __.failsToMatch(fn, expectedDescription));
 		});
@@ -65,19 +65,19 @@ describe('returns(valueOrMatcher)', function () {
 	_.forEach([
 		[function throwsMessageError() {throw new Error('Bad');}, 'function threw Error: "Bad"'],
 		[function throwsError() {throw new Error();}, 'function threw Error']
-	], function (args) {
-		var fn = args[0];
-		var expectedDescription = args[1];
-		it('should describe error if given function throws: ' + fn, function () {
-			var sut = __.returns(__.anything());
+	], (args) => {
+		const fn = args[0];
+		const expectedDescription = args[1];
+		it('should describe error if given function throws: ' + fn, () => {
+			const sut = __.returns(__.anything());
 
 			__.assertThat(sut, __.failsToMatch(fn, expectedDescription));
 		});
 	});
 
-	describe('description', function () {
-		it('should contain return value matcher\'s description', function () {
-			var sut = __.returns(__.containsString('Very expected'));
+	describe('description', () => {
+		it('should contain return value matcher\'s description', () => {
+			const sut = __.returns(__.containsString('Very expected'));
 
 			__.assertThat(sut, __.hasDescription('a function returning a string containing "Very expected"'));
 		});

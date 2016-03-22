@@ -1,53 +1,53 @@
 'use strict';
 
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
 
-describe('Matcher', function () {
+describe('Matcher', () => {
 
-	describe('isMatcher', function () {
+	describe('isMatcher', () => {
 
-		it('returns true for Matchers', function () {
+		it('returns true for Matchers', () => {
 			assertTrue(__.isMatcher(new __.Matcher()));
 			assertTrue(__.isMatcher(__.equalTo('a value')));
 		});
 
-		it('requires all methods', function () {
+		it('requires all methods', () => {
 			assertFalse(__.isMatcher({
-				matches: function () {},
-				describeTo: function () {}
+				matches: () => {},
+				describeTo: () => {}
 			}));
 			assertFalse(__.isMatcher({
-				matches: function () {},
-				describeMismatch: function () {}
+				matches: () => {},
+				describeMismatch: () => {}
 			}));
 			assertFalse(__.isMatcher({
-				describeTo: function () {},
-				describeMismatch: function () {}
+				describeTo: () => {},
+				describeMismatch: () => {}
 			}));
 			assertFalse(__.isMatcher({
-				matches: function () {},
+				matches: () => {},
 				describeTo: 'not a function',
-				describeMismatch: function () {}
+				describeMismatch: () => {}
 			}));
 
 			assertTrue(__.isMatcher({
-				matches: function () {},
-				describeTo: function () {},
-				describeMismatch: function () {}
+				matches: () => {},
+				describeTo: () => {},
+				describeMismatch: () => {}
 			}));
 		});
 
-		it('should return false for null', function () {
+		it('should return false for null', () => {
 			assertFalse(__.isMatcher(null));
 		});
 
-		it('should return false for undefined', function () {
+		it('should return false for undefined', () => {
 			assertFalse(__.isMatcher(undefined));
 		});
 
-		it('should return false for arrays', function () {
+		it('should return false for arrays', () => {
 			assertFalse(__.isMatcher([]));
 		});
 	});
