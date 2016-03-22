@@ -59,7 +59,7 @@ gulp.task('build', ['lint', 'test'], () => {
 		entries: './index.js',
 		standalone: 'hamjest',
 		debug: true
-	});
+	}).transform('babelify', {presets: ['es2015']});
 
 	return b.bundle()
 		.pipe(sourceStream('hamjest.js'))
