@@ -1,9 +1,9 @@
 'use strict';
 
-const q = require('q');
+const _ = require('lodash');
+const assert = require('assert');
+
 const __ = require('../../../lib/hamjest');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 const deferMatcher = require('../deferMatcher');
 
 describe('AllOf', () => {
@@ -15,13 +15,13 @@ describe('AllOf', () => {
 		});
 
 		it('should match if every matcher matches', () => {
-			assertTrue(sut.matches('expected value'));
-			assertTrue(sut.matches('value expected'));
+			assert.ok(sut.matches('expected value'));
+			assert.ok(sut.matches('value expected'));
 		});
 
 		it('should not match if one matcher does not match', () => {
-			assertFalse(sut.matches('expected valu'));
-			assertFalse(sut.matches('expecte value'));
+			assert.equal(sut.matches('expected valu'), false);
+			assert.equal(sut.matches('expecte value'), false);
 		});
 
 		describe('description', () => {
@@ -53,27 +53,30 @@ describe('AllOf', () => {
 
 			it('should return a promise if any of the matchers returns a promise', () => {
 
-				assertTrue(q.isPromise(sut.matches('expected value')));
+				const result = sut.matches('expected value');
+
+				assert.ok(result);
+				assert.ok(_.isFunction(result.then));
 			});
 
 			it('should resolve to false if a matcher returns a promise resolving to false', () => {
 
 				return sut.matches('expected valu').then((value) => {
-					assertFalse(value);
+					assert.equal(value, false);
 				});
 			});
 
 			it('should resolve to false if a matcher returns false', () => {
 
 				return sut.matches('other value').then((value) => {
-					assertFalse(value);
+					assert.equal(value, false);
 				});
 			});
 
 			it('should resolve to true if all matchers resolve to true', () => {
 
 				return sut.matches('expected value').then((value) => {
-					assertTrue(value);
+					assert.ok(value);
 				});
 			});
 

@@ -1,11 +1,11 @@
 'use strict';
 
-const q = require('q');
+const Bluebird = require('bluebird');
 
 function deferMatcher(matcher) {
 	return {
 		matches: function (actual) {
-			return q().then(() => matcher.matches(actual));
+			return Bluebird.try(() => matcher.matches(actual));
 		},
 		describeTo: function (description) {
 			description.append('deferred: ');
@@ -13,7 +13,7 @@ function deferMatcher(matcher) {
 		},
 		describeMismatch: function (actual, description) {
 			description.append('deferred: ');
-			return q().then(() => matcher.describeMismatch(actual, description));
+			return Bluebird.try(() => matcher.describeMismatch(actual, description));
 		}
 	};
 }

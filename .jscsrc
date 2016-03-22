@@ -1,8 +1,7 @@
 {
 	"preset": "leanbyte",
 	"excludeFiles": [
-		"node_modules",
-		"app/bower_components",
-		"build"
+		"node_modules/**",
+		"build/**"
 	]
 }

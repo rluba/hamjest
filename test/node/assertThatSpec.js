@@ -1,7 +1,8 @@
 'use strict';
 
-const q = require('q');
 const AssertionError = require('assertion-error');
+const Bluebird = require('bluebird');
+
 const __ = require('../..');
 const assertTrue = require('./asserts').assertTrue;
 const assertEquals = require('./asserts').assertEquals;
@@ -79,7 +80,7 @@ describe('assertThat', () => {
 		let thrown;
 
 		try {
-			__.assertThat('a value', new TestMatcher(() => q(true)));
+			__.assertThat('a value', new TestMatcher(() => Bluebird.resolve(true)));
 		}
 		catch (e) {
 			thrown = e;

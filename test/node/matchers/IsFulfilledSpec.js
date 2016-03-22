@@ -1,9 +1,10 @@
 'use strict';
 
-const q = require('q');
+const _ = require('lodash');
+const assert = require('assert');
+const Bluebird = require('bluebird');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsFulfilled', () => {
 
@@ -19,38 +20,40 @@ describe('IsFulfilled', () => {
 			});
 
 			it('should return a promise', () => {
-				const aFulfilledPromise = q('a value');
+				const aFulfilledPromise = Bluebird.resolve('a value');
 
-				assertTrue(q.isPromise(sut.matches(aFulfilledPromise)));
+				const result = sut.matches(aFulfilledPromise);
+
+				assert.ok(result);
+				assert.ok(_.isFunction(result.then));
 			});
 
-			it('should match fulfilled promises', (done) => {
-				const aFulfilledPromise = q('a value');
+			it('should match fulfilled promises', () => {
+				const aFulfilledPromise = Bluebird.resolve('a value');
 
-				sut.matches(aFulfilledPromise).done((value) => {
-					assertTrue(value);
-					done();
+				return sut.matches(aFulfilledPromise).then((value) => {
+					assert.ok(value);
 				});
 			});
 
-			it('should not match rejected promises', (done) => {
-				const aRejectedPromise = q.reject('rejected for a reason');
+			it('should not match rejected promises', () => {
+				const aRejectedPromise = Bluebird.reject(new Error('rejected for a reason'));
 
-				sut.matches(aRejectedPromise).done((value) => {
-					assertFalse(value);
-					done();
+				return sut.matches(aRejectedPromise).then((value) => {
+					assert.equal(value, false);
 				});
 			});
 
 			it('should wait for pending promises', (done) => {
-				const deferred = q.defer();
+				let resolveFn;
+				const deferred = new Bluebird((resolve) => resolveFn = resolve);
 
-				sut.matches(deferred.promise).done((value) => {
-					assertTrue(value);
-					done();
-				});
+				sut.matches(deferred).then((value) => {
+					assert.ok(value);
+				})
+				.nodeify(done);
 
-				deferred.resolve();
+				resolveFn();
 			});
 
 			it('should describe nicely', () => {
@@ -69,47 +72,48 @@ describe('IsFulfilled', () => {
 			});
 
 			it('should return a promise', () => {
-				const aFulfilledPromise = q('a value');
+				const aFulfilledPromise = Bluebird.resolve('a value');
 
-				assertTrue(q.isPromise(sut.matches(aFulfilledPromise)));
+				const result = sut.matches(aFulfilledPromise);
+
+				assert.ok(result);
+				assert.ok(_.isFunction(result.then));
 			});
 
-			it('should match fulfilled promise with equivalent value', (done) => {
-				const aFulfilledPromise = q('a value');
+			it('should match fulfilled promise with equivalent value', () => {
+				const aFulfilledPromise = Bluebird.resolve('a value');
 
-				sut.matches(aFulfilledPromise).done((value) => {
-					assertTrue(value);
-					done();
+				return sut.matches(aFulfilledPromise).then((value) => {
+					assert.ok(value);
 				});
 			});
 
-			it('should not match fulfilled promise with different value', (done) => {
-				const aFulfilledPromise = q('another value');
+			it('should not match fulfilled promise with different value', () => {
+				const aFulfilledPromise = Bluebird.resolve('another value');
 
-				sut.matches(aFulfilledPromise).done((value) => {
-					assertFalse(value);
-					done();
+				return sut.matches(aFulfilledPromise).then((value) => {
+					assert.equal(value, false);
 				});
 			});
 
-			it('should not match rejected promise with expected value reason', (done) => {
-				const aRejectedPromise = q.reject('a value');
+			it('should not match rejected promise', () => {
+				const aRejectedPromise = Bluebird.reject(new Error('a value'));
 
-				sut.matches(aRejectedPromise).done((value) => {
-					assertFalse(value);
-					done();
+				return sut.matches(aRejectedPromise).then((value) => {
+					assert.equal(value, false);
 				});
 			});
 
 			it('should wait for pending promises', (done) => {
-				const deferred = q.defer();
+				let resolveFn;
+				const deferred = new Bluebird((resolve) => resolveFn = resolve);
 
-				sut.matches(deferred.promise).done((value) => {
-					assertTrue(value);
-					done();
-				});
+				sut.matches(deferred).then((value) => {
+					assert.ok(value);
+				})
+				.nodeify(done);
 
-				deferred.resolve('a value');
+				resolveFn('a value');
 			});
 
 			describe('description', () => {
@@ -125,21 +129,19 @@ describe('IsFulfilled', () => {
 					__.assertThat(description.get(), __.equalTo('a promise fulfilled with "a value"'));
 				});
 
-				it('should contain mismatched value', (done) => {
-					const actual = q('another value');
+				it('should contain mismatched value', () => {
+					const actual = Bluebird.resolve('another value');
 
-					sut.describeMismatch(actual, description).done(() => {
+					return sut.describeMismatch(actual, description).then(() => {
 						__.assertThat(description.get(), __.equalTo('fulfillment value: was "another value"'));
-						done();
 					});
 				});
 
-				it('should contain rejected reason', (done) => {
-					const actual = q.reject('for a reason');
+				it('should contain rejected reason', () => {
+					const actual = Bluebird.reject(new Error('for a reason'));
 
-					sut.describeMismatch(actual, description).done(() => {
+					return sut.describeMismatch(actual, description).then(() => {
 						__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('rejected'), __.containsString('"for a reason"')));
-						done();
 					});
 				});
 			});
@@ -151,42 +153,40 @@ describe('IsFulfilled', () => {
 				sut = __.fulfilled(__.containsString('expected'));
 			});
 
-			it('should match fulfilled promise with matching values', (done) => {
-				const aFulfilledPromise = q('expected value');
+			it('should match fulfilled promise with matching values', () => {
+				const aFulfilledPromise = Bluebird.resolve('expected value');
 
-				sut.matches(aFulfilledPromise).done((value) => {
-					assertTrue(value);
-					done();
+				return sut.matches(aFulfilledPromise).then((value) => {
+					assert.ok(value);
 				});
 			});
 
-			it('should not match fulfilled promise with nonmatching value', (done) => {
-				const aFulfilledPromise = q('another value');
+			it('should not match fulfilled promise with nonmatching value', () => {
+				const aFulfilledPromise = Bluebird.resolve('another value');
 
-				sut.matches(aFulfilledPromise).done((value) => {
-					assertFalse(value);
-					done();
+				return sut.matches(aFulfilledPromise).then((value) => {
+					assert.equal(value, false);
 				});
 			});
 
-			it('should not match rejected promise with matching reason', (done) => {
-				const aRejectedPromise = q.reject('rejected for expected reason');
+			it('should not match rejected promise', () => {
+				const aRejectedPromise = Bluebird.reject(new Error('rejected for expected reason'));
 
-				sut.matches(aRejectedPromise).done((value) => {
-					assertFalse(value);
-					done();
+				return sut.matches(aRejectedPromise).then((value) => {
+					assert.equal(value, false);
 				});
 			});
 
 			it('should wait for pending promises', (done) => {
-				const deferred = q.defer();
+				let resolveFn;
+				const deferred = new Bluebird((resolve) => resolveFn = resolve);
 
-				sut.matches(deferred.promise).done((value) => {
-					assertTrue(value);
-					done();
-				});
+				sut.matches(deferred).then((value) => {
+					assert.ok(value);
+				})
+				.nodeify(done);
 
-				deferred.resolve('expected value');
+				resolveFn('expected value');
 			});
 
 			describe('description', () => {
@@ -202,35 +202,32 @@ describe('IsFulfilled', () => {
 					__.assertThat(description.get(), __.equalTo('a promise fulfilled with a string containing "expected"'));
 				});
 
-				it('should contain mismatched value', (done) => {
-					const actual = q('another value');
+				it('should contain mismatched value', () => {
+					const actual = Bluebird.resolve('another value');
 
-					sut.describeMismatch(actual, description).done(() => {
+					return sut.describeMismatch(actual, description).then(() => {
 						__.assertThat(description.get(), __.equalTo('fulfillment value: was "another value"'));
-						done();
 					});
 				});
 
-				it('should contain mismatch description', (done) => {
+				it('should contain mismatch description', () => {
 					sut = __.fulfilled(__.hasProperties({
 						expected: 'value',
 						other: 'property'
 					}));
 
-					const actual = q({expected: 'another value', other: 'property'});
+					const actual = Bluebird.resolve({expected: 'another value', other: 'property'});
 
-					sut.describeMismatch(actual, description).done(() => {
+					return sut.describeMismatch(actual, description).then(() => {
 						__.assertThat(description.get(), __.equalTo('fulfillment value: expected was "another value"'));
-						done();
 					});
 				});
 
-				it('should contain rejected reason', (done) => {
-					const actual = q.reject('for a reason');
+				it('should contain rejected reason', () => {
+					const actual = Bluebird.reject(new Error('for a reason'));
 
-					sut.describeMismatch(actual, description).done(() => {
+					return sut.describeMismatch(actual, description).then(() => {
 						__.assertThat(description.get(), __.allOf(__.containsString('was'), __.containsString('rejected'), __.containsString('"for a reason"')));
-						done();
 					});
 				});
 			});
@@ -242,38 +239,37 @@ describe('IsFulfilled', () => {
 				sut = __.fulfilled(__.contains(__.willBe('expected')));
 			});
 
-			it('should match fulfilled promise with matching values', (done) => {
-				const aFulfilledPromise = q([
-					q('expected')
+			it('should match fulfilled promise with matching values', () => {
+				const aFulfilledPromise = Bluebird.resolve([
+					Bluebird.resolve('expected')
 				]);
 
-				sut.matches(aFulfilledPromise).done((value) => {
-					assertTrue(value);
-					done();
+				return sut.matches(aFulfilledPromise).then((value) => {
+					assert.ok(value);
 				});
 			});
 
-			it('should not match fulfilled promise with nonmatching value', (done) => {
-				const aFulfilledPromise = q([
-					q('another value')
+			it('should not match fulfilled promise with nonmatching value', () => {
+				const aFulfilledPromise = Bluebird.resolve([
+					Bluebird.resolve('another value')
 				]);
 
-				sut.matches(aFulfilledPromise).done((value) => {
-					assertFalse(value);
-					done();
+				return sut.matches(aFulfilledPromise).then((value) => {
+					assert.equal(value, false);
 				});
 			});
 
 			it('should wait for pending promises', (done) => {
-				const deferred = q.defer();
-				const aFulfilledPromiseContainingAPendingPromise = q([deferred.promise]);
+				let resolveFn;
+				const deferred = new Bluebird((resolve) => resolveFn = resolve);
+				const aFulfilledPromiseContainingAPendingPromise = Bluebird.resolve([deferred]);
 
-				sut.matches(aFulfilledPromiseContainingAPendingPromise).done((value) => {
-					assertTrue(value);
-					done();
-				});
+				sut.matches(aFulfilledPromiseContainingAPendingPromise).then((value) => {
+					assert.ok(value);
+				})
+				.nodeify(done);
 
-				deferred.resolve('expected');
+				resolveFn('expected');
 			});
 
 			describe('description', () => {
@@ -289,13 +285,12 @@ describe('IsFulfilled', () => {
 					__.assertThat(description.get(), __.equalTo('a promise fulfilled with [a promise fulfilled with "expected"]'));
 				});
 
-				it('should contain mismatch description', (done) => {
+				it('should contain mismatch description', () => {
 
-					const actual = q([q('another value')]);
+					const actual = Bluebird.resolve([Bluebird.resolve('another value')]);
 
-					sut.describeMismatch(actual, description).done(() => {
+					return sut.describeMismatch(actual, description).then(() => {
 						__.assertThat(description.get(), __.equalTo('fulfillment value: item 0: fulfillment value: was "another value"\n'));
-						done();
 					});
 				});
 			});

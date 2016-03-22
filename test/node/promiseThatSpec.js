@@ -1,11 +1,12 @@
 'use strict';
 
-const q = require('q');
+const _ = require('lodash');
 const AssertionError = require('assertion-error');
+const Bluebird = require('bluebird');
+
 const __ = require('../..');
 const fail = require('./asserts').fail;
 const TestMatcher = require('./TestMatcher');
-const _ = require('lodash');
 
 describe('promiseThat', () => {
 
@@ -49,7 +50,7 @@ describe('promiseThat', () => {
 	it('should resolve if matcher returns promise resolving to true', (done) => {
 
 		__.promiseThat('a value', new TestMatcher(() => {
-			return q(true);
+			return Bluebird.resolve(true);
 		})).done(
 			() => {
 				done();
@@ -63,7 +64,7 @@ describe('promiseThat', () => {
 	it('should reject promise with AssertionError if matcher resolves to false', (done) => {
 
 		__.promiseThat('a value', new TestMatcher(() => {
-			return q.resolve(false);
+			return Bluebird.resolve(false);
 		})).done(
 			() => {
 				fail('Should not be fulfilled');
@@ -76,58 +77,51 @@ describe('promiseThat', () => {
 	});
 
 	it('should defer result until matcher promise resolves', (done) => {
-		const deferred = q.defer();
+		let resolveFn;
+		const deferred = new Bluebird((resolve) => resolveFn = resolve);
 
-		const result = __.promiseThat('a value', new TestMatcher(() => {
+		__.promiseThat('a value', new TestMatcher(() => {
 			return deferred;
-		})).then(
-			() => {
-				done();
-			},
-			() => {
-				fail('Should not be rejected');
-			}
-		);
+		}))
+		.nodeify(done);
 
-		__.assertThat(result.isPending(), __.is(true));
-		deferred.fulfill(true);
-		result.done();
+		resolveFn(true);
 	});
 
-	it('should allow a message as first parameter', (done) => {
+	it('should allow a message as first parameter', () => {
 		const message = 'Some explanation';
 
-		__.promiseThat(message, 'different value', __.is('expected value')).done(
+		return __.promiseThat(message, 'different value', __.is('expected value')).then(
 			() => {
 				fail('Should not be fulfilled');
 			},
 			(reason) => {
 				__.assertThat(reason, __.instanceOf(AssertionError));
 				__.assertThat(reason.message, __.containsString(message));
-				done();
 			}
 		);
 	});
 
-	it('should forward rejection if matcher returns rejecting promise', (done) => {
+	it('should forward rejection if matcher returns rejecting promise', () => {
+		const rejectionValue = new Error('some reason');
 		const rejectingMatcher = new TestMatcher(() => {
-			return q.reject('some reason');
+			return Bluebird.reject(rejectionValue);
 		});
 
-		__.promiseThat('a value', rejectingMatcher)
-			.done(
+		return __.promiseThat('a value', rejectingMatcher)
+			.then(
 				() => {
 					fail('Should not be fulfilled');
 				},
 				(reason) => {
-					__.assertThat(reason, __.is('some reason'));
-					done();
+					__.assertThat(reason, __.is(rejectionValue));
 				}
 			);
 	});
 
 	it('should allow matchers to describe mismatch asynchronously', (done) => {
-		const deferred = q.defer();
+		let resolveFn;
+		const deferred = new Bluebird((resolve) => resolveFn = resolve);
 		const matcher = _.create(new __.Matcher(), {
 			matches: () => {
 				return false;
@@ -136,24 +130,24 @@ describe('promiseThat', () => {
 				description.append('Matcher description');
 			},
 			describeMismatch: function (actual, description) {
-				return deferred.promise.then(() => {
+				return deferred.then(() => {
 					description.append('Deferred mismatch description');
 				});
 			}
 		});
 
-		__.promiseThat('a value', matcher).done(
+		__.promiseThat('a value', matcher).then(
 			() => {
 				fail('Should not be fulfilled');
 			},
 			(reason) => {
 				__.assertThat(reason, __.instanceOf(AssertionError));
 				__.assertThat(reason.message, __.containsString('Deferred mismatch description'));
-				done();
 			}
-		);
+		)
+		.nodeify(done);
 
-		deferred.resolve();
+		resolveFn();
 	});
 
 	it('should pass diff representations to AssertionError', (done) => {
@@ -162,7 +156,7 @@ describe('promiseThat', () => {
 			return 'expected for diff';
 		};
 		testMatcher.formatActualForDiff = function (actual) {
-			return q('actual for diff: ' + actual);
+			return Bluebird.resolve('actual for diff: ' + actual);
 		};
 
 		__.promiseThat('actual value', testMatcher).done(
