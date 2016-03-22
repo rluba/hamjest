@@ -177,7 +177,7 @@ describe('IsFunctionThrowing', () => {
 
 					__.assertThat(description.get(), __.allOf(
 						__.containsString('thrown object: an instance of AssertionError: {'),
-						__.containsString('} is a Error\nAssertionError with message \"the reason\": message was \"an error\"\nfor {')
+						__.containsString('} is a Error\nAssertionError with message \"the reason\": message was \"an error\"\n\tfor {')
 					));
 				});
 			});

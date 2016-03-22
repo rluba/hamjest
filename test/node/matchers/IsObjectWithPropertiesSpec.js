@@ -56,7 +56,7 @@ describe('IsObjectWithProperties', () => {
 
 				sut.describeMismatch(new Person('Jim', 1), description);
 
-				__.assertThat(description.get(), __.equalTo('name was "Jim", children was <1>'));
+				__.assertThat(description.get(), __.equalTo('name was "Jim",\nchildren was <1>'));
 			});
 
 			it('should omit matched and extra properties', () => {
@@ -133,7 +133,7 @@ describe('IsObjectWithProperties', () => {
 				it('should contain mismatched properties', () => {
 
 					return sut.describeMismatch({name: 'Jim', age: 5}, description).then(() => {
-						__.assertThat(description.get(), __.equalTo('name deferred: was "Jim", age was <5>'));
+						__.assertThat(description.get(), __.equalTo('name deferred: was "Jim",\nage was <5>'));
 					});
 				});
 
@@ -188,14 +188,14 @@ describe('IsObjectWithProperties', () => {
 
 					sut.describeMismatch(new Person('Jim', 1), description);
 
-					__.assertThat(description.get(), __.equalTo('name was "Jim", children was <1>\n\tfor {"name":"Jim","children":1}'));
+					__.assertThat(description.get(), __.equalTo('name was "Jim",\nchildren was <1>\nfor {"name":"Jim","children":1}'));
 				});
 
 				it('should omit matched and extra properties but append the full object', () => {
 
 					sut.describeMismatch({name: 'Joe', age: 27}, description);
 
-					__.assertThat(description.get(), __.equalTo('children was undefined\n\tfor {"name":"Joe","age":27}'));
+					__.assertThat(description.get(), __.equalTo('children was undefined\nfor {"name":"Joe","age":27}'));
 				});
 
 				it('should fit for non-objects', () => {
