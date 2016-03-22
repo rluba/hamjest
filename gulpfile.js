@@ -6,6 +6,7 @@ var browserify = require('browserify');
 var del = require('del');
 var sourceStream = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var KarmaServer = require('karma').Server;
 
 var jsFiles = [
 	'*.js',
@@ -13,28 +14,50 @@ var jsFiles = [
 	'test/**/*.js'
 ];
 
-gulp.task('default', ['build']);
+gulp.task('default', ['clean'], function () {
+	return gulp.start(['build', 'test:browser']);
+});
 
 gulp.task('lint', function () {
 	return gulp.src(jsFiles)
 		.pipe($.eslint())
 		.pipe($.eslint.format())
 		.pipe($.eslint.failAfterError())
-        .pipe($.jscs())
-        .pipe($.jscs.reporter())
-        .pipe($.jscs.reporter('fail'));
+		.pipe($.jscs())
+		.pipe($.jscs.reporter())
+		.pipe($.jscs.reporter('fail'));
 });
 
-gulp.task('test', function () {
-	return gulp.src('test/**/*Spec.js', {read: false})
+gulp.task('test', ['test:node']);
+
+gulp.task('test:node', function () {
+	return gulp.src('test/node/**/*Spec.js', {read: false})
 		.pipe($.mocha({
 			reporter: 'spec'
 		}));
 });
 
+gulp.task('test:browser', ['build'], function (done) {
+	var karmaConfig = {
+		browsers: ['Chrome', 'Firefox'],
+		frameworks: ['mocha'],
+		reporters: ['progress'],
+		autoWatch: false,
+		singleRun: true,
+		files: [
+			'dist/hamjest.js',
+			'test/browser/**/*.js'
+		]
+	};
+
+	var server = new KarmaServer(karmaConfig, done);
+	server.start();
+});
+
 gulp.task('build', ['lint', 'test'], function () {
 	var b = browserify({
-		entries: './hamjest.js',
+		entries: './index.js',
+		standalone: 'hamjest',
 		debug: true
 	});
 
@@ -49,8 +72,8 @@ gulp.task('build', ['lint', 'test'], function () {
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('clean', function (done) {
-	del('./dist', done);
+gulp.task('clean', function () {
+	return del('./dist');
 });
 
 gulp.task('dev', function () {
