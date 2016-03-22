@@ -12,6 +12,11 @@ describe('IsBoolean', function () {
 			sut = __.bool();
 		});
 
+		it('should be available as "boolean" too', function () {
+
+			__.assertThat(__.boolean, __.is(__.bool));
+		});
+
 		it('should match any bool', function () {
 			assertTrue(sut.matches(true));
 			assertTrue(sut.matches(false));
