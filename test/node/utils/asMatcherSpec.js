@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertEquals = require('../asserts').assertEquals;
 const TestMatcher = require('../TestMatcher');
 
 describe('asMatcher', () => {
@@ -11,7 +11,7 @@ describe('asMatcher', () => {
 
 		const resultMatcher = __.asMatcher(aMatcher);
 
-		assertEquals(resultMatcher, aMatcher);
+		assert.equal(resultMatcher, aMatcher);
 	});
 
 	it('should wrap values in equalTo matchers', () => {
@@ -19,7 +19,7 @@ describe('asMatcher', () => {
 
 		const resultMatcher = __.asMatcher(value);
 
-		assertTrue(__.isMatcher(resultMatcher), 'Should wrap value');
-		assertTrue(resultMatcher.matches({member: 'a member value'}));
+		assert.ok(__.isMatcher(resultMatcher), 'Should wrap value');
+		assert.ok(resultMatcher.matches({member: 'a member value'}));
 	});
 });

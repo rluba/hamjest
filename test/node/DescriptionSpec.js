@@ -1,8 +1,10 @@
 'use strict';
 
+const assert = require('assert');
+
 const _ = require('lodash');
+
 const __ = require('../..');
-const assertEquals = require('./asserts').assertEquals;
 
 describe('Description', () => {
 	let sut;
@@ -15,21 +17,21 @@ describe('Description', () => {
 		sut.append('a text');
 		sut.append('another text');
 
-		assertEquals(sut.get(), 'a textanother text');
+		assert.equal(sut.get(), 'a textanother text');
 	});
 
 	it('should wrap strings in quotes', () => {
 
 		sut.appendValue('a string');
 
-		assertEquals(sut.get(), '"a string"');
+		assert.equal(sut.get(), '"a string"');
 	});
 
 	it('should not escape string values', () => {
 
 		sut.appendValue('a string with\nnewlines\n,\ttabs\t,\rcarriage returns\r and "quotes"');
 
-		assertEquals(sut.get(), '"a string with\nnewlines\n,\ttabs\t,\rcarriage returns\r and "quotes""');
+		assert.equal(sut.get(), '"a string with\nnewlines\n,\ttabs\t,\rcarriage returns\r and "quotes""');
 	});
 
 	it('should wrap numbers in angular brackets', () => {
@@ -37,28 +39,28 @@ describe('Description', () => {
 		sut.appendValue(5);
 		sut.appendValue(2.5);
 
-		assertEquals(sut.get(), '<5><2.5>');
+		assert.equal(sut.get(), '<5><2.5>');
 	});
 
 	it('should describe RegExp as pattern', () => {
 
 		sut.appendValue(/a pattern/);
 
-		assertEquals(sut.get(), '/a pattern/');
+		assert.equal(sut.get(), '/a pattern/');
 	});
 
 	it('should describe undefined as "undefined"', () => {
 
 		sut.appendValue(undefined);
 
-		assertEquals(sut.get(), 'undefined');
+		assert.equal(sut.get(), 'undefined');
 	});
 
 	it('should describe objects as JSON', () => {
 
 		sut.appendValue({an: 'object'});
 
-		assertEquals(sut.get(), '{"an":"object"}');
+		assert.equal(sut.get(), '{"an":"object"}');
 	});
 
 	it('should describe at least top-level of recursive objects', () => {
@@ -79,7 +81,7 @@ describe('Description', () => {
 
 		sut.appendValue([5, matcher, 'foo']);
 
-		assertEquals(sut.get(), '[<5>, a matcher description, "foo"]');
+		assert.equal(sut.get(), '[<5>, a matcher description, "foo"]');
 	});
 
 	describe('appendDescriptionOf(matcherOrValue)', () => {
@@ -92,7 +94,7 @@ describe('Description', () => {
 
 			sut.appendDescriptionOf(matcher);
 
-			assertEquals(sut.get(), 'a matcher description');
+			assert.equal(sut.get(), 'a matcher description');
 		});
 
 		_.forEach([
@@ -103,7 +105,7 @@ describe('Description', () => {
 
 				sut.appendDescriptionOf(value);
 
-				assertEquals(sut.get(), expectedDescription);
+				assert.equal(sut.get(), expectedDescription);
 			});
 		}));
 	});
@@ -114,13 +116,13 @@ describe('Description', () => {
 
 		sut.appendValue(aNamedFunction);
 
-		assertEquals(sut.get(), 'Function aNamedFunction');
+		assert.equal(sut.get(), 'Function aNamedFunction');
 	});
 
 	it('should work with anonymous functions', () => {
 		sut.appendValue(() => {});
 
-		assertEquals(sut.get(), 'Function');
+		assert.equal(sut.get(), 'Function');
 	});
 
 });

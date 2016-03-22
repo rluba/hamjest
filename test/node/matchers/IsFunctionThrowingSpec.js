@@ -1,9 +1,9 @@
 'use strict';
 
+const assert = require('assert');
 const AssertionError = require('assertion-error');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsFunctionThrowing', () => {
 
@@ -21,15 +21,15 @@ describe('IsFunctionThrowing', () => {
 			});
 
 			it('should not match if argument is not a function', () => {
-				assertFalse(sut.matches('a string value'));
+				assert.equal(sut.matches('a string value'), false);
 			});
 
 			it('should match if function throws', () => {
-				assertTrue(sut.matches(throwingErrorFunction));
+				assert.ok(sut.matches(throwingErrorFunction));
 			});
 
 			it('should not match if function does not throw', () => {
-				assertFalse(sut.matches(notThrowingFunction));
+				assert.equal(sut.matches(notThrowingFunction), false);
 			});
 
 			describe('description', () => {
@@ -68,19 +68,19 @@ describe('IsFunctionThrowing', () => {
 			});
 
 			it('should not match if argument is not a function', () => {
-				assertFalse(sut.matches('a string value'));
+				assert.equal(sut.matches('a string value'), false);
 			});
 
 			it('should match if function throws expected value', () => {
-				assertTrue(sut.matches(throwing('a string value')));
+				assert.ok(sut.matches(throwing('a string value')));
 			});
 
 			it('should not match if function throws something different', () => {
-				assertFalse(sut.matches(throwing('another string value')));
+				assert.equal(sut.matches(throwing('another string value')), false);
 			});
 
 			it('should not match if function does not throw', () => {
-				assertFalse(sut.matches(notThrowingFunction));
+				assert.equal(sut.matches(notThrowingFunction), false);
 			});
 
 			describe('description', () => {
@@ -132,23 +132,23 @@ describe('IsFunctionThrowing', () => {
 			});
 
 			it('should not match if argument is not a function', () => {
-				assertFalse(sut.matches('a string value'));
+				assert.equal(sut.matches('a string value'), false);
 			});
 
 			it('should match if thrown exception matches expectation', () => {
 				const fn = throwingAssertionErrorFunction('the reason');
 
-				assertTrue(sut.matches(fn));
+				assert.ok(sut.matches(fn));
 			});
 
 			it('should not match if thrown exception does not match expectation', () => {
 				const fn = throwingAssertionErrorFunction('another reason');
 
-				assertFalse(sut.matches(fn));
+				assert.equal(sut.matches(fn), false);
 			});
 
 			it('should not match if function does not throw', () => {
-				assertFalse(sut.matches(notThrowingFunction));
+				assert.equal(sut.matches(notThrowingFunction), false);
 			});
 
 			describe('description', () => {

@@ -1,10 +1,9 @@
 'use strict';
 
+const assert = require('assert');
+
 const AssertionError = require('assertion-error');
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
-const assertEquals = require('../asserts').assertEquals;
 
 describe('SubstringMatcher', () => {
 
@@ -21,27 +20,27 @@ describe('SubstringMatcher', () => {
 		});
 
 		it('should match superstrings', () => {
-			assertTrue(sut.matches('a value'));
-			assertTrue(sut.matches('containing a value'));
-			assertTrue(sut.matches('a valueextension'));
+			assert.ok(sut.matches('a value'));
+			assert.ok(sut.matches('containing a value'));
+			assert.ok(sut.matches('a valueextension'));
 		});
 
 		it('should not match disjoint strings', () => {
-			assertFalse(sut.matches('another value'));
-			assertFalse(sut.matches(' value'));
+			assert.equal(sut.matches('another value'), false);
+			assert.equal(sut.matches(' value'), false);
 		});
 
 		it('should not match non-strings', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches(5));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(5), false);
 		});
 
 		it('should provide expected for diff', () => {
-			assertEquals('a value', sut.getExpectedForDiff());
+			assert.equal('a value', sut.getExpectedForDiff());
 		});
 
 		it('should format actual for diff', () => {
-			assertEquals('foo', sut.formatActualForDiff('foo'));
+			assert.equal('foo', sut.formatActualForDiff('foo'));
 		});
 
 		describe('description', () => {
@@ -86,19 +85,19 @@ describe('SubstringMatcher', () => {
 		});
 
 		it('should match strings starting with...', () => {
-			assertTrue(sut.matches('a value'));
-			assertTrue(sut.matches('a valueextension'));
+			assert.ok(sut.matches('a value'));
+			assert.ok(sut.matches('a valueextension'));
 		});
 
 		it('should not match other strings', () => {
-			assertFalse(sut.matches('containing a value'));
-			assertFalse(sut.matches('another value'));
-			assertFalse(sut.matches(' value'));
+			assert.equal(sut.matches('containing a value'), false);
+			assert.equal(sut.matches('another value'), false);
+			assert.equal(sut.matches(' value'), false);
 		});
 
 		it('should not match non-strings', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches(5));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(5), false);
 		});
 
 		describe('description', () => {
@@ -143,19 +142,19 @@ describe('SubstringMatcher', () => {
 		});
 
 		it('should match strings ending with...', () => {
-			assertTrue(sut.matches('a value'));
-			assertTrue(sut.matches('containing a value'));
+			assert.ok(sut.matches('a value'));
+			assert.ok(sut.matches('containing a value'));
 		});
 
 		it('should not match other strings', () => {
-			assertFalse(sut.matches('a valueextension'));
-			assertFalse(sut.matches('another value'));
-			assertFalse(sut.matches(' value'));
+			assert.equal(sut.matches('a valueextension'), false);
+			assert.equal(sut.matches('another value'), false);
+			assert.equal(sut.matches(' value'), false);
 		});
 
 		it('should not match non-strings', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches(5));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(5), false);
 		});
 
 		describe('description', () => {

@@ -1,11 +1,11 @@
 'use strict';
 
+const assert = require('assert');
+
 const AssertionError = require('assertion-error');
 const Bluebird = require('bluebird');
 
 const __ = require('../..');
-const assertTrue = require('./asserts').assertTrue;
-const assertEquals = require('./asserts').assertEquals;
 const TestMatcher = require('./TestMatcher');
 
 describe('assertThat', () => {
@@ -23,7 +23,7 @@ describe('assertThat', () => {
 			return true;
 		}));
 
-		assertTrue(passedValue === input, 'Received: ' + passedValue);
+		assert.ok(passedValue === input, 'Received: ' + passedValue);
 	});
 
 	it('should format assertion message if matcher fails', () => {
@@ -36,8 +36,8 @@ describe('assertThat', () => {
 			thrown = e;
 		}
 
-		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertEquals(thrown.message, '\nExpected: Matcher description\n     but: was "real value"');
+		assert.ok(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
+		assert.equal(thrown.message, '\nExpected: Matcher description\n     but: was "real value"');
 	});
 
 	it('should prepend message, if available', () => {
@@ -50,8 +50,8 @@ describe('assertThat', () => {
 			thrown = e;
 		}
 
-		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertEquals(thrown.message, 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
+		assert.ok(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
+		assert.equal(thrown.message, 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
 	});
 
 	it('should pass diff representations to AssertionError', () => {
@@ -72,8 +72,8 @@ describe('assertThat', () => {
 			thrown = e;
 		}
 
-		assertEquals(thrown.expected, 'expected for diff');
-		assertEquals(thrown.actual, 'actual for diff: actual value');
+		assert.equal(thrown.expected, 'expected for diff');
+		assert.equal(thrown.actual, 'actual for diff: actual value');
 	});
 
 	it('should throw if matcher returns a promise', () => {
@@ -86,7 +86,7 @@ describe('assertThat', () => {
 			thrown = e;
 		}
 
-		assertTrue(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
-		assertEquals(thrown.message, 'Matcher returned a promise instead of a boolean - use promiseThat for promising matchers!');
+		assert.ok(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
+		assert.equal(thrown.message, 'Matcher returned a promise instead of a boolean - use promiseThat for promising matchers!');
 	});
 });

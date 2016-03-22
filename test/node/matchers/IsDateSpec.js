@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsDate', () => {
 
@@ -13,14 +13,14 @@ describe('IsDate', () => {
 		});
 
 		it('should match any date', () => {
-			assertTrue(sut.matches(new Date(2017, 14, 2)));
-			assertTrue(sut.matches(new Date('2007-13-5')));
+			assert.ok(sut.matches(new Date(2017, 14, 2)));
+			assert.ok(sut.matches(new Date('2007-13-5')));
 		});
 
 		it('should not match non-dates', () => {
-			assertFalse(sut.matches(7));
-			assertFalse(sut.matches({}));
-			assertFalse(sut.matches('a string'));
+			assert.equal(sut.matches(7), false);
+			assert.equal(sut.matches({}), false);
+			assert.equal(sut.matches('a string'), false);
 		});
 
 		describe('description', () => {

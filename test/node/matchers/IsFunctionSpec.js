@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsFunction', () => {
 
@@ -16,16 +16,16 @@ describe('IsFunction', () => {
 			function namedFunction() {
 
 			}
-			assertTrue(sut.matches(() => {}));
-			assertTrue(sut.matches(namedFunction));
-			assertTrue(sut.matches(String));
-			assertTrue(sut.matches(__.Description));
+			assert.ok(sut.matches(() => {}));
+			assert.ok(sut.matches(namedFunction));
+			assert.ok(sut.matches(String));
+			assert.ok(sut.matches(__.Description));
 		});
 
 		it('should not match non-funcs', () => {
-			assertFalse(sut.matches(7));
-			assertFalse(sut.matches({}));
-			assertFalse(sut.matches('a string'));
+			assert.equal(sut.matches(7), false);
+			assert.equal(sut.matches({}), false);
+			assert.equal(sut.matches('a string'), false);
 		});
 
 		describe('description', () => {

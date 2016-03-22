@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsObject', () => {
 
@@ -13,16 +13,16 @@ describe('IsObject', () => {
 		});
 
 		it('should match any object', () => {
-			assertTrue(sut.matches({}));
-			assertTrue(sut.matches([]));
-			assertTrue(sut.matches(new Date()));
-			assertTrue(sut.matches(new __.Description()));
+			assert.ok(sut.matches({}));
+			assert.ok(sut.matches([]));
+			assert.ok(sut.matches(new Date()));
+			assert.ok(sut.matches(new __.Description()));
 		});
 
 		it('should not match non-objects', () => {
-			assertFalse(sut.matches('a string'));
-			assertFalse(sut.matches(5));
-			assertFalse(sut.matches(true));
+			assert.equal(sut.matches('a string'), false);
+			assert.equal(sut.matches(5), false);
+			assert.equal(sut.matches(true), false);
 		});
 
 		describe('description', () => {

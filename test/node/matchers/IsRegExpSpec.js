@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsRegExp', () => {
 
@@ -14,14 +14,14 @@ describe('IsRegExp', () => {
 		});
 
 		it('should match any regular expression', () => {
-			assertTrue(sut.matches(/./));
-			assertTrue(sut.matches(/a RegExp/i));
+			assert.ok(sut.matches(/./));
+			assert.ok(sut.matches(/a RegExp/i));
 		});
 
 		it('should not match non-RegExp values', () => {
-			assertFalse(sut.matches({}));
-			assertFalse(sut.matches([]));
-			assertFalse(sut.matches('a string'));
+			assert.equal(sut.matches({}), false);
+			assert.equal(sut.matches([]), false);
+			assert.equal(sut.matches('a string'), false);
 		});
 
 		describe('description', () => {

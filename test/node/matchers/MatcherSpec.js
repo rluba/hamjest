@@ -1,38 +1,38 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('Matcher', () => {
 
 	describe('isMatcher', () => {
 
 		it('returns true for Matchers', () => {
-			assertTrue(__.isMatcher(new __.Matcher()));
-			assertTrue(__.isMatcher(__.equalTo('a value')));
+			assert.ok(__.isMatcher(new __.Matcher()));
+			assert.ok(__.isMatcher(__.equalTo('a value')));
 		});
 
 		it('requires all methods', () => {
-			assertFalse(__.isMatcher({
+			assert.equal(__.isMatcher({
 				matches: () => {},
 				describeTo: () => {}
-			}));
-			assertFalse(__.isMatcher({
+			}), false);
+			assert.equal(__.isMatcher({
 				matches: () => {},
 				describeMismatch: () => {}
-			}));
-			assertFalse(__.isMatcher({
+			}), false);
+			assert.equal(__.isMatcher({
 				describeTo: () => {},
 				describeMismatch: () => {}
-			}));
-			assertFalse(__.isMatcher({
+			}), false);
+			assert.equal(__.isMatcher({
 				matches: () => {},
 				describeTo: 'not a function',
 				describeMismatch: () => {}
-			}));
+			}), false);
 
-			assertTrue(__.isMatcher({
+			assert.ok(__.isMatcher({
 				matches: () => {},
 				describeTo: () => {},
 				describeMismatch: () => {}
@@ -40,15 +40,15 @@ describe('Matcher', () => {
 		});
 
 		it('should return false for null', () => {
-			assertFalse(__.isMatcher(null));
+			assert.equal(__.isMatcher(null), false);
 		});
 
 		it('should return false for undefined', () => {
-			assertFalse(__.isMatcher(undefined));
+			assert.equal(__.isMatcher(undefined), false);
 		});
 
 		it('should return false for arrays', () => {
-			assertFalse(__.isMatcher([]));
+			assert.equal(__.isMatcher([]), false);
 		});
 	});
 });

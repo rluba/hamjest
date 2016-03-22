@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsString', () => {
 
@@ -13,14 +13,14 @@ describe('IsString', () => {
 		});
 
 		it('should match any string', () => {
-			assertTrue(sut.matches('a value'));
-			assertTrue(sut.matches(String('another value')));
+			assert.ok(sut.matches('a value'));
+			assert.ok(sut.matches(String('another value')));
 		});
 
 		it('should not match non-strings', () => {
-			assertFalse(sut.matches(7));
-			assertFalse(sut.matches({}));
-			assertFalse(sut.matches([]));
+			assert.equal(sut.matches(7), false);
+			assert.equal(sut.matches({}), false);
+			assert.equal(sut.matches([]), false);
 		});
 
 		describe('description', () => {

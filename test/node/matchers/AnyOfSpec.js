@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../../lib/hamjest');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('AnyOf', () => {
 
@@ -13,12 +13,12 @@ describe('AnyOf', () => {
 		});
 
 		it('should match if any matcher matches', () => {
-			assertTrue(sut.matches('expected value'));
-			assertTrue(sut.matches('some value'));
+			assert.ok(sut.matches('expected value'));
+			assert.ok(sut.matches('some value'));
 		});
 
 		it('should not match if no matcher matches', () => {
-			assertFalse(sut.matches('different value'));
+			assert.equal(sut.matches('different value'), false);
 		});
 
 		describe('description', () => {

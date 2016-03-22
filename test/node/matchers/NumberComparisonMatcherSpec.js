@@ -1,9 +1,9 @@
 'use strict';
 
+const assert = require('assert');
+
 const AssertionError = require('assertion-error');
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('NumberComparisonMatcher', () => {
 
@@ -20,15 +20,15 @@ describe('NumberComparisonMatcher', () => {
 		});
 
 		it('should match numbers correctly', () => {
-			assertTrue(sut.matches(8));
-			assertTrue(sut.matches(7.01));
-			assertFalse(sut.matches(7));
-			assertFalse(sut.matches(6.9));
+			assert.ok(sut.matches(8));
+			assert.ok(sut.matches(7.01));
+			assert.equal(sut.matches(7), false);
+			assert.equal(sut.matches(6.9), false);
 		});
 
 		it('should not match non-numbers', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches('8'));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches('8'), false);
 		});
 
 		describe('description', () => {
@@ -73,16 +73,16 @@ describe('NumberComparisonMatcher', () => {
 		});
 
 		it('should match numbers correctly', () => {
-			assertTrue(sut.matches(8));
-			assertTrue(sut.matches(7.01));
-			assertTrue(sut.matches(7));
-			assertFalse(sut.matches(6.9));
-			assertFalse(sut.matches(6));
+			assert.ok(sut.matches(8));
+			assert.ok(sut.matches(7.01));
+			assert.ok(sut.matches(7));
+			assert.equal(sut.matches(6.9), false);
+			assert.equal(sut.matches(6), false);
 		});
 
 		it('should not match non-numbers', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches('8'));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches('8'), false);
 		});
 
 		describe('description', () => {
@@ -127,16 +127,16 @@ describe('NumberComparisonMatcher', () => {
 		});
 
 		it('should match numbers correctly', () => {
-			assertTrue(sut.matches(11.9));
-			assertTrue(sut.matches(11));
-			assertFalse(sut.matches(12));
-			assertFalse(sut.matches(12.01));
-			assertFalse(sut.matches(13));
+			assert.ok(sut.matches(11.9));
+			assert.ok(sut.matches(11));
+			assert.equal(sut.matches(12), false);
+			assert.equal(sut.matches(12.01), false);
+			assert.equal(sut.matches(13), false);
 		});
 
 		it('should not match non-numbers', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches('8'));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches('8'), false);
 		});
 
 		describe('description', () => {
@@ -181,16 +181,16 @@ describe('NumberComparisonMatcher', () => {
 		});
 
 		it('should match numbers correctly', () => {
-			assertTrue(sut.matches(11.9));
-			assertTrue(sut.matches(11));
-			assertTrue(sut.matches(12));
-			assertFalse(sut.matches(12.01));
-			assertFalse(sut.matches(13));
+			assert.ok(sut.matches(11.9));
+			assert.ok(sut.matches(11));
+			assert.ok(sut.matches(12));
+			assert.equal(sut.matches(12.01), false);
+			assert.equal(sut.matches(13), false);
 		});
 
 		it('should not match non-numbers', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches('8'));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches('8'), false);
 		});
 
 		describe('description', () => {

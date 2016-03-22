@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsArrayWithItem', () => {
 	describe('hasItem', () => {
@@ -12,27 +12,27 @@ describe('IsArrayWithItem', () => {
 		});
 
 		it('should match if any item matches', () => {
-			assertTrue(sut.matches(['expected item']));
-			assertTrue(sut.matches(['an item', 7, 'expected item']));
-			assertTrue(sut.matches(['an item', 'expected item', 'another item']));
+			assert.ok(sut.matches(['expected item']));
+			assert.ok(sut.matches(['an item', 7, 'expected item']));
+			assert.ok(sut.matches(['an item', 'expected item', 'another item']));
 		});
 
 		it('should not match if no item matches', () => {
-			assertFalse(sut.matches([]));
-			assertFalse(sut.matches(['a string value', 7]));
+			assert.equal(sut.matches([]), false);
+			assert.equal(sut.matches(['a string value', 7]), false);
 		});
 
 		it('should not match non-arrays', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches('expected, but not an array'));
-			assertFalse(sut.matches({key: 'expected, but an object property'}));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches('expected, but not an array'), false);
+			assert.equal(sut.matches({key: 'expected, but an object property'}), false);
 		});
 
 		it('should wrap simple value in equalTo matcher', () => {
 			sut = __.hasItem('expected item');
 
-			assertTrue(sut.matches(['an item', 'expected item']));
-			assertFalse(sut.matches(['an item', 'almost expected item']));
+			assert.ok(sut.matches(['an item', 'expected item']));
+			assert.equal(sut.matches(['an item', 'almost expected item']), false);
 		});
 
 		describe('description', () => {

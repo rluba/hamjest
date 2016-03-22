@@ -5,7 +5,6 @@ const AssertionError = require('assertion-error');
 const Bluebird = require('bluebird');
 
 const __ = require('../..');
-const fail = require('./asserts').fail;
 const TestMatcher = require('./TestMatcher');
 
 describe('promiseThat', () => {
@@ -29,7 +28,7 @@ describe('promiseThat', () => {
 				done();
 			},
 			() => {
-				fail('Should not be rejected');
+				throw new Error('Should not be rejected');
 			}
 		);
 	});
@@ -42,7 +41,7 @@ describe('promiseThat', () => {
 				done();
 			},
 			() => {
-				fail('Should not be rejected');
+				throw new Error('Should not be rejected');
 			}
 		);
 	});
@@ -56,7 +55,7 @@ describe('promiseThat', () => {
 				done();
 			},
 			() => {
-				fail('Should not be rejected');
+				throw new Error('Should not be rejected');
 			}
 		);
 	});
@@ -67,7 +66,7 @@ describe('promiseThat', () => {
 			return Bluebird.resolve(false);
 		})).done(
 			() => {
-				fail('Should not be fulfilled');
+				throw new Error('Should not be fulfilled');
 			},
 			(reason) => {
 				__.assertThat(reason, __.instanceOf(AssertionError));
@@ -93,7 +92,7 @@ describe('promiseThat', () => {
 
 		return __.promiseThat(message, 'different value', __.is('expected value')).then(
 			() => {
-				fail('Should not be fulfilled');
+				throw new Error('Should not be fulfilled');
 			},
 			(reason) => {
 				__.assertThat(reason, __.instanceOf(AssertionError));
@@ -111,7 +110,7 @@ describe('promiseThat', () => {
 		return __.promiseThat('a value', rejectingMatcher)
 			.then(
 				() => {
-					fail('Should not be fulfilled');
+					throw new Error('Should not be fulfilled');
 				},
 				(reason) => {
 					__.assertThat(reason, __.is(rejectionValue));
@@ -138,7 +137,7 @@ describe('promiseThat', () => {
 
 		__.promiseThat('a value', matcher).then(
 			() => {
-				fail('Should not be fulfilled');
+				throw new Error('Should not be fulfilled');
 			},
 			(reason) => {
 				__.assertThat(reason, __.instanceOf(AssertionError));
@@ -161,7 +160,7 @@ describe('promiseThat', () => {
 
 		__.promiseThat('actual value', testMatcher).done(
 			() => {
-				fail('Should not be fulfilled');
+				throw new Error('Should not be fulfilled');
 			},
 			(reason) => {
 				__.assertThat(reason, __.hasProperties({
