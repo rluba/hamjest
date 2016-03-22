@@ -1,35 +1,35 @@
 'use strict';
 
-var __ = require('../../..');
+const __ = require('../../..');
 
-describe('IsArrayContainingInAnyOrder', function () {
+describe('IsArrayContainingInAnyOrder', () => {
 
-	describe('containsInAnyOrder', function () {
-		var sut;
-		beforeEach(function () {
+	describe('containsInAnyOrder', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.containsInAnyOrder(__.containsString('expected'), __.containsString('item'), 7);
 		});
 
-		it('should match if all matchers match an item', function () {
+		it('should match if all matchers match an item', () => {
 			__.assertThat(sut.matches(['expected', 'an item', 7]), __.is(true));
 			__.assertThat(sut.matches(['an item', 7, 'expected']), __.is(true));
 		});
 
-		it('should not match if there is no 1:1 relation between items and matchers', function () {
+		it('should not match if there is no 1:1 relation between items and matchers', () => {
 			__.assertThat(sut.matches(['expected item', 7]), __.is(false));
 			__.assertThat(sut.matches(['expected item', 7, 'something else']), __.is(false));
 		});
 
-		it('should not match if there are too many items', function () {
+		it('should not match if there are too many items', () => {
 			__.assertThat(sut.matches(['expected', 'an item', 7, 'another item']), __.is(false));
 		});
 
-		it('should not match if items are missing', function () {
+		it('should not match if items are missing', () => {
 			__.assertThat(sut.matches(['expected', 7]), __.is(false));
 			__.assertThat(sut.matches([]), __.is(false));
 		});
 
-		it('should not match non-arrays', function () {
+		it('should not match non-arrays', () => {
 			__.assertThat(sut.matches(), __.is(false));
 			__.assertThat(sut.matches('expected item, but not an array'), __.is(false));
 			__.assertThat(sut.matches({
@@ -38,35 +38,35 @@ describe('IsArrayContainingInAnyOrder', function () {
 			}), __.is(false));
 		});
 
-		describe('description', function () {
-			var description;
+		describe('description', () => {
+			let description;
 
-			beforeEach(function () {
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain item description', function () {
+			it('should contain item description', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('[a string containing "expected", a string containing "item", <7>] in any order'));
 			});
 
-			it('should contain surplus items', function () {
+			it('should contain surplus items', () => {
 
 				sut.describeMismatch(['expected', 7, 100, 'item', 'surplus item'], description);
 
 				__.assertThat(description.get(), __.equalTo('not matched: <100>, "surplus item" from ["expected", <7>, <100>, "item", "surplus item"]'));
 			});
 
-			it('should contain unmatched matchers', function () {
+			it('should contain unmatched matchers', () => {
 
 				sut.describeMismatch([7], description);
 
 				__.assertThat(description.get(), __.equalTo('no item in [<7>] matches: a string containing "expected", a string containing "item"'));
 			});
 
-			it('should fit for non-arrays', function () {
+			it('should fit for non-arrays', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 

@@ -1,37 +1,37 @@
 'use strict';
 
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertEquals = require('../asserts').assertEquals;
-var TestMatcher = require('../TestMatcher');
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertEquals = require('../asserts').assertEquals;
+const TestMatcher = require('../TestMatcher');
 
-describe('acceptingMatcher', function () {
-	it('should adapt function with asMatcher: with simple values', function () {
-		var passedValue;
-		var returnValue = 'a return value';
-		var aFunction = function (matcher) {
+describe('acceptingMatcher', () => {
+	it('should adapt function with asMatcher: with simple values', () => {
+		let passedValue;
+		const returnValue = 'a return value';
+		const aFunction = function (matcher) {
 			passedValue = matcher;
 			return returnValue;
 		};
 
-		var wrappedFunction = __.acceptingMatcher(aFunction);
-		var result = wrappedFunction('not a matcher');
+		const wrappedFunction = __.acceptingMatcher(aFunction);
+		const result = wrappedFunction('not a matcher');
 
 		assertTrue(__.isMatcher(passedValue));
 		__.assertThat(result, __.equalTo(returnValue));
 	});
 
-	it('should adapt function with asMatcher: with matcher', function () {
-		var passedValue;
-		var returnValue = 'a return value';
-		var aFunction = function (matcher) {
+	it('should adapt function with asMatcher: with matcher', () => {
+		let passedValue;
+		const returnValue = 'a return value';
+		const aFunction = function (matcher) {
 			passedValue = matcher;
 			return returnValue;
 		};
-		var aMatcher = new TestMatcher();
+		const aMatcher = new TestMatcher();
 
-		var wrappedFunction = __.acceptingMatcher(aFunction);
-		var result = wrappedFunction(aMatcher);
+		const wrappedFunction = __.acceptingMatcher(aFunction);
+		const result = wrappedFunction(aMatcher);
 
 		assertEquals(passedValue, aMatcher);
 		__.assertThat(result, __.equalTo(returnValue));

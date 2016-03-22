@@ -1,79 +1,77 @@
 'use strict';
 
-var AssertionError = require('assertion-error');
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
-var zoo = require('../zoo');
+const AssertionError = require('assertion-error');
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
+const zoo = require('../zoo');
 
-var Animal = zoo.Animal;
-var Rodent = zoo.Rodent;
-var Squirrel = zoo.Squirrel;
+const Animal = zoo.Animal;
+const Rodent = zoo.Rodent;
+const Squirrel = zoo.Squirrel;
 
-describe('IsInstanceOf', function () {
+describe('IsInstanceOf', () => {
 
-	describe('instanceOf', function () {
-		var sut;
-		beforeEach(function () {
+	describe('instanceOf', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.instanceOf(Rodent);
 		});
 
-		it('should throw for non-function arguments', function () {
-			__.assertThat(function () {
+		it('should throw for non-function arguments', () => {
+			__.assertThat(() => {
 				__.instanceOf('a value');
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
-		it('should match instances and subinstances', function () {
+		it('should match instances and subinstances', () => {
 			assertFalse(sut.matches(new Animal()));
 			assertTrue(sut.matches(new Rodent()));
 			assertTrue(sut.matches(new Squirrel()));
 		});
 
-		it('should not match undefined', function () {
-			var undef;
+		it('should not match undefined', () => {
 
-			assertFalse(sut.matches(undef));
+			assertFalse(sut.matches(undefined));
 		});
 
-		describe('description', function () {
-			var description;
+		describe('description', () => {
+			let description;
 
-			beforeEach(function () {
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain instance name', function () {
+			it('should contain instance name', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('an instance of Rodent'));
 			});
 
-			it('should insert placeholder for anonymous functions', function () {
-				sut = __.instanceOf(function () {});
+			it('should insert placeholder for anonymous functions', () => {
+				sut = __.instanceOf(() => {});
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('an instance of ANONYMOUS FUNCTION'));
 			});
 
-			it('should contain mismatched type', function () {
+			it('should contain mismatched type', () => {
 
 				sut.describeMismatch('another value', description);
 
 				__.assertThat(description.get(), __.equalTo('"another value" is a String'));
 			});
 
-			it('should handle undefined value', function () {
-				var undef;
+			it('should handle undefined value', () => {
 
-				sut.describeMismatch(undef, description);
+				sut.describeMismatch(undefined, description);
 
 				__.assertThat(description.get(), __.equalTo('was undefined'));
 			});
 
-			it('should contain mismatched type for custom types', function () {
+			it('should contain mismatched type for custom types', () => {
 
 				sut.describeMismatch(new Animal(), description);
 

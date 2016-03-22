@@ -1,16 +1,16 @@
 'use strict';
 
-var _ = require('lodash');
-var __ = require('../..');
-var assertEquals = require('./asserts').assertEquals;
+const _ = require('lodash');
+const __ = require('../..');
+const assertEquals = require('./asserts').assertEquals;
 
-describe('Description', function () {
-	var sut;
-	beforeEach(function () {
+describe('Description', () => {
+	let sut;
+	beforeEach(() => {
 		sut = new __.Description();
 	});
 
-	it('should append texts', function () {
+	it('should append texts', () => {
 
 		sut.append('a text');
 		sut.append('another text');
@@ -18,21 +18,21 @@ describe('Description', function () {
 		assertEquals(sut.get(), 'a textanother text');
 	});
 
-	it('should wrap strings in quotes', function () {
+	it('should wrap strings in quotes', () => {
 
 		sut.appendValue('a string');
 
 		assertEquals(sut.get(), '"a string"');
 	});
 
-	it('should not escape string values', function () {
+	it('should not escape string values', () => {
 
 		sut.appendValue('a string with\nnewlines\n,\ttabs\t,\rcarriage returns\r and "quotes"');
 
 		assertEquals(sut.get(), '"a string with\nnewlines\n,\ttabs\t,\rcarriage returns\r and "quotes""');
 	});
 
-	it('should wrap numbers in angular brackets', function () {
+	it('should wrap numbers in angular brackets', () => {
 
 		sut.appendValue(5);
 		sut.appendValue(2.5);
@@ -40,29 +40,29 @@ describe('Description', function () {
 		assertEquals(sut.get(), '<5><2.5>');
 	});
 
-	it('should describe RegExp as pattern', function () {
+	it('should describe RegExp as pattern', () => {
 
 		sut.appendValue(/a pattern/);
 
 		assertEquals(sut.get(), '/a pattern/');
 	});
 
-	it('should describe undefined as "undefined"', function () {
+	it('should describe undefined as "undefined"', () => {
 
 		sut.appendValue(undefined);
 
 		assertEquals(sut.get(), 'undefined');
 	});
 
-	it('should describe objects as JSON', function () {
+	it('should describe objects as JSON', () => {
 
 		sut.appendValue({an: 'object'});
 
 		assertEquals(sut.get(), '{"an":"object"}');
 	});
 
-	it('should describe at least top-level of recursive objects', function () {
-		var recursiveObject = {name: 'recursive'};
+	it('should describe at least top-level of recursive objects', () => {
+		const recursiveObject = {name: 'recursive'};
 		recursiveObject.children = [{name: 'another'}, recursiveObject];
 
 		sut.appendValue(recursiveObject);
@@ -70,8 +70,8 @@ describe('Description', function () {
 		__.assertThat(sut.get(), __.allOf(__.startsWith('{'), __.endsWith('}'), __.containsString('name: "recursive"'), __.containsString('children: ')));
 	});
 
-	it('should describe matchers in arrays', function () {
-		var matcher = _.create(new __.Matcher(), {
+	it('should describe matchers in arrays', () => {
+		const matcher = _.create(new __.Matcher(), {
 			describeTo: function (description) {
 				description.append('a matcher description');
 			}
@@ -82,9 +82,9 @@ describe('Description', function () {
 		assertEquals(sut.get(), '[<5>, a matcher description, "foo"]');
 	});
 
-	describe('appendDescriptionOf(matcherOrValue)', function () {
-		it('should append matcher description', function () {
-			var matcher = _.create(new __.Matcher(), {
+	describe('appendDescriptionOf(matcherOrValue)', () => {
+		it('should append matcher description', () => {
+			const matcher = _.create(new __.Matcher(), {
 				describeTo: function (description) {
 					description.append('a matcher description');
 				}
@@ -98,8 +98,8 @@ describe('Description', function () {
 		_.forEach([
 			[5, '<5>'],
 			['XX', '"XX"']
-		], _.spread(function (value, expectedDescription) {
-			it('should append value of simple types:' + value, function () {
+		], _.spread((value, expectedDescription) => {
+			it('should append value of simple types:' + value, () => {
 
 				sut.appendDescriptionOf(value);
 
@@ -108,7 +108,7 @@ describe('Description', function () {
 		}));
 	});
 
-	it('should show name of functions', function () {
+	it('should show name of functions', () => {
 		function aNamedFunction() {
 		}
 
@@ -117,8 +117,8 @@ describe('Description', function () {
 		assertEquals(sut.get(), 'Function aNamedFunction');
 	});
 
-	it('should work with anonymous functions', function () {
-		sut.appendValue(function () {});
+	it('should work with anonymous functions', () => {
+		sut.appendValue(() => {});
 
 		assertEquals(sut.get(), 'Function');
 	});

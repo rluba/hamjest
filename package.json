@@ -47,7 +47,7 @@
     "browserify": "^11.2.0",
     "del": "^2.2.0",
     "eslint": "^1.6.0",
-    "eslint-config-leanbyte": "^1.0.0",
+    "eslint-config-leanbyte": "^1.1.0",
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
     "gulp-jscs": "^3.0.1",

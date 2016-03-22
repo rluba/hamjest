@@ -1,43 +1,43 @@
 'use strict';
 
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
 
-describe('IsString', function () {
+describe('IsString', () => {
 
-	describe('string', function () {
-		var sut;
-		beforeEach(function () {
+	describe('string', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.string();
 		});
 
-		it('should match any string', function () {
+		it('should match any string', () => {
 			assertTrue(sut.matches('a value'));
 			assertTrue(sut.matches(String('another value')));
 		});
 
-		it('should not match non-strings', function () {
+		it('should not match non-strings', () => {
 			assertFalse(sut.matches(7));
 			assertFalse(sut.matches({}));
 			assertFalse(sut.matches([]));
 		});
 
-		describe('description', function () {
-			var description;
+		describe('description', () => {
+			let description;
 
-			beforeEach(function () {
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should be nice', function () {
+			it('should be nice', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('a string'));
 			});
 
-			it('should contain non-string values', function () {
+			it('should contain non-string values', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 

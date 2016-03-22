@@ -1,27 +1,27 @@
 'use strict';
 
-var _ = require('lodash');
-var hamjest = require('../..');
-var assertFalse = require('./asserts').assertFalse;
+const _ = require('lodash');
+const hamjest = require('../..');
+const assertFalse = require('./asserts').assertFalse;
 
-describe('hamjest', function () {
-	it('should not export undefined matchers', function () {
-		_.forEach(hamjest, function (value, key) {
+describe('hamjest', () => {
+	it('should not export undefined matchers', () => {
+		_.forEach(hamjest, (value, key) => {
 			assertFalse(_.isUndefined(value), 'Undefined entry for key: ' + key);
 		});
 	});
 
-	it('should export Description', function () {
-		var __ = hamjest;
+	it('should export Description', () => {
+		const __ = hamjest;
 
 		__.assertThat(hamjest, __.hasProperty('Description'));
 	});
 
-	describe('.describe()', function () {
-		it('should allow to fetch the description of a given matcher', function () {
-			var __ = hamjest;
+	describe('.describe()', () => {
+		it('should allow to fetch the description of a given matcher', () => {
+			const __ = hamjest;
 
-			var result = __.describe(__.hasSize(5));
+			const result = __.describe(__.hasSize(5));
 
 			__.assertThat(result, __.is('a collection or string with size <5>'));
 		});

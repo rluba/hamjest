@@ -1,11 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
-var __ = require('../../..');
+const _ = require('lodash');
+const __ = require('../../..');
 
-describe('falsy', function () {
-	var sut;
-	beforeEach(function () {
+describe('falsy', () => {
+	let sut;
+	beforeEach(() => {
 		sut = __.falsy();
 	});
 
@@ -15,8 +15,8 @@ describe('falsy', function () {
 		[5, 'was <5>'],
 		[[], 'was []'],
 		[{}, 'was {}']
-	], _.spread(function (value, expectedDescription) {
-		it('should not match truthy values: ' + value, function () {
+	], _.spread((value, expectedDescription) => {
+		it('should not match truthy values: ' + value, () => {
 			__.assertThat(sut, __.failsToMatch(value, expectedDescription));
 		});
 	}));
@@ -26,14 +26,14 @@ describe('falsy', function () {
 		null,
 		undefined,
 		''
-	], function (value) {
-		it('should match falsy values: ' + value, function () {
+	], (value) => {
+		it('should match falsy values: ' + value, () => {
 			__.assertThat(sut, __.matches(value));
 		});
 	});
 
-	describe('description', function () {
-		it('should be concise', function () {
+	describe('description', () => {
+		it('should be concise', () => {
 
 			__.assertThat(sut, __.hasDescription('falsy value'));
 		});

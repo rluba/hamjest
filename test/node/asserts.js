@@ -1,9 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
-var AssertionError = require('assertion-error');
+const _ = require('lodash');
+const AssertionError = require('assertion-error');
 
-var asserts = {
+const asserts = {
 	assertTrue: function (value, message) {
 		if (value !== true) {
 			throw new AssertionError(message, {}, asserts.assertTrue);

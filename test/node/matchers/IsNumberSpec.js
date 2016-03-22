@@ -1,42 +1,42 @@
 'use strict';
 
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
 
-describe('IsNumber', function () {
+describe('IsNumber', () => {
 
-	describe('number', function () {
-		var sut;
-		beforeEach(function () {
+	describe('number', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.number();
 		});
 
-		it('should match any number', function () {
+		it('should match any number', () => {
 			assertTrue(sut.matches(7));
 			assertTrue(sut.matches(7.7));
 		});
 
-		it('should not match non-numbers', function () {
+		it('should not match non-numbers', () => {
 			assertFalse(sut.matches({}));
 			assertFalse(sut.matches([]));
 			assertFalse(sut.matches('a string'));
 		});
 
-		describe('description', function () {
-			var description;
-			beforeEach(function () {
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should be nice', function () {
+			it('should be nice', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('a number'));
 			});
 
-			it('should contain non-number values', function () {
+			it('should contain non-number values', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 

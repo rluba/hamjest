@@ -1,10 +1,10 @@
 'use strict';
 
-var AssertionError = require('assertion-error');
-var __ = require('../..');
+const AssertionError = require('assertion-error');
+const __ = require('../..');
 
-describe('fail', function () {
-	it('with a reason: should throw an AssertionError with the reason', function () {
+describe('fail', () => {
+	it('with a reason: should throw an AssertionError with the reason', () => {
 		function assertionErrorWithMessage(matcherOrValue) {
 			return __.allOf(
 				__.instanceOf(AssertionError),
@@ -12,13 +12,13 @@ describe('fail', function () {
 			);
 		}
 
-		__.assertThat(function () {
+		__.assertThat(() => {
 			__.fail('with a reason');
 		}, __.throws(assertionErrorWithMessage('with a reason')));
 	});
 
-	it('without a reason: should throw an AssertionError', function () {
-		__.assertThat(function () {
+	it('without a reason: should throw an AssertionError', () => {
+		__.assertThat(() => {
 			__.fail();
 		}, __.throws(__.instanceOf(AssertionError)));
 	});

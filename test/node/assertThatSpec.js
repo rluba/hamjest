@@ -1,24 +1,23 @@
 'use strict';
 
-var q = require('q');
-var AssertionError = require('assertion-error');
-var __ = require('../..');
-var assertTrue = require('./asserts').assertTrue;
-var assertEquals = require('./asserts').assertEquals;
-var TestMatcher = require('./TestMatcher');
+const q = require('q');
+const AssertionError = require('assertion-error');
+const __ = require('../..');
+const assertTrue = require('./asserts').assertTrue;
+const assertEquals = require('./asserts').assertEquals;
+const TestMatcher = require('./TestMatcher');
 
-describe('assertThat', function () {
-	it('should do nothing on success', function () {
+describe('assertThat', () => {
+	it('should do nothing on success', () => {
 
 		__.assertThat('truth', new TestMatcher());
-
 	});
 
-	it('should pass value to matcher', function () {
-		var input = 'assertion value';
-		var passedValue;
+	it('should pass value to matcher', () => {
+		const input = 'assertion value';
+		let passedValue;
 
-		__.assertThat(input, new TestMatcher(function (value) {
+		__.assertThat(input, new TestMatcher((value) => {
 			passedValue = value;
 			return true;
 		}));
@@ -26,13 +25,11 @@ describe('assertThat', function () {
 		assertTrue(passedValue === input, 'Received: ' + passedValue);
 	});
 
-	it('should format assertion message if matcher fails', function () {
-		var thrown;
+	it('should format assertion message if matcher fails', () => {
+		let thrown;
 
 		try {
-			__.assertThat('real value', new TestMatcher(function () {
-				return false;
-			}));
+			__.assertThat('real value', new TestMatcher(() => false));
 		}
 		catch (e) {
 			thrown = e;
@@ -42,13 +39,11 @@ describe('assertThat', function () {
 		assertEquals(thrown.message, '\nExpected: Matcher description\n     but: was "real value"');
 	});
 
-	it('should prepend message, if available', function () {
-		var thrown;
+	it('should prepend message, if available', () => {
+		let thrown;
 
 		try {
-			__.assertThat('Assertion message', 'real value', new TestMatcher(function () {
-				return false;
-			}));
+			__.assertThat('Assertion message', 'real value', new TestMatcher(() => false));
 		}
 		catch (e) {
 			thrown = e;
@@ -58,11 +53,11 @@ describe('assertThat', function () {
 		assertEquals(thrown.message, 'Assertion message\nExpected: Matcher description\n     but: was "real value"');
 	});
 
-	it('should pass diff representations to AssertionError', function () {
-		var thrown;
+	it('should pass diff representations to AssertionError', () => {
+		let thrown;
 
-		var testMatcher = new TestMatcher(function () { return false; });
-		testMatcher.getExpectedForDiff = function () {
+		const testMatcher = new TestMatcher(() => false);
+		testMatcher.getExpectedForDiff = () => {
 			return 'expected for diff';
 		};
 		testMatcher.formatActualForDiff = function (actual) {
@@ -80,13 +75,11 @@ describe('assertThat', function () {
 		assertEquals(thrown.actual, 'actual for diff: actual value');
 	});
 
-	it('should throw if matcher returns a promise', function () {
-		var thrown;
+	it('should throw if matcher returns a promise', () => {
+		let thrown;
 
 		try {
-			__.assertThat('a value', new TestMatcher(function () {
-				return q(true);
-			}));
+			__.assertThat('a value', new TestMatcher(() => q(true)));
 		}
 		catch (e) {
 			thrown = e;

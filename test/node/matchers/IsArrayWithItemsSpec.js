@@ -1,28 +1,28 @@
 'use strict';
 
-var __ = require('../../..');
-var assertTrue = require('../asserts').assertTrue;
-var assertFalse = require('../asserts').assertFalse;
+const __ = require('../../..');
+const assertTrue = require('../asserts').assertTrue;
+const assertFalse = require('../asserts').assertFalse;
 
-describe('IsArrayWithItems', function () {
+describe('IsArrayWithItems', () => {
 
-	describe('hasItems', function () {
-		var sut;
-		beforeEach(function () {
+	describe('hasItems', () => {
+		let sut;
+		beforeEach(() => {
 			sut = __.hasItems(__.containsString('expected'), 7);
 		});
 
-		it('should match if all matchers match', function () {
+		it('should match if all matchers match', () => {
 			assertTrue(sut.matches(['expected item', 'another item', 7]));
 			assertTrue(sut.matches(['another item', 7, 'expected item']));
 		});
 
-		it('should not match if one matcher fails', function () {
+		it('should not match if one matcher fails', () => {
 			assertFalse(sut.matches(['expected', 6]));
 			assertFalse(sut.matches(['another item', 7]));
 		});
 
-		it('should not match non-arrays', function () {
+		it('should not match non-arrays', () => {
 			assertFalse(sut.matches());
 			assertFalse(sut.matches('not an array'));
 			assertFalse(sut.matches({
@@ -31,34 +31,34 @@ describe('IsArrayWithItems', function () {
 			}));
 		});
 
-		describe('description', function () {
-			var description;
-			beforeEach(function () {
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
 				description = new __.Description();
 			});
 
-			it('should contain item description', function () {
+			it('should contain item description', () => {
 
 				sut.describeTo(description);
 
 				__.assertThat(description.get(), __.equalTo('an array containing a string containing "expected", <7>'));
 			});
 
-			it('should fit for empty arrays', function () {
+			it('should fit for empty arrays', () => {
 
 				sut.describeMismatch([], description);
 
 				__.assertThat(description.get(), __.equalTo('was empty'));
 			});
 
-			it('should contain every mismatch for mismatching matcher', function () {
+			it('should contain every mismatch for mismatching matcher', () => {
 
 				sut.describeMismatch(['expected', 6], description);
 
 				__.assertThat(description.get(), __.containsString('<7>: [was "expected", was <6>]'));
 			});
 
-			it('should fit for non-arrays', function () {
+			it('should fit for non-arrays', () => {
 
 				sut.describeMismatch({an: 'object'}, description);
 

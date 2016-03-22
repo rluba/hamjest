@@ -1,11 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
-var __ = require('../../..');
+const _ = require('lodash');
+const __ = require('../../..');
 
-describe('truthy', function () {
-	var sut;
-	beforeEach(function () {
+describe('truthy', () => {
+	let sut;
+	beforeEach(() => {
 		sut = __.truthy();
 	});
 
@@ -15,8 +15,8 @@ describe('truthy', function () {
 		5,
 		[],
 		{}
-	], function (value) {
-		it('should match truthy values: ' + value, function () {
+	], (value) => {
+		it('should match truthy values: ' + value, () => {
 			__.assertThat(sut.matches(value), __.is(true));
 		});
 	});
@@ -26,26 +26,26 @@ describe('truthy', function () {
 		null,
 		undefined,
 		''
-	], function (value) {
-		it('should not match falsy values: ' + value, function () {
+	], (value) => {
+		it('should not match falsy values: ' + value, () => {
 			__.assertThat(sut.matches(value), __.is(false));
 		});
 	});
 
-	describe('description', function () {
-		var description;
-		beforeEach(function () {
+	describe('description', () => {
+		let description;
+		beforeEach(() => {
 			description = new __.Description();
 		});
 
-		it('should be concise', function () {
+		it('should be concise', () => {
 
 			sut.describeTo(description);
 
 			__.assertThat(description.get(), __.equalTo('truthy value'));
 		});
 
-		it('should contain mismatched value', function () {
+		it('should contain mismatched value', () => {
 
 			sut.describeMismatch(0, description);
 

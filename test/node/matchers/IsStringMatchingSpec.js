@@ -1,25 +1,25 @@
 'use strict';
 
-var AssertionError = require('assertion-error');
-var __ = require('../../..');
+const AssertionError = require('assertion-error');
+const __ = require('../../..');
 
-describe('IsStringMatching', function () {
+describe('IsStringMatching', () => {
 
-	describe('matchesPattern', function () {
-		it('should throw for non-string, non-RegExp arguments', function () {
-			__.assertThat(function () {
+	describe('matchesPattern', () => {
+		it('should throw for non-string, non-RegExp arguments', () => {
+			__.assertThat(() => {
 				__.matchesPattern(7);
 			}, __.throws(__.instanceOf(AssertionError)));
 		});
 
-		describe('with RegExp', function () {
-			var sut;
+		describe('with RegExp', () => {
+			let sut;
 
-			beforeEach(function () {
+			beforeEach(() => {
 				sut = __.matchesPattern(/\w+5A/i);
 			});
 
-			it('should match strings correctly', function () {
+			it('should match strings correctly', () => {
 				__.assertThat(sut.matches('word5A'), __.is(true));
 				__.assertThat(sut.matches('word5a'), __.is(true));
 				__.assertThat(sut.matches('x5A'), __.is(true));
@@ -28,33 +28,33 @@ describe('IsStringMatching', function () {
 				__.assertThat(sut.matches('5A'), __.is(false));
 			});
 
-			it('should not match non-strings', function () {
+			it('should not match non-strings', () => {
 				__.assertThat(sut.matches(), __.is(false));
 				__.assertThat(sut.matches(5), __.is(false));
 			});
 
-			describe('description', function () {
-				var description;
+			describe('description', () => {
+				let description;
 
-				beforeEach(function () {
+				beforeEach(() => {
 					description = new __.Description();
 				});
 
-				it('should contain expression', function () {
+				it('should contain expression', () => {
 
 					sut.describeTo(description);
 
 					__.assertThat(description.get(), __.equalTo('a string matching /\\w+5A/i'));
 				});
 
-				it('should contain mismatched string', function () {
+				it('should contain mismatched string', () => {
 
 					sut.describeMismatch('another value', description);
 
 					__.assertThat(description.get(), __.equalTo('was "another value"'));
 				});
 
-				it('should contain non-string values', function () {
+				it('should contain non-string values', () => {
 
 					sut.describeMismatch({an: 'object'}, description);
 
@@ -63,14 +63,14 @@ describe('IsStringMatching', function () {
 			});
 		});
 
-		describe('with string pattern', function () {
-			var sut;
+		describe('with string pattern', () => {
+			let sut;
 
-			beforeEach(function () {
+			beforeEach(() => {
 				sut = __.matchesPattern('\\w+5A');
 			});
 
-			it('should match strings correctly ', function () {
+			it('should match strings correctly ', () => {
 				__.assertThat(sut.matches('word5A'), __.is(true));
 				__.assertThat(sut.matches('x5A'), __.is(true));
 
@@ -79,33 +79,33 @@ describe('IsStringMatching', function () {
 				__.assertThat(sut.matches('5A'), __.is(false));
 			});
 
-			it('should not match non-strings', function () {
+			it('should not match non-strings', () => {
 				__.assertThat(sut.matches(), __.is(false));
 				__.assertThat(sut.matches(5), __.is(false));
 			});
 
-			describe('description', function () {
-				var description;
+			describe('description', () => {
+				let description;
 
-				beforeEach(function () {
+				beforeEach(() => {
 					description = new __.Description();
 				});
 
-				it('should contain expression', function () {
+				it('should contain expression', () => {
 
 					sut.describeTo(description);
 
 					__.assertThat(description.get(), __.equalTo('a string matching /\\w+5A/'));
 				});
 
-				it('should contain mismatched string', function () {
+				it('should contain mismatched string', () => {
 
 					sut.describeMismatch('another value', description);
 
 					__.assertThat(description.get(), __.equalTo('was "another value"'));
 				});
 
-				it('should contain non-string values', function () {
+				it('should contain non-string values', () => {
 
 					sut.describeMismatch({an: 'object'}, description);
 
