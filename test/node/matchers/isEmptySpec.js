@@ -10,6 +10,11 @@ describe('isEmptySpec', function () {
 		sut = __.isEmpty();
 	});
 
+	it('should be available as "empty" too', function () {
+
+		__.assertThat(__.empty, __.is(__.isEmpty));
+	});
+
 	_.forEach([
 		{given: [], expected: true},
 		{given: ['a'], expected: false}
