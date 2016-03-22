@@ -55,7 +55,9 @@ describe('IsArrayWithItems', () => {
 
 				sut.describeMismatch(['expected', 6], description);
 
-				__.assertThat(description.get(), __.containsString('<7>: [was "expected", was <6>]'));
+				console.log('XXXX', description.get());
+
+				__.assertThat(description.get(), __.containsString('<7>: \n\titem 0: was "expected"\n\titem 1: was <6>'));
 			});
 
 			it('should fit for non-arrays', () => {

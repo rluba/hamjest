@@ -59,7 +59,7 @@ describe('IsArrayWithItem', () => {
 
 				sut.describeMismatch(['a value', 7], description);
 
-				__.assertThat(description.get(), __.equalTo('[was "a value", was a Number (<7>)]'));
+				__.assertThat(description.get(), __.equalTo('\nitem 0: was "a value"\nitem 1: was a Number (<7>)'));
 			});
 
 			it('should fit for non-arrays', () => {
