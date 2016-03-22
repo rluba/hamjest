@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsArrayWithItems', () => {
 
@@ -13,22 +13,22 @@ describe('IsArrayWithItems', () => {
 		});
 
 		it('should match if all matchers match', () => {
-			assertTrue(sut.matches(['expected item', 'another item', 7]));
-			assertTrue(sut.matches(['another item', 7, 'expected item']));
+			assert.ok(sut.matches(['expected item', 'another item', 7]));
+			assert.ok(sut.matches(['another item', 7, 'expected item']));
 		});
 
 		it('should not match if one matcher fails', () => {
-			assertFalse(sut.matches(['expected', 6]));
-			assertFalse(sut.matches(['another item', 7]));
+			assert.equal(sut.matches(['expected', 6]), false);
+			assert.equal(sut.matches(['another item', 7]), false);
 		});
 
 		it('should not match non-arrays', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches('not an array'));
-			assertFalse(sut.matches({
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches('not an array'), false);
+			assert.equal(sut.matches({
 				key: 'expected, but an object property',
 				key2: 7
-			}));
+			}), false);
 		});
 
 		describe('description', () => {

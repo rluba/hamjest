@@ -1,9 +1,9 @@
 'use strict';
 
+const assert = require('assert');
+
 const _ = require('lodash');
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsSame', () => {
 
@@ -12,19 +12,19 @@ describe('IsSame', () => {
 
 			const matcher = __.strictlyEqualTo('a string');
 
-			assertTrue(matcher.matches('a string'));
+			assert.ok(matcher.matches('a string'));
 		});
 
 		it('should not match unequal strings', () => {
 			const matcher = __.strictlyEqualTo('a string');
 
-			assertFalse(matcher.matches('another string'));
+			assert.equal(matcher.matches('another string'), false);
 		});
 
 		it('should not coerce', () => {
 			const matcher = __.strictlyEqualTo('2');
 
-			assertFalse(matcher.matches(2));
+			assert.equal(matcher.matches(2), false);
 		});
 
 		it('should not match different but equivalent objects', () => {
@@ -33,7 +33,7 @@ describe('IsSame', () => {
 
 			const matcher = __.strictlyEqualTo(value);
 
-			assertFalse(matcher.matches(equivalentValue));
+			assert.equal(matcher.matches(equivalentValue), false);
 		});
 
 		it('should match undefined values', () => {
@@ -42,7 +42,7 @@ describe('IsSame', () => {
 
 			const matcher = __.strictlyEqualTo(anUndefinedVariable);
 
-			assertTrue(matcher.matches(another));
+			assert.ok(matcher.matches(another));
 		});
 
 		it('should describe nicely', () => {

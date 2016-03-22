@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertEquals = require('../asserts').assertEquals;
 const TestMatcher = require('../TestMatcher');
 
 describe('acceptingMatcher', () => {
@@ -17,7 +17,7 @@ describe('acceptingMatcher', () => {
 		const wrappedFunction = __.acceptingMatcher(aFunction);
 		const result = wrappedFunction('not a matcher');
 
-		assertTrue(__.isMatcher(passedValue));
+		assert.ok(__.isMatcher(passedValue));
 		__.assertThat(result, __.equalTo(returnValue));
 	});
 
@@ -33,7 +33,7 @@ describe('acceptingMatcher', () => {
 		const wrappedFunction = __.acceptingMatcher(aFunction);
 		const result = wrappedFunction(aMatcher);
 
-		assertEquals(passedValue, aMatcher);
+		assert.equal(passedValue, aMatcher);
 		__.assertThat(result, __.equalTo(returnValue));
 	});
 });

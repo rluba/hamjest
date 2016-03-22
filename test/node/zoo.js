@@ -1,8 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const assertTrue = require('./asserts').assertTrue;
-const assertFalse = require('./asserts').assertFalse;
+const assert = require('assert');
 
 // Simple object hierarchy for testing
 function Animal(name) {
@@ -19,17 +18,17 @@ function Squirrel(name) {
 }
 Squirrel.prototype = _.create(Rodent.prototype, {'constructor': Squirrel});
 
-assertTrue(new Animal() instanceof Animal);
-assertTrue(new Rodent() instanceof Animal);
-assertTrue(new Squirrel() instanceof Animal);
+assert.ok(new Animal() instanceof Animal);
+assert.ok(new Rodent() instanceof Animal);
+assert.ok(new Squirrel() instanceof Animal);
 
-assertFalse(new Animal() instanceof Rodent);
-assertTrue(new Rodent() instanceof Rodent);
-assertTrue(new Squirrel() instanceof Rodent);
+assert.equal(new Animal() instanceof Rodent, false);
+assert.ok(new Rodent() instanceof Rodent);
+assert.ok(new Squirrel() instanceof Rodent);
 
-assertFalse(new Animal() instanceof Rodent);
-assertFalse(new Rodent() instanceof Squirrel);
-assertTrue(new Squirrel() instanceof Squirrel);
+assert.equal(new Animal() instanceof Rodent, false);
+assert.equal(new Rodent() instanceof Squirrel, false);
+assert.ok(new Squirrel() instanceof Squirrel);
 
 module.exports = {
 	Animal: Animal,

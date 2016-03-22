@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsNot', () => {
 
@@ -16,16 +16,16 @@ describe('IsNot', () => {
 
 			const matcher = __.not(innerMatcher);
 
-			assertFalse(matcher.matches('expected value'));
-			assertTrue(matcher.matches('another value'));
+			assert.equal(matcher.matches('expected value'), false);
+			assert.ok(matcher.matches('another value'));
 		});
 
 		it('should wrap values in equalTo matchers', () => {
 
 			const matcher = __.not({a: 'value'});
 
-			assertFalse(matcher.matches({a: 'value'}));
-			assertTrue(matcher.matches({another: 'value'}));
+			assert.equal(matcher.matches({a: 'value'}), false);
+			assert.ok(matcher.matches({another: 'value'}));
 		});
 
 		it('should expand on inner description', () => {

@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsNumber', () => {
 
@@ -13,14 +13,14 @@ describe('IsNumber', () => {
 		});
 
 		it('should match any number', () => {
-			assertTrue(sut.matches(7));
-			assertTrue(sut.matches(7.7));
+			assert.ok(sut.matches(7));
+			assert.ok(sut.matches(7.7));
 		});
 
 		it('should not match non-numbers', () => {
-			assertFalse(sut.matches({}));
-			assertFalse(sut.matches([]));
-			assertFalse(sut.matches('a string'));
+			assert.equal(sut.matches({}), false);
+			assert.equal(sut.matches([]), false);
+			assert.equal(sut.matches('a string'), false);
 		});
 
 		describe('description', () => {

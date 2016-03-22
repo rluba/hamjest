@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsBoolean', () => {
 
@@ -18,14 +18,14 @@ describe('IsBoolean', () => {
 		});
 
 		it('should match any bool', () => {
-			assertTrue(sut.matches(true));
-			assertTrue(sut.matches(false));
+			assert.ok(sut.matches(true));
+			assert.ok(sut.matches(false));
 		});
 
 		it('should not match non-bools', () => {
-			assertFalse(sut.matches(7));
-			assertFalse(sut.matches({}));
-			assertFalse(sut.matches('a string'));
+			assert.equal(sut.matches(7), false);
+			assert.equal(sut.matches({}), false);
+			assert.equal(sut.matches('a string'), false);
 		});
 
 		describe('description', () => {

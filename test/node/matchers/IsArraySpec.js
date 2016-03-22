@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('assert');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('IsArray', () => {
 
@@ -13,14 +13,14 @@ describe('IsArray', () => {
 		});
 
 		it('should match any array', () => {
-			assertTrue(sut.matches([]));
-			assertTrue(sut.matches(['an element']));
+			assert.ok(sut.matches([]));
+			assert.ok(sut.matches(['an element']));
 		});
 
 		it('should not match non-arrays', () => {
-			assertFalse(sut.matches(7));
-			assertFalse(sut.matches({}));
-			assertFalse(sut.matches('a string'));
+			assert.equal(sut.matches(7), false);
+			assert.equal(sut.matches({}), false);
+			assert.equal(sut.matches('a string'), false);
 		});
 
 		describe('description', () => {

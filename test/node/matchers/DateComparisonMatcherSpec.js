@@ -1,9 +1,10 @@
 'use strict';
 
+const assert = require('assert');
+
 const AssertionError = require('assertion-error');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 
 describe('DateComparisonMatcher', () => {
 
@@ -22,16 +23,16 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assertTrue(sut.matches(new Date('2014-07-15T11:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-14T13:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-14T12:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-14T11:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-13T13:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-15T11:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-14T13:00:00')));
+			assert.equal(sut.matches(new Date('2014-07-14T12:00:00')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T11:00:00')), false);
+			assert.equal(sut.matches(new Date('2014-07-13T13:00:00')), false);
 		});
 
 		it('should not match non-dates', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches(8));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(8), false);
 		});
 
 		describe('description', () => {
@@ -77,16 +78,16 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assertTrue(sut.matches(new Date('2014-07-15T11:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-14T13:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-14T12:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-14T11:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-13T13:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-15T11:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-14T13:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-14T12:00:00')));
+			assert.equal(sut.matches(new Date('2014-07-14T11:00:00')), false);
+			assert.equal(sut.matches(new Date('2014-07-13T13:00:00')), false);
 		});
 
 		it('should not match non-dates', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches(8));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(8), false);
 		});
 
 		describe('description', () => {
@@ -132,16 +133,16 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assertFalse(sut.matches(new Date('2014-07-15T11:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-14T13:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-14T12:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-14T11:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-13T13:00:00')));
+			assert.equal(sut.matches(new Date('2014-07-15T11:00:00')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T13:00:00')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T12:00:00')), false);
+			assert.ok(sut.matches(new Date('2014-07-14T11:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-13T13:00:00')));
 		});
 
 		it('should not match non-dates', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches(8));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(8), false);
 		});
 
 		describe('description', () => {
@@ -187,16 +188,16 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assertFalse(sut.matches(new Date('2014-07-15T11:00:00')));
-			assertFalse(sut.matches(new Date('2014-07-14T13:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-14T12:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-14T11:00:00')));
-			assertTrue(sut.matches(new Date('2014-07-13T13:00:00')));
+			assert.equal(sut.matches(new Date('2014-07-15T11:00:00')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T13:00:00')), false);
+			assert.ok(sut.matches(new Date('2014-07-14T12:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-14T11:00:00')));
+			assert.ok(sut.matches(new Date('2014-07-13T13:00:00')));
 		});
 
 		it('should not match non-dates', () => {
-			assertFalse(sut.matches());
-			assertFalse(sut.matches(8));
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(8), false);
 		});
 
 		describe('description', () => {

@@ -1,13 +1,14 @@
 'use strict';
 
+const assert = require('assert');
+
 const _ = require('lodash');
 const hamjest = require('../..');
-const assertFalse = require('./asserts').assertFalse;
 
 describe('hamjest', () => {
 	it('should not export undefined matchers', () => {
 		_.forEach(hamjest, (value, key) => {
-			assertFalse(_.isUndefined(value), 'Undefined entry for key: ' + key);
+			assert.equal(_.isUndefined(value), false, 'Undefined entry for key: ' + key);
 		});
 	});
 

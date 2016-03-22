@@ -1,5 +1,7 @@
 'use strict';
 
+process.env.BLUEBIRD_DEBUG = 1;
+
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const browserify = require('browserify');

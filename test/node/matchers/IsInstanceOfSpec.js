@@ -1,9 +1,9 @@
 'use strict';
 
+const assert = require('assert');
 const AssertionError = require('assertion-error');
+
 const __ = require('../../..');
-const assertTrue = require('../asserts').assertTrue;
-const assertFalse = require('../asserts').assertFalse;
 const zoo = require('../zoo');
 
 const Animal = zoo.Animal;
@@ -25,14 +25,14 @@ describe('IsInstanceOf', () => {
 		});
 
 		it('should match instances and subinstances', () => {
-			assertFalse(sut.matches(new Animal()));
-			assertTrue(sut.matches(new Rodent()));
-			assertTrue(sut.matches(new Squirrel()));
+			assert.equal(sut.matches(new Animal()), false);
+			assert.ok(sut.matches(new Rodent()));
+			assert.ok(sut.matches(new Squirrel()));
 		});
 
 		it('should not match undefined', () => {
 
-			assertFalse(sut.matches(undefined));
+			assert.equal(sut.matches(undefined), false);
 		});
 
 		describe('description', () => {
