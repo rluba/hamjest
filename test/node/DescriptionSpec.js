@@ -72,6 +72,15 @@ describe('Description', () => {
 		__.assertThat(sut.get(), __.allOf(__.startsWith('{'), __.endsWith('}'), __.containsString('name: "recursive"'), __.containsString('children: ')));
 	});
 
+	it('should handle un-stringable, recursive objects gracefully', () => {
+		const recursiveObject = {name: 'recursive', toString: null};
+		recursiveObject.children = [{name: 'another'}, recursiveObject];
+
+		sut.appendValue(recursiveObject);
+
+		__.assertThat(sut.get(), __.allOf(__.startsWith('{'), __.endsWith('}'), __.containsString('name: "recursive"'), __.containsString('children: ')));
+	});
+
 	it('should describe matchers in arrays', () => {
 		const matcher = _.create(new __.Matcher(), {
 			describeTo: function (description) {
