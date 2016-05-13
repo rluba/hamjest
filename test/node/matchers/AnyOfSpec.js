@@ -33,6 +33,13 @@ describe('AnyOf', () => {
 
 				__.assertThat(description.get(), __.equalTo('("expected value" or a string containing "some")'));
 			});
+
+			it('should support null value', () => {
+
+				__.anyOf(null, __.containsString('some')).describeTo(description);
+
+				__.assertThat(description.get(), __.equalTo('(null or a string containing "some")'));
+			});
 		});
 	});
 });
