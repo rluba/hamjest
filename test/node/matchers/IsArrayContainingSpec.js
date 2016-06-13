@@ -50,21 +50,21 @@ describe('IsArrayContaining', () => {
 
 				sut.describeMismatch([5, 6, 7], description);
 
-				__.assertThat(description.get(), __.equalTo('item 0: was a Number (<5>)\nitem 1: was <6>\nnot matched: <7>'));
+				__.assertThat(description.get(), __.equalTo('item 0: was a Number (<5>)\nitem 1: was <6>\nnot matched:\n\t<7>'));
 			});
 
 			it('should contain surplus items', () => {
 
 				sut.describeMismatch(['expected', 7, 'surplus 1', 100], description);
 
-				__.assertThat(description.get(), __.equalTo('not matched: "surplus 1", <100>'));
+				__.assertThat(description.get(), __.equalTo('not matched:\n\t"surplus 1",\n\t<100>'));
 			});
 
 			it('should contain unmatched matchers', () => {
 
 				sut.describeMismatch([], description);
 
-				__.assertThat(description.get(), __.equalTo('missing: a string containing "expected", <7>'));
+				__.assertThat(description.get(), __.equalTo('missing:\n\ta string containing "expected",\n\t<7>'));
 			});
 
 			it('should fit for non-arrays', () => {
