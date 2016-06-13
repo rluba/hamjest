@@ -56,14 +56,14 @@ describe('IsArrayContainingInAnyOrder', () => {
 
 				sut.describeMismatch(['expected', 7, 100, 'item', 'surplus item'], description);
 
-				__.assertThat(description.get(), __.equalTo('not matched: <100>, "surplus item" from ["expected", <7>, <100>, "item", "surplus item"]'));
+				__.assertThat(description.get(), __.equalTo('not matched:\n\t<100>,\n\t"surplus item"\nfrom ["expected", <7>, <100>, "item", "surplus item"]'));
 			});
 
 			it('should contain unmatched matchers', () => {
 
 				sut.describeMismatch([7], description);
 
-				__.assertThat(description.get(), __.equalTo('no item in [<7>] matches: a string containing "expected", a string containing "item"'));
+				__.assertThat(description.get(), __.equalTo('no item in [<7>] matches:\n\ta string containing "expected",\n\ta string containing "item"'));
 			});
 
 			it('should fit for non-arrays', () => {
