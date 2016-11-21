@@ -1,19 +1,22 @@
 # Hamjest
-A JavaScript implementation of [Hamcrest](http://hamcrest.org).
+
+A library of composable matchers for defining meaningful and readable assertions in JavaScript. Based on [Hamcrest](http://hamcrest.org).
+
+# Why?
+
+Because readable assertions and readable _assertion errors_ really matter. Failing with `Expected false to equal true` just doesn't cut it. Matcher-based assertions help you extend and maintain large test suites by explaining _why exactly_ an assertion failed.
 
 See the [matcher documentation](https://github.com/rluba/hamjest/wiki/Matcher-documentation) for a list of available matchers.
 
-Unlinke other JS Hamcrest libraries, it
+Hamjest…
 
-* tries to deliver meaningful and readable (mismatch) descriptions, even for arbitrary JavaScript objects,
-* uses deep equivalence (without coercion) as default matcher - instead of '==' or '===',
-* has builtin support for [promises](http://promises-aplus.github.io/promises-spec/) using the [Q library](http://documentup.com/kriskowal/q/),
-* lets [Lo-Dash](http://lodash.com) do some of the heavy lifting (because you can't do it any better by yourself),
-* uses [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode) for all source and test files,
-* is designed as a first-class [NPM module](https://npmjs.org),
-* also has a build for browsers (i.e. you can use it in [Karma](http://karma-runner.github.io) tests and whatnot),
-* has an extensive suite of [Mocha](http://mochajs.org/) tests,
-* uses [Gulp](http://gulpjs.com) as build system, so it does not depend on Python or Ruby.
+* … tries to deliver meaningful and readable error descriptions, even for arbitrary JavaScript objects,
+* … uses deep equivalence (without coercion) as default matcher - instead of '==' or '===',
+* … has builtin support for asynchronous tests and assertions using promises,
+* … lets [Lo-Dash](http://lodash.com) do some of the heavy lifting (because you can't do it any better by yourself),
+* … is designed as a first-class [NPM module](https://npmjs.org/hamjest),
+* … has a build for browsers (i.e. you can use it in [Karma](http://karma-runner.github.io) tests and whatnot),
+* … has an extensive suite of [Mocha](http://mochajs.org/) tests
 
 # Installation
 Hamjest is available via [NPM](https://npmjs.org/package/hamjest):
@@ -34,7 +37,7 @@ __.assertThat(5, __.is(__.greaterThan(2)));
 __.assertThat([5, 12, 9], __.hasItem(__.greaterThanOrEqualTo(11)));
 ```
 
-The best thing about Hamjest are its error messages, just like the Java original:
+The best thing about Hamjest are its error messages, just like the [Java original](http://hamcrest.org):
 
 ```JavaScript
 var sut = {name: 1337, age: 25};
@@ -110,14 +113,14 @@ Expected: is animal with name length a number greater than <5>
 ## Suggestions
 Do you have an idea how to make a matcher's error description even more readable? Does Hamjest lack a crucial matcher? (I'm sure it does...)
 
-Just drop me a message or - even better - send me a pull request.
+Just send me a message (I'm [@LubaRaph on Twitter](https://twitter.com/lubaraph)), open a ticket or - even better - send me a pull request.
 
 # Browser support
 Hamjest also runs in the browser - thanks to [browserify](http://browserify.org/).
 
 Simply include `dist/hamjest(.min).js` in your browser tests. It comes with "batteries included" and none of the dependencies are leaked into global scope.
 
-Both files export a single global: `hamjest`. You can rename it as usual for better readability:
+The browser build exports a single global: `hamjest`. You can rename it as usual for better readability:
 
 ```JavaScript
 var __ = hamjest;
@@ -133,7 +136,7 @@ You need [Gulp](http://gulpjs.com) to lint and test the project and build the br
 npm install -g gulp
 ```
 
-Use `gulp build` to lint and test the project and update the browser files. Use `gulp dev` during development to run linting and tests whenever any JS file changes.
+Run `gulp build` to lint and test the project and update the browser files. Use `gulp dev` during development to run linting and tests whenever any JS file changes.
 
 # Breaking changes between versions
 ## v0.x to v1.0
