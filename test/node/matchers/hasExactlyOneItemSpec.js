@@ -64,14 +64,14 @@ describe('hasExactlyOneItem', () => {
 
 			sut.describeMismatch(['unrelated', 'expected item', 7, 'another expected item?'], description);
 
-			__.assertThat(description.get(), __.equalTo('it contained multiple instances:\n\titem 1: "expected item"\n\titem 3: "another expected item?"\nother items:\n\titem 0: was "unrelated"\n\titem 2: was a Number (<7>)'));
+			__.assertThat(description.get(), __.equalTo('array contained multiple instances:\n\titem 1: "expected item"\n\titem 3: "another expected item?"\nother items:\n\titem 0: was "unrelated"\n\titem 2: was a Number (<7>)'));
 		});
 
 		it('should contain every match, if there are no mismatches', () => {
 
 			sut.describeMismatch(['expected item', 'another expected item?'], description);
 
-			__.assertThat(description.get(), __.equalTo('it contained multiple instances:\n\titem 0: "expected item"\n\titem 1: "another expected item?"'));
+			__.assertThat(description.get(), __.equalTo('array contained multiple instances:\n\titem 0: "expected item"\n\titem 1: "another expected item?"'));
 		});
 
 		it('should contain every mismatch, if no matches occur', () => {
