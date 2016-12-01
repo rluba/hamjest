@@ -209,61 +209,23 @@ describe('IsObjectWithProperties', () => {
 	});
 
 	describe('hasProperty', () => {
-		let sut;
-		beforeEach(() => {
-			sut = __.hasProperty('name', 'Joe');
-		});
-
-		it('should match if property is present and matches', () => {
-			__.assertThat(sut.matches({name: 'Joe'}), __.is(true));
-
-			__.assertThat(sut.matches({name: 'Joel'}), __.is(false));
-			__.assertThat(sut.matches({children: 12}), __.is(false));
-		});
-
-		it('should ignore unspecified properties', () => {
-			__.assertThat(sut.matches({name: 'Joe', age: 27}), __.is(true));
-
-			__.assertThat(sut.matches({name: 'Joe2', age: 27}), __.is(false));
-		});
-
-		it('should not match non-objects', () => {
-			__.assertThat(sut.matches(12), __.is(false));
-			__.assertThat(sut.matches(['Joe', 12]), __.is(false));
-			__.assertThat(sut.matches([12, 'Joe']), __.is(false));
-		});
-
-		describe('without second argument', () => {
-			beforeEach(() => {
-				sut = __.hasProperty('name');
-			});
-
-			it('should match if property is defined', () => {
-				__.assertThat(sut.matches({name: null}), __.is(true));
-
-				__.assertThat(sut.matches({name: undefined}), __.is(false));
-				__.assertThat(sut.matches({foo: 'bar'}), __.is(false));
-				__.assertThat(sut.matches({}), __.is(false));
-			});
-		});
-
-		describe('with false value', () => {
+		describe('with a simple property name', () => {
 			let sut;
 			beforeEach(() => {
-				sut = __.hasProperty('enabled', false);
+				sut = __.hasProperty('name', 'Joe');
 			});
 
 			it('should match if property is present and matches', () => {
-				__.assertThat(sut.matches({enabled: false}), __.is(true));
+				__.assertThat(sut.matches({name: 'Joe'}), __.is(true));
 
-				__.assertThat(sut.matches({enabled: true}), __.is(false));
-				__.assertThat(sut.matches({}), __.is(false));
+				__.assertThat(sut.matches({name: 'Joel'}), __.is(false));
+				__.assertThat(sut.matches({children: 12}), __.is(false));
 			});
 
 			it('should ignore unspecified properties', () => {
-				__.assertThat(sut.matches({enabled: false, age: 27}), __.is(true));
+				__.assertThat(sut.matches({name: 'Joe', age: 27}), __.is(true));
 
-				__.assertThat(sut.matches({enabled: true, age: 27}), __.is(false));
+				__.assertThat(sut.matches({name: 'Joe2', age: 27}), __.is(false));
 			});
 
 			it('should not match non-objects', () => {
@@ -271,41 +233,141 @@ describe('IsObjectWithProperties', () => {
 				__.assertThat(sut.matches(['Joe', 12]), __.is(false));
 				__.assertThat(sut.matches([12, 'Joe']), __.is(false));
 			});
+
+			describe('without second argument', () => {
+				beforeEach(() => {
+					sut = __.hasProperty('name');
+				});
+
+				it('should match if property is defined', () => {
+					__.assertThat(sut.matches({name: null}), __.is(true));
+
+					__.assertThat(sut.matches({name: undefined}), __.is(false));
+					__.assertThat(sut.matches({foo: 'bar'}), __.is(false));
+					__.assertThat(sut.matches({}), __.is(false));
+				});
+			});
+
+			describe('with false value', () => {
+				let sut;
+				beforeEach(() => {
+					sut = __.hasProperty('enabled', false);
+				});
+
+				it('should match if property is present and matches', () => {
+					__.assertThat(sut.matches({enabled: false}), __.is(true));
+
+					__.assertThat(sut.matches({enabled: true}), __.is(false));
+					__.assertThat(sut.matches({}), __.is(false));
+				});
+
+				it('should ignore unspecified properties', () => {
+					__.assertThat(sut.matches({enabled: false, age: 27}), __.is(true));
+
+					__.assertThat(sut.matches({enabled: true, age: 27}), __.is(false));
+				});
+
+				it('should not match non-objects', () => {
+					__.assertThat(sut.matches(12), __.is(false));
+					__.assertThat(sut.matches(['Joe', 12]), __.is(false));
+					__.assertThat(sut.matches([12, 'Joe']), __.is(false));
+				});
+			});
+
+			describe('description', () => {
+				let description;
+				beforeEach(() => {
+					description = new __.Description();
+				});
+
+				it('should contain value', () => {
+
+					sut.describeTo(description);
+
+					__.assertThat(description.get(), __.equalTo('an object with {name: "Joe"}'));
+				});
+
+				it('should contain matcher description', () => {
+					sut = __.hasProperty('name', __.endsWith('Joe'));
+
+					sut.describeTo(description);
+
+					__.assertThat(description.get(), __.equalTo('an object with {name: a string ending with "Joe"}'));
+				});
+
+				it('should contain mismatched properties', () => {
+
+					sut.describeMismatch({name: 'Jim', other: 'ignored'}, description);
+
+					__.assertThat(description.get(), __.equalTo('name was "Jim"'));
+				});
+
+				it('should fit for non-objects', () => {
+
+					sut.describeMismatch(7, description);
+
+					__.assertThat(description.get(), __.equalTo('was a Number (<7>)'));
+				});
+			});
 		});
 
-		describe('description', () => {
-			let description;
+		describe('with a single property name as array', () => {
+			let sut;
 			beforeEach(() => {
-				description = new __.Description();
+				sut = __.hasProperty(['name'], 'Joe');
 			});
 
-			it('should contain value', () => {
+			it('should match if property is present and matches', () => {
+				__.assertThat(sut.matches({name: 'Joe'}), __.is(true));
 
-				sut.describeTo(description);
-
-				__.assertThat(description.get(), __.equalTo('an object with {name: "Joe"}'));
+				__.assertThat(sut.matches({name: 'Joel'}), __.is(false));
+				__.assertThat(sut.matches({children: 12}), __.is(false));
 			});
 
-			it('should contain matcher description', () => {
-				sut = __.hasProperty('name', __.endsWith('Joe'));
+			it('should ignore unspecified properties', () => {
+				__.assertThat(sut.matches({name: 'Joe', age: 27}), __.is(true));
 
-				sut.describeTo(description);
+				__.assertThat(sut.matches({name: 'Joe2', age: 27}), __.is(false));
+			});
+		});
 
-				__.assertThat(description.get(), __.equalTo('an object with {name: a string ending with "Joe"}'));
+		describe('with a dot-path property name', () => {
+			let sut;
+			beforeEach(() => {
+				sut = __.hasProperty('user.name', 'Joe');
 			});
 
-			it('should contain mismatched properties', () => {
+			it('should match if property is present and matches', () => {
+				__.assertThat(sut.matches({user: {name: 'Joe'}}), __.is(true));
 
-				sut.describeMismatch({name: 'Jim', other: 'ignored'}, description);
-
-				__.assertThat(description.get(), __.equalTo('name was "Jim"'));
+				__.assertThat(sut.matches({user: {name: 'Joe2'}}), __.is(false));
+				__.assertThat(sut.matches({name: 'Joe'}), __.is(false));
 			});
 
-			it('should fit for non-objects', () => {
+			it('should ignore unspecified properties', () => {
+				__.assertThat(sut.matches({user: {name: 'Joe', age: 27}}), __.is(true));
 
-				sut.describeMismatch(7, description);
+				__.assertThat(sut.matches({user: {name: 'Joe2', age: 27}}), __.is(false));
+			});
+		});
 
-				__.assertThat(description.get(), __.equalTo('was a Number (<7>)'));
+		describe('with an array-path property name', () => {
+			let sut;
+			beforeEach(() => {
+				sut = __.hasProperty(['user', 'name'], 'Joe');
+			});
+
+			it('should match if property is present and matches', () => {
+				__.assertThat(sut.matches({user: {name: 'Joe'}}), __.is(true));
+
+				__.assertThat(sut.matches({user: {name: 'Joe2'}}), __.is(false));
+				__.assertThat(sut.matches({name: 'Joe'}), __.is(false));
+			});
+
+			it('should ignore unspecified properties', () => {
+				__.assertThat(sut.matches({user: {name: 'Joe', age: 27}}), __.is(true));
+
+				__.assertThat(sut.matches({user: {name: 'Joe2', age: 27}}), __.is(false));
 			});
 		});
 	});
