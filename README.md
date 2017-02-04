@@ -12,7 +12,7 @@ Unlinke other JS Hamcrest libraries, it
 * uses [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode) for all source and test files,
 * is designed as a first-class [NPM module](https://npmjs.org),
 * also has a build for browsers (i.e. you can use it in [Karma](http://karma-runner.github.io) tests and whatnot),
-* has an extensive suite of [Mocha](http://visionmedia.github.io/mocha/) tests,
+* has an extensive suite of [Mocha](http://mochajs.org/) tests,
 * uses [Gulp](http://gulpjs.com) as build system, so it does not depend on Python or Ruby.
 
 # Installation
