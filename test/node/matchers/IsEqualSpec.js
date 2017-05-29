@@ -37,6 +37,13 @@ describe('IsEqual', () => {
 			assert.ok(matcher.matches(equivalentValue));
 		});
 
+		it('should handle 0 === -0 correctly (#23)', () => {
+
+			const matcher = __.equalTo(0);
+
+			assert.ok(matcher.matches(-0));
+		});
+
 		it('should not match unequivalent objects', () => {
 			const value = {a: 1, b: 2};
 
