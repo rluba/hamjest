@@ -149,8 +149,8 @@ Run `gulp build` to lint and test the project and update the browser files. Use 
 	In particular, Hamjest 3 now uses a special description format for DOM-like objects (eg. DOM nodes, [cheerio](https://www.npmjs.com/package/cheerio) objects, …) to make mismatch descriptions involving those kinds of objects easier to understand.
 
 	I consider this a breaking change since Hamjest’s readable console messages are its primary feature.
-
-* Internal: Replaced Q with Bluebird for all promise-related code (`promiseThat(…)`, `willBe(…)`, etc.). If you previously used any of Q's non-standard sugar methods on the promises returned by hamjest, you'll need to change to the equivalent [Bluebird methods](http://bluebirdjs.com/docs/api-reference.html) instead.
+* Replaced Q with Bluebird for all promise-related code (`promiseThat(…)`, `willBe(…)`, etc.). If you previously used any of Q's non-standard sugar methods on the promises returned by Hamjest, you'll need to switch to the equivalent [Bluebird methods](http://bluebirdjs.com/docs/api-reference.html).
+* Internal: Switched from Grunt to Gulp. This might affect you if you created custom builds of Hamjest.
 
 ## v1.x to v2.0
 ### throws
