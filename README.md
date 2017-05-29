@@ -139,9 +139,18 @@ npm install -g gulp
 Run `gulp build` to lint and test the project and update the browser files. Use `gulp dev` during development to run linting and tests whenever any JS file changes.
 
 # Breaking changes between versions
-## v0.x to v1.0
-### promiseThat
-The semantics of `promiseThat` has changed in `1.0.0` Previously the sub-matcher was called with the fulfilled value instead of the promise. This turned out to be of limited use because you couldn't test for rejection.
+
+## v2.x to v3.0
+
+* Hamjest 3 requires at least Node.js 4.x, since it some ES6 syntax. Stick to Hamjest 2 if you still use older versions of Node.js.
+* The browser version of Hamjest now always contains its own dependencies (lodash, bluebird). Previously it also offered a version that looked for these dependencies in global scope. but that caused more trouble than it solved.
+* The formatting for many mismatch descriptions has changed to make them easier to read (added, indentation, newlines, …)
+	
+	In particular, Hamjest 3 now uses a special description format for DOM-like objects (eg. DOM nodes, [cheerio](https://www.npmjs.com/package/cheerio) objects, …) to make mismatch descriptions involving those kinds of objects easier to understand.
+
+	I consider this a breaking change since Hamjest’s readable console messages are its primary feature.
+
+* Internal: Replaced Q with Bluebird for all promise-related code (`promiseThat(…)`, `willBe(…)`, etc.). If you previously used any of Q's non-standard sugar methods on the promises returned by hamjest, you'll need to change to the equivalent [Bluebird methods](http://bluebirdjs.com/docs/api-reference.html) instead.
 
 ## v1.x to v2.0
 ### throws
@@ -158,6 +167,10 @@ to
 ```JavaScript
 __.assertThat(fn, __.throws(__.instanceOf(AssertionError)))
 ```
+
+## v0.x to v1.0
+### promiseThat
+The semantics of `promiseThat` has changed in `1.0.0` Previously the sub-matcher was called with the fulfilled value instead of the promise. This turned out to be of limited use because you couldn't test for rejection.
 
 # License
 
