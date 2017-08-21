@@ -26,6 +26,11 @@ describe('assertThat', () => {
 		assert.ok(passedValue === input, 'Received: ' + passedValue);
 	});
 
+	it('should wrap non-matcher values in `equalTo()`', () => {
+		const fn = () => __.assertThat(true, true);
+		assert.doesNotThrow(fn);
+	});
+
 	it('should format assertion message if matcher fails', () => {
 		let thrown;
 
