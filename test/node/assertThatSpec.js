@@ -26,6 +26,22 @@ describe('assertThat', () => {
 		assert.ok(passedValue === input, 'Received: ' + passedValue);
 	});
 
+	it('should wrap non-matcher values in `equalTo()` (without message)', () => {
+
+		assert.doesNotThrow(() => __.assertThat(true, true));
+		assert.doesNotThrow(() => __.assertThat('some string', 'some string'));
+		assert.doesNotThrow(() => __.assertThat({a: 'value'}, {a: 'value'}));
+		__.assertThat(() => __.assertThat('some value', 'other value'), __.throws(__.instanceOf(AssertionError)));
+	});
+
+	it('should wrap non-matcher values in `equalTo()` (with a message)', () => {
+
+		assert.doesNotThrow(() => __.assertThat('Boolean', true, true));
+		assert.doesNotThrow(() => __.assertThat('String', 'some string', 'some string'));
+		assert.doesNotThrow(() => __.assertThat('Objects', {a: 'value'}, {a: 'value'}));
+		__.assertThat(() => __.assertThat('Mismatching strings', 'some value', 'other value'), __.throws(__.instanceOf(AssertionError)));
+	});
+
 	it('should format assertion message if matcher fails', () => {
 		let thrown;
 
