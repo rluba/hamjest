@@ -8,7 +8,7 @@ const __ = require('../../..');
 
 describe('DateComparisonMatcher', () => {
 
-	const thresholdDate = new Date('2014-07-14T12:00:00');
+	const thresholdDate = new Date('2014-07-14T12:00:00Z');
 
 	describe('after', () => {
 		let sut;
@@ -23,11 +23,11 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assert.ok(sut.matches(new Date('2014-07-15T11:00:00')));
-			assert.ok(sut.matches(new Date('2014-07-14T13:00:00')));
-			assert.equal(sut.matches(new Date('2014-07-14T12:00:00')), false);
-			assert.equal(sut.matches(new Date('2014-07-14T11:00:00')), false);
-			assert.equal(sut.matches(new Date('2014-07-13T13:00:00')), false);
+			assert.ok(sut.matches(new Date('2014-07-15T11:00:00Z')));
+			assert.ok(sut.matches(new Date('2014-07-14T13:00:00Z')));
+			assert.equal(sut.matches(new Date('2014-07-14T12:00:00Z')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T11:00:00Z')), false);
+			assert.equal(sut.matches(new Date('2014-07-13T13:00:00Z')), false);
 		});
 
 		it('should not match non-dates', () => {
@@ -49,7 +49,7 @@ describe('DateComparisonMatcher', () => {
 			});
 
 			it('should contain mismatched date', () => {
-				const mismatch = new Date('2014-07-14T11:00:00');
+				const mismatch = new Date('2014-07-14T11:00:00Z');
 
 				sut.describeMismatch(mismatch, description);
 
@@ -78,11 +78,11 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assert.ok(sut.matches(new Date('2014-07-15T11:00:00')));
-			assert.ok(sut.matches(new Date('2014-07-14T13:00:00')));
-			assert.ok(sut.matches(new Date('2014-07-14T12:00:00')));
-			assert.equal(sut.matches(new Date('2014-07-14T11:00:00')), false);
-			assert.equal(sut.matches(new Date('2014-07-13T13:00:00')), false);
+			assert.ok(sut.matches(new Date('2014-07-15T11:00:00Z')));
+			assert.ok(sut.matches(new Date('2014-07-14T13:00:00Z')));
+			assert.ok(sut.matches(new Date('2014-07-14T12:00:00Z')));
+			assert.equal(sut.matches(new Date('2014-07-14T11:00:00Z')), false);
+			assert.equal(sut.matches(new Date('2014-07-13T13:00:00Z')), false);
 		});
 
 		it('should not match non-dates', () => {
@@ -104,7 +104,7 @@ describe('DateComparisonMatcher', () => {
 			});
 
 			it('should contain mismatched date', () => {
-				const mismatch = new Date('2014-07-14T11:00:00');
+				const mismatch = new Date('2014-07-14T11:00:00Z');
 
 				sut.describeMismatch(mismatch, description);
 
@@ -133,11 +133,11 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assert.equal(sut.matches(new Date('2014-07-15T11:00:00')), false);
-			assert.equal(sut.matches(new Date('2014-07-14T13:00:00')), false);
-			assert.equal(sut.matches(new Date('2014-07-14T12:00:00')), false);
-			assert.ok(sut.matches(new Date('2014-07-14T11:00:00')));
-			assert.ok(sut.matches(new Date('2014-07-13T13:00:00')));
+			assert.equal(sut.matches(new Date('2014-07-15T11:00:00Z')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T13:00:00Z')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T12:00:00Z')), false);
+			assert.ok(sut.matches(new Date('2014-07-14T11:00:00Z')));
+			assert.ok(sut.matches(new Date('2014-07-13T13:00:00Z')));
 		});
 
 		it('should not match non-dates', () => {
@@ -159,7 +159,7 @@ describe('DateComparisonMatcher', () => {
 			});
 
 			it('should contain mismatched date', () => {
-				const mismatch = new Date('2014-07-14T13:00:00');
+				const mismatch = new Date('2014-07-14T13:00:00Z');
 
 				sut.describeMismatch(mismatch, description);
 
@@ -188,11 +188,11 @@ describe('DateComparisonMatcher', () => {
 		});
 
 		it('should match dates correctly', () => {
-			assert.equal(sut.matches(new Date('2014-07-15T11:00:00')), false);
-			assert.equal(sut.matches(new Date('2014-07-14T13:00:00')), false);
-			assert.ok(sut.matches(new Date('2014-07-14T12:00:00')));
-			assert.ok(sut.matches(new Date('2014-07-14T11:00:00')));
-			assert.ok(sut.matches(new Date('2014-07-13T13:00:00')));
+			assert.equal(sut.matches(new Date('2014-07-15T11:00:00Z')), false);
+			assert.equal(sut.matches(new Date('2014-07-14T13:00:00Z')), false);
+			assert.ok(sut.matches(new Date('2014-07-14T12:00:00Z')));
+			assert.ok(sut.matches(new Date('2014-07-14T11:00:00Z')));
+			assert.ok(sut.matches(new Date('2014-07-13T13:00:00Z')));
 		});
 
 		it('should not match non-dates', () => {
@@ -214,7 +214,7 @@ describe('DateComparisonMatcher', () => {
 			});
 
 			it('should contain mismatched date', () => {
-				const mismatch = new Date('2014-07-14T13:00:00');
+				const mismatch = new Date('2014-07-14T13:00:00Z');
 
 				sut.describeMismatch(mismatch, description);
 
