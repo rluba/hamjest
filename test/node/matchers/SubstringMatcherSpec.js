@@ -72,6 +72,62 @@ describe('SubstringMatcher', () => {
 		});
 	});
 
+	describe('containsStrings', () => {
+		let sut;
+		beforeEach(() => {
+			sut = __.containsStrings('a value', 'another value');
+		});
+
+		it('should throw for non-string arguments', () => {
+			__.assertThat(() => {
+				__.containsString(7);
+			}, __.throws(__.instanceOf(AssertionError)));
+		});
+
+		it('should match superstrings', () => {
+			assert.ok(sut.matches('another value and a value'));
+			assert.ok(sut.matches('traa value and another valuestuff'));
+		});
+
+		it('should not match if one of the strings is missing', () => {
+			assert.equal(sut.matches('another value'), false);
+			assert.equal(sut.matches('a value'), false);
+		});
+
+		it('should not match non-strings', () => {
+			assert.equal(sut.matches(), false);
+			assert.equal(sut.matches(5), false);
+		});
+
+		describe('description', () => {
+			let description;
+			beforeEach(() => {
+				description = new __.Description();
+			});
+
+			it('should contain values', () => {
+
+				sut.describeTo(description);
+
+				__.assertThat(description.get(), __.equalTo('a string containing "a value", "another value"'));
+			});
+
+			it('should contain missing string and actual string', () => {
+
+				sut.describeMismatch('some value and another value', description);
+
+				__.assertThat(description.get(), __.equalTo('"a value" could not be found in "some value and another value"'));
+			});
+
+			it('should contain all missing strings and actual string', () => {
+
+				sut.describeMismatch('some value', description);
+
+				__.assertThat(description.get(), __.equalTo('"a value", "another value" could not be found in "some value"'));
+			});
+		});
+	});
+
 	describe('startsWith', () => {
 		let sut;
 		beforeEach(() => {
