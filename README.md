@@ -13,7 +13,7 @@ Hamjest…
 * … tries to deliver meaningful and readable error descriptions, even for arbitrary JavaScript objects,
 * … uses deep equivalence (without coercion) as default matcher - instead of '==' or '===',
 * … has builtin support for asynchronous tests and assertions using promises,
-* … lets [Lo-Dash](http://lodash.com) do some of the heavy lifting (because you can't do it any better by yourself),
+* … lets [Lodash](http://lodash.com) do some of the heavy lifting (because you can't do it any better by yourself),
 * … is designed as a first-class [NPM module](https://npmjs.org/hamjest),
 * … has a build for browsers (i.e. you can use it in [Karma](http://karma-runner.github.io) tests and whatnot),
 * … has an extensive suite of [Mocha](http://mochajs.org/) tests
