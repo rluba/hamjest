@@ -2,7 +2,7 @@
   "name": "hamjest",
   "version": "3.2.0",
   "main": "index.js",
-  "description": "A JavaScript implementation of Hamcrest",
+  "description": "A library of composable matchers for defining meaningful and readable assertions in JavaScript.",
   "homepage": "https://github.com/rluba/hamjest",
   "author": {
     "name": "Raphael Luba",
@@ -40,7 +40,7 @@
   "dependencies": {
     "assertion-error": "~1.0.0",
     "bluebird": "^3.3.4",
-    "lodash": "^3.6.0"
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.6.0",
@@ -51,13 +51,10 @@
     "eslint-config-leanbyte": "^1.1.0",
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
-    "gulp-jscs": "^3.0.1",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-mocha": "^2.1.3",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.4.1",
-    "jscs": "^2.2.1",
-    "jscs-preset-leanbyte": "^1.0.1",
     "karma": "^0.13.21",
     "karma-chrome-launcher": "^0.2.2",
     "karma-firefox-launcher": "^0.1.7",

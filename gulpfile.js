@@ -24,10 +24,7 @@ gulp.task('lint', () => {
 	return gulp.src(jsFiles)
 		.pipe($.eslint())
 		.pipe($.eslint.format())
-		.pipe($.eslint.failAfterError())
-		.pipe($.jscs())
-		.pipe($.jscs.reporter())
-		.pipe($.jscs.reporter('fail'));
+		.pipe($.eslint.failAfterError());
 });
 
 gulp.task('test', ['test:node']);
