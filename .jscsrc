@@ -1,7 +1,0 @@
-{
-	"preset": "leanbyte",
-	"excludeFiles": [
-		"node_modules/**",
-		"build/**"
-	]
-}
