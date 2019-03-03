@@ -515,8 +515,8 @@ var Every = acceptingMatcher(function (matcher) {
 	});
 });
 
-Every.everyItem = function (matcherOrValue) {
-	return new Every(matcherOrValue);
+Every.everyItem = function (valueOrMatcher) {
+	return new Every(valueOrMatcher);
 };
 
 module.exports = Every;
@@ -863,8 +863,8 @@ var IsArrayWithItem = acceptingMatcher(function (matcher) {
 	});
 });
 
-IsArrayWithItem.hasItem = function (matcherOrValue) {
-	return new IsArrayWithItem(matcherOrValue);
+IsArrayWithItem.hasItem = function (valueOrMatcher) {
+	return new IsArrayWithItem(valueOrMatcher);
 };
 
 module.exports = IsArrayWithItem;
@@ -1562,8 +1562,8 @@ function Matcher() {
 	});
 }
 
-Matcher.isMatcher = function (matcherOrValue) {
-	return !_.isUndefined(matcherOrValue) && !_.isNull(matcherOrValue) && _.isFunction(matcherOrValue.matches) && _.isFunction(matcherOrValue.describeTo) && _.isFunction(matcherOrValue.describeMismatch);
+Matcher.isMatcher = function (valueOrMatcher) {
+	return !_.isUndefined(valueOrMatcher) && !_.isNull(valueOrMatcher) && _.isFunction(valueOrMatcher.matches) && _.isFunction(valueOrMatcher.describeTo) && _.isFunction(valueOrMatcher.describeMismatch);
 };
 
 module.exports = Matcher;
@@ -1906,8 +1906,8 @@ var _ = require('lodash');
 var TypeSafeMatcher = require('./TypeSafeMatcher');
 var FeatureMatcher = require('./FeatureMatcher');
 
-module.exports = function (matcherOrValue) {
-	var innerMatcher = new FeatureMatcher(matcherOrValue, 'a collection or string with size', 'size', function (item) {
+module.exports = function (valueOrMatcher) {
+	var innerMatcher = new FeatureMatcher(valueOrMatcher, 'a collection or string with size', 'size', function (item) {
 		return _.size(item);
 	});
 	return _.create(new TypeSafeMatcher(), {
@@ -2067,8 +2067,8 @@ var asMatcher = require('../utils/asMatcher');
 var func = require('./IsFunction').func;
 var getType = require('../utils/getType');
 
-module.exports = function returns(resultMatcherOrValue) {
-	var resultMatcher = resultMatcherOrValue ? asMatcher(resultMatcherOrValue) : anything();
+module.exports = function returns(resultValueOrMatcher) {
+	var resultMatcher = resultValueOrMatcher? asMatcher(resultValueOrMatcher) : anything();
 	return _.create(func(), {
 		matchesSafely: function matchesSafely(actual) {
 			try {
@@ -2122,8 +2122,8 @@ var asMatcher = require('../utils/asMatcher');
 var getType = require('../utils/getType');
 var getTypeName = require('../utils/getTypeName');
 
-module.exports = function typedError(errorType, messageMatcherOrValue) {
-	var messageMatcher = asMatcher(messageMatcherOrValue);
+module.exports = function typedError(errorType, messageValueOrMatcher) {
+	var messageMatcher = asMatcher(messageValueOrMatcher);
 	return {
 		matches: function matches(actual) {
 			return actual instanceof errorType && messageMatcher.matches(actual.message);

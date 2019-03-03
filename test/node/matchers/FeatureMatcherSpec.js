@@ -7,8 +7,8 @@ const Animal = require('../zoo').Animal;
 describe('FeatureMatcher', () => {
 
 	describe('without feature function', () => {
-		function creatureWithName(matcherOrValue) {
-			return new __.FeatureMatcher(matcherOrValue, 'creature with name', 'name');
+		function creatureWithName(valueOrMatcher) {
+			return new __.FeatureMatcher(valueOrMatcher, 'creature with name', 'name');
 		}
 
 		it('should use feature name as property name', () => {
@@ -57,8 +57,8 @@ describe('FeatureMatcher', () => {
 	});
 
 	describe('with feature function', () => {
-		function creatureWithNameLength(matcherOrValue) {
-			return new __.FeatureMatcher(matcherOrValue, 'creature with name length', 'name length', (actual) => _.size(actual.name));
+		function creatureWithNameLength(valueOrMatcher) {
+			return new __.FeatureMatcher(valueOrMatcher, 'creature with name length', 'name length', (actual) => _.size(actual.name));
 		}
 		let sut;
 		beforeEach(() => {

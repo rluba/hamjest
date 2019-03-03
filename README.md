@@ -81,8 +81,8 @@ Not impressed? I'll give it another try, using the builtin `FeatureMatcher`:
 
 ```JavaScript
 // Define a custom matcher using FeatureMatcher:
-function animalWithName(matcherOrValue) {
-	return new __.FeatureMatcher(matcherOrValue, 'animal with name', 'name');
+function animalWithName(valueOrMatcher) {
+	return new __.FeatureMatcher(valueOrMatcher, 'animal with name', 'name');
 }
 
 var animal = {name: 'Bob', age: 12};
@@ -96,8 +96,8 @@ Expected: is animal with name "Tom"
 By default, FeatureMatcher tries to find a property with the given feature name (the third parameter), but you can pass in an optional feature function:
 
 ```JavaScript
-function animalWithNameLength(matcherOrValue) {
-	return new __.FeatureMatcher(matcherOrValue, 'animal with name length', 'name length', function (item) {
+function animalWithNameLength(valueOrMatcher) {
+	return new __.FeatureMatcher(valueOrMatcher, 'animal with name length', 'name length', function (item) {
 		return item.name.length;
 	});
 }
