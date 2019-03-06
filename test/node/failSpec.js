@@ -5,10 +5,10 @@ const __ = require('../..');
 
 describe('fail', () => {
 	it('with a reason: should throw an AssertionError with the reason', () => {
-		function assertionErrorWithMessage(matcherOrValue) {
+		function assertionErrorWithMessage(valueOrMatcher) {
 			return __.allOf(
 				__.instanceOf(AssertionError),
-				new __.FeatureMatcher(matcherOrValue, 'AssertionError with message', 'message')
+				new __.FeatureMatcher(valueOrMatcher, 'AssertionError with message', 'message')
 			);
 		}
 

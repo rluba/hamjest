@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const __ = require('../../..');
 
-describe('hasDescription(matcherOrValue)', () => {
+describe('hasDescription(valueOrMatcher)', () => {
 	_.forEach([
 		[__.hasSize(3), __.containsString('WILL NEVER MATCH'), false],
 		[__.hasSize(3), __.containsString('size <3>'), true],

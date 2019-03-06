@@ -93,7 +93,7 @@ describe('Description', () => {
 		assert.equal(sut.get(), '[<5>, a matcher description, "foo"]');
 	});
 
-	describe('appendDescriptionOf(matcherOrValue)', () => {
+	describe('appendDescriptionOf(valueOrMatcher)', () => {
 		it('should append matcher description', () => {
 			const matcher = _.create(new __.Matcher(), {
 				describeTo: function (description) {
