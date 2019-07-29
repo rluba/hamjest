@@ -63,6 +63,20 @@ describe('Description', () => {
 		assert.equal(sut.get(), '{"an":"object"}');
 	});
 
+	it('should render `null` in an object', () => {
+
+		sut.appendValue({an: null});
+
+		assert.equal(sut.get(), '{"an":null}');
+	});
+
+	it('should render `NaN` in an object', () => {
+
+		sut.appendValue({an: NaN});
+
+		assert.equal(sut.get(), '{"an":"<NaN>"}');
+	});
+
 	it('should describe at least top-level of recursive objects', () => {
 		const recursiveObject = {name: 'recursive'};
 		recursiveObject.children = [{name: 'another'}, recursiveObject];
