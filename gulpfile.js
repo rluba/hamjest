@@ -3,7 +3,10 @@
 process.env.BLUEBIRD_DEBUG = 1;
 
 const gulp = require('gulp');
-const $ = require('gulp-load-plugins')();
+const gulpEslint = require('gulp-eslint');
+const gulpMocha = require('gulp-mocha');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
 const browserify = require('browserify');
 const del = require('del');
 const sourceStream = require('vinyl-source-stream');
@@ -22,16 +25,16 @@ gulp.task('default', ['clean'], () => {
 
 gulp.task('lint', () => {
 	return gulp.src(jsFiles)
-		.pipe($.eslint())
-		.pipe($.eslint.format())
-		.pipe($.eslint.failAfterError());
+		.pipe(gulpEslint())
+		.pipe(gulpEslint.format())
+		.pipe(gulpEslint.failAfterError());
 });
 
 gulp.task('test', ['test:node']);
 
 gulp.task('test:node', () => {
 	return gulp.src('test/node/**/*Spec.js', {read: false})
-		.pipe($.mocha({
+		.pipe(gulpMocha({
 			reporter: 'spec'
 		}));
 });
@@ -64,8 +67,8 @@ gulp.task('build', ['lint', 'test'], () => {
 		.pipe(sourceStream('hamjest.js'))
 		.pipe(buffer())
 		.pipe(gulp.dest('./dist'))
-		.pipe($.uglify())
-		.pipe($.rename({
+		.pipe(uglify())
+		.pipe(rename({
 			suffix: '.min'
 		}))
 		.pipe(gulp.dest('./dist'));
