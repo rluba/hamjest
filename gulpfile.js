@@ -3,7 +3,10 @@
 process.env.BLUEBIRD_DEBUG = 1;
 
 const gulp = require('gulp');
-const $ = require('gulp-load-plugins')();
+const gulpEslint = require('gulp-eslint');
+const gulpMocha = require('gulp-mocha');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
 const browserify = require('browserify');
 const del = require('del');
 const sourceStream = require('vinyl-source-stream');
@@ -16,27 +19,23 @@ const jsFiles = [
 	'test/**/*.js'
 ];
 
-gulp.task('default', ['clean'], () => {
-	return gulp.start(['build', 'test:browser']);
-});
-
-gulp.task('lint', () => {
+function lint() {
 	return gulp.src(jsFiles)
-		.pipe($.eslint())
-		.pipe($.eslint.format())
-		.pipe($.eslint.failAfterError());
-});
+		.pipe(gulpEslint())
+		.pipe(gulpEslint.format())
+		.pipe(gulpEslint.failAfterError());
+}
 
-gulp.task('test', ['test:node']);
+const test = testNode;
 
-gulp.task('test:node', () => {
+function testNode() {
 	return gulp.src('test/node/**/*Spec.js', {read: false})
-		.pipe($.mocha({
+		.pipe(gulpMocha({
 			reporter: 'spec'
 		}));
-});
+}
 
-gulp.task('test:browser', ['build'], (done) => {
+function testBrowser(done) {
 	const karmaConfig = {
 		browsers: ['Chrome', 'Firefox'],
 		frameworks: ['mocha'],
@@ -51,9 +50,9 @@ gulp.task('test:browser', ['build'], (done) => {
 
 	const server = new KarmaServer(karmaConfig, done);
 	server.start();
-});
+}
 
-gulp.task('build', ['lint', 'test'], () => {
+function buildDist() {
 	const b = browserify({
 		entries: './index.js',
 		standalone: 'hamjest',
@@ -64,17 +63,36 @@ gulp.task('build', ['lint', 'test'], () => {
 		.pipe(sourceStream('hamjest.js'))
 		.pipe(buffer())
 		.pipe(gulp.dest('./dist'))
-		.pipe($.uglify())
-		.pipe($.rename({
+		.pipe(uglify())
+		.pipe(rename({
 			suffix: '.min'
 		}))
 		.pipe(gulp.dest('./dist'));
-});
+}
 
-gulp.task('clean', () => {
+function clean() {
 	return del('./dist');
-});
+}
 
-gulp.task('dev', () => {
-	gulp.watch(jsFiles, ['lint', 'test']);
-});
+function dev(done) {
+	gulp.watch(jsFiles, gulp.parallel(lint, test));
+	done();
+}
+
+const build = gulp.series(
+	gulp.parallel(lint, test),
+	buildDist,
+	testBrowser
+);
+
+module.exports = {
+	clean,
+	build,
+	dev,
+	test,
+	default: gulp.series(
+		clean,
+		build
+	)
+};
+

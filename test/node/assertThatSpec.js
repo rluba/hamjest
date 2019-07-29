@@ -47,8 +47,7 @@ describe('assertThat', () => {
 
 		try {
 			__.assertThat('real value', new TestMatcher(() => false));
-		}
-		catch (e) {
+		} catch (e) {
 			thrown = e;
 		}
 
@@ -61,8 +60,7 @@ describe('assertThat', () => {
 
 		try {
 			__.assertThat('Assertion message', 'real value', new TestMatcher(() => false));
-		}
-		catch (e) {
+		} catch (e) {
 			thrown = e;
 		}
 
@@ -83,8 +81,7 @@ describe('assertThat', () => {
 
 		try {
 			__.assertThat('actual value', testMatcher);
-		}
-		catch (e) {
+		} catch (e) {
 			thrown = e;
 		}
 
@@ -97,8 +94,7 @@ describe('assertThat', () => {
 
 		try {
 			__.assertThat('a value', new TestMatcher(() => Bluebird.resolve(true)));
-		}
-		catch (e) {
+		} catch (e) {
 			thrown = e;
 		}
 
