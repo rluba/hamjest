@@ -74,7 +74,7 @@ describe('Description', () => {
 
 		sut.appendValue({an: NaN});
 
-		assert.equal(sut.get(), '{"an":"NaN"}');
+		assert.equal(sut.get(), '{"an":"<NaN>"}');
 	});
 
 	it('should describe at least top-level of recursive objects', () => {
