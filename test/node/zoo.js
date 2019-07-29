@@ -11,12 +11,12 @@ function Animal(name) {
 function Rodent(name) {
 	Animal.call(this, name);
 }
-Rodent.prototype = _.create(Animal.prototype, {'constructor': Rodent});
+Rodent.prototype = _.create(Animal.prototype, {constructor: Rodent});
 
 function Squirrel(name) {
 	Rodent.call(this, name);
 }
-Squirrel.prototype = _.create(Rodent.prototype, {'constructor': Squirrel});
+Squirrel.prototype = _.create(Rodent.prototype, {constructor: Squirrel});
 
 assert.ok(new Animal() instanceof Animal);
 assert.ok(new Rodent() instanceof Animal);

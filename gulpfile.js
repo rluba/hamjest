@@ -19,27 +19,23 @@ const jsFiles = [
 	'test/**/*.js'
 ];
 
-gulp.task('default', ['clean'], () => {
-	return gulp.start(['build', 'test:browser']);
-});
-
-gulp.task('lint', () => {
+function lint() {
 	return gulp.src(jsFiles)
 		.pipe(gulpEslint())
 		.pipe(gulpEslint.format())
 		.pipe(gulpEslint.failAfterError());
-});
+}
 
-gulp.task('test', ['test:node']);
+const test = testNode;
 
-gulp.task('test:node', () => {
+function testNode() {
 	return gulp.src('test/node/**/*Spec.js', {read: false})
 		.pipe(gulpMocha({
 			reporter: 'spec'
 		}));
-});
+}
 
-gulp.task('test:browser', ['build'], (done) => {
+function testBrowser(done) {
 	const karmaConfig = {
 		browsers: ['Chrome', 'Firefox'],
 		frameworks: ['mocha'],
@@ -54,9 +50,9 @@ gulp.task('test:browser', ['build'], (done) => {
 
 	const server = new KarmaServer(karmaConfig, done);
 	server.start();
-});
+}
 
-gulp.task('build', ['lint', 'test'], () => {
+function buildDist() {
 	const b = browserify({
 		entries: './index.js',
 		standalone: 'hamjest',
@@ -72,12 +68,31 @@ gulp.task('build', ['lint', 'test'], () => {
 			suffix: '.min'
 		}))
 		.pipe(gulp.dest('./dist'));
-});
+}
 
-gulp.task('clean', () => {
+function clean() {
 	return del('./dist');
-});
+}
 
-gulp.task('dev', () => {
-	gulp.watch(jsFiles, ['lint', 'test']);
-});
+function dev(done) {
+	gulp.watch(jsFiles, gulp.parallel(lint, test));
+	done();
+}
+
+const build = gulp.series(
+	gulp.parallel(lint, test),
+	buildDist,
+	testBrowser
+);
+
+module.exports = {
+	clean,
+	build,
+	dev,
+	test,
+	default: gulp.series(
+		clean,
+		build
+	)
+};
+
