@@ -77,7 +77,9 @@ describe('promiseThat', () => {
 
 	it('should defer result until matcher promise resolves', (done) => {
 		let resolveFn;
-		const deferred = new Bluebird((resolve) => resolveFn = resolve);
+		const deferred = new Bluebird((resolve) => {
+			resolveFn = resolve;
+		});
 
 		__.promiseThat('a value', new TestMatcher(() => {
 			return deferred;
@@ -120,15 +122,17 @@ describe('promiseThat', () => {
 
 	it('should allow matchers to describe mismatch asynchronously', (done) => {
 		let resolveFn;
-		const deferred = new Bluebird((resolve) => resolveFn = resolve);
+		const deferred = new Bluebird((resolve) => {
+			resolveFn = resolve;
+		});
 		const matcher = _.create(new __.Matcher(), {
-			matches: () => {
+			matches() {
 				return false;
 			},
-			describeTo: function (description) {
+			describeTo(description) {
 				description.append('Matcher description');
 			},
-			describeMismatch: function (actual, description) {
+			describeMismatch(__actual, description) {
 				return deferred.then(() => {
 					description.append('Deferred mismatch description');
 				});

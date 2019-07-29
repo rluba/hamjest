@@ -46,7 +46,9 @@ describe('IsRejected', () => {
 
 			it('should wait for pending promises', (done) => {
 				let rejectFn;
-				const deferred = new Bluebird((resolve, reject) => rejectFn = reject);
+				const deferred = new Bluebird((__resolve, reject) => {
+					rejectFn = reject;
+				});
 
 				sut.matches(deferred).then((value) => {
 					assert.ok(value);
@@ -107,7 +109,9 @@ describe('IsRejected', () => {
 
 			it('should wait for pending promises', (done) => {
 				let rejectFn;
-				const deferred = new Bluebird((resolve, reject) => rejectFn = reject);
+				const deferred = new Bluebird((__resolve, reject) => {
+					rejectFn = reject;
+				});
 
 				sut.matches(deferred).then((value) => {
 					assert.ok(value);
@@ -189,7 +193,9 @@ describe('IsRejected', () => {
 
 			it('should wait for pending promises', (done) => {
 				let rejectFn;
-				const deferred = new Bluebird((resolve, reject) => rejectFn = reject);
+				const deferred = new Bluebird((__resolve, reject) => {
+					rejectFn = reject;
+				});
 
 				sut.matches(deferred).then((value) => {
 					assert.ok(value);

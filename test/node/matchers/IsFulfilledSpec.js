@@ -46,7 +46,9 @@ describe('IsFulfilled', () => {
 
 			it('should wait for pending promises', (done) => {
 				let resolveFn;
-				const deferred = new Bluebird((resolve) => resolveFn = resolve);
+				const deferred = new Bluebird((resolve) => {
+					resolveFn = resolve;
+				});
 
 				sut.matches(deferred).then((value) => {
 					assert.ok(value);
@@ -106,7 +108,9 @@ describe('IsFulfilled', () => {
 
 			it('should wait for pending promises', (done) => {
 				let resolveFn;
-				const deferred = new Bluebird((resolve) => resolveFn = resolve);
+				const deferred = new Bluebird((resolve) => {
+					resolveFn = resolve;
+				});
 
 				sut.matches(deferred).then((value) => {
 					assert.ok(value);
@@ -179,7 +183,9 @@ describe('IsFulfilled', () => {
 
 			it('should wait for pending promises', (done) => {
 				let resolveFn;
-				const deferred = new Bluebird((resolve) => resolveFn = resolve);
+				const deferred = new Bluebird((resolve) => {
+					resolveFn = resolve;
+				});
 
 				sut.matches(deferred).then((value) => {
 					assert.ok(value);
@@ -261,7 +267,9 @@ describe('IsFulfilled', () => {
 
 			it('should wait for pending promises', (done) => {
 				let resolveFn;
-				const deferred = new Bluebird((resolve) => resolveFn = resolve);
+				const deferred = new Bluebird((resolve) => {
+					resolveFn = resolve;
+				});
 				const aFulfilledPromiseContainingAPendingPromise = Bluebird.resolve([deferred]);
 
 				sut.matches(aFulfilledPromiseContainingAPendingPromise).then((value) => {
