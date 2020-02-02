@@ -101,4 +101,19 @@ describe('assertThat', () => {
 		assert.ok(thrown instanceof AssertionError, 'Should throw AssertionError. Threw ' + thrown);
 		assert.equal(thrown.message, 'Matcher returned a promise instead of a boolean - use promiseThat for promising matchers!');
 	});
+
+	it('should call expect().nothing() function if it’s available (to suppress jasmine’s "no expectations" error)', () => {
+		let expectNothingWasCalled = false;
+		global.expect = () => {
+			return {
+				nothing() {
+					expectNothingWasCalled = true;
+				}
+			};
+		};
+
+		__.assertThat('truth', __.is(__.anything()));
+
+		assert.equal(expectNothingWasCalled, true);
+	});
 });
