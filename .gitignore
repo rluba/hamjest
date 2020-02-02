@@ -2,4 +2,6 @@
 npm-debug.log
 *.swp
 *.vim
+*.sublime-project
+*.sublime-workspace
 
