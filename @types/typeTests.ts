@@ -19,6 +19,9 @@ _.assertThat(false, _.boolean())
 
 _.assertThat(() => {}, _.func())
 
+_.assertThat('hamjest is awesome', _.allOf(_.string(), _.containsString('hamjest')))
+_.assertThat('hamjest is awesome', _.anyOf(_.string(), _.containsString('hamjest')))
+
 _.assertThat(1, _.number())
 _.assertThat({}, _.object())
 _.assertThat(/d+/, _.regExp())
@@ -65,6 +68,15 @@ _.assertThat(1, _.inRange(0, 2))
 
 _.assertThat([1], _.hasExactlyOneItem())
 _.assertThat([1], _.array())
+
+_.assertThat([1,2,3,4], _.everyItem(_.number()))
+_.assertThat([1,2,3,4], _.hasItem(2))
+_.assertThat([1,2,3,4], _.hasItems(2,3))
+
+_.assertThat([1,2,3,4], _.contains(1,2,3))
+_.assertThat([1,2,3,4], _.containsInAnyOrder(1,2,3))
+_.assertThat([1,2,3,4], _.orderedBy((a, b) => a < b))
+_.assertThat([1,2,3,4], _.orderedBy((a, b) => a < b, 'ascending'))
 
 // TODO: unsure if used correctly
 _.assertThat(_.containsString('value'), _.matches('some value'))

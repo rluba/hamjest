@@ -125,17 +125,34 @@ declare module "hamjest" {
   // beforeOrEqualTo: DateComparisonMatcher.beforeOrEqualTo,
   export function beforeOrEqualTo(date: Date): void
 
-	// allOf: require('./matchers/AllOf').allOf,
-	// anyOf: require('./matchers/AnyOf').anyOf,
-	// everyItem: require('./matchers/Every').everyItem,
-	// hasItem: require('./matchers/IsArrayWithItem').hasItem,
-	// hasItems: require('./matchers/IsArrayWithItems').hasItems,
+  // allOf: require('./matchers/AllOf').allOf,
+  export function allOf(...matchers: Matcher): void
+
+  // anyOf: require('./matchers/AnyOf').anyOf,
+  export function anyOf(...matchers: Matcher): void
+
+  // everyItem: require('./matchers/Every').everyItem,
+  export function everyItem(valueOrMatcher: ValueOrMatcher): void
+
+  // hasItem: require('./matchers/IsArrayWithItem').hasItem,
+  export function hasItem(valueOrMatcher: ValueOrMatcher): void
+
+  // hasItems: require('./matchers/IsArrayWithItems').hasItems,
+  export function hasItems(...valueOrMatcher: ValueOrMatcher[]): void
+
   // hasExactlyOneItem: require('./matchers/hasExactlyOneItem'),
   export function hasExactlyOneItem(): void
 
-	// contains: require('./matchers/IsArrayContaining').contains,
-	// containsInAnyOrder: require('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
-	// orderedBy: require('./matchers/IsArrayOrderedBy').orderedBy,
+  // contains: require('./matchers/IsArrayContaining').contains,
+  export function contains(...valueOrMatcher: ValueOrMatcher[]): void
+
+  // containsInAnyOrder: require('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
+  export function containsInAnyOrder(...valueOrMatcher: ValueOrMatcher[]): void
+
+  // orderedBy: require('./matchers/IsArrayOrderedBy').orderedBy,
+  export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean): void
+  export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean, orderName: string): void
+
   // hasSize: require('./matchers/hasSize'),
   export function hasSize(size: number): void
 
