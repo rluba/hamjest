@@ -17,6 +17,8 @@ declare module "hamjest" {
   export function is(matcher: Matcher): void
 
   // IsAnything.js
+  export function anything(): void
+
   // IsArray.js
   // IsArrayContaining.js
   // IsArrayContainingInAnyOrder.js
@@ -53,6 +55,7 @@ declare module "hamjest" {
   // failsToMatch.js
   // falsy.js
   export function falsy(): void
+
   // hasDescription.js
   // hasExactlyOneItem.js
   // hasSize.js

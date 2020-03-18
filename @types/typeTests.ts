@@ -11,3 +11,5 @@ _.assertThat(2, _.is(_.not(_.equalTo(1))))
 
 _.assertThat(true, _.truthy())
 _.assertThat(false, _.falsy())
+
+_.assertThat(false, _.anything())
