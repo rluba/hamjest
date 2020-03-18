@@ -13,3 +13,7 @@ _.assertThat(true, _.truthy())
 _.assertThat(false, _.falsy())
 
 _.assertThat(false, _.anything())
+
+
+
+_.assertThat([1,2,3], _.hasSize(3))

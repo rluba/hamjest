@@ -59,6 +59,8 @@ declare module "hamjest" {
   // hasDescription.js
   // hasExactlyOneItem.js
   // hasSize.js
+  export function hasSize(size: number)
+
   // inRange.js
   // isEmpty.js
   // matches.js
