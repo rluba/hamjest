@@ -1,4 +1,5 @@
 import * as _ from 'hamjest'
+import { equal } from 'assert'
 
 _.assertThat(1, _.equalTo(1))
 _.assertThat('Reason', 1, _.equalTo(1))
@@ -7,7 +8,6 @@ _.assertThat(1, _.is(_.equalTo(1)))
 
 _.assertThat(2, _.not(_.equalTo(1)))
 _.assertThat(2, _.is(_.not(_.equalTo(1))))
-
 
 _.assertThat(true, _.truthy())
 
@@ -27,6 +27,13 @@ _.assertThat(undefined, _.undef())
 _.assertThat(undefined, _.undefined())
 _.assertThat(undefined, _.defined())
 
+_.assertThat('hamjest is awesome', _.containsString('is'))
+_.assertThat('hamjest is awesome', _.containsStrings('hamjest', 'is'))
+_.assertThat('hamjest is awesome', _.startsWith('hamjest'))
+_.assertThat('hamjest is awesome', _.endWith('awesome'))
+
+_.assertThat('hamjest is awesome', _.matchesPattern('is'))
+_.assertThat('hamjest is awesome', _.matchesPattern(/.*is.*/))
 
 
 _.assertThat(Date, _.instanceOf(Date))
@@ -43,3 +50,6 @@ _.assertThat(1, _.inRange(0, 2))
 
 _.assertThat([1], _.hasExactlyOneItem())
 _.assertThat([1], _.array())
+
+// TODO: unsure if used correctly
+_.assertThat(1, _.matches(_.equalTo(1)))

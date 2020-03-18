@@ -70,11 +70,24 @@ declare module "hamjest" {
   export function string(): void
 
   // containsString: SubstringMatcher.containsString,
-	// containsStrings: SubstringMatcher.containsStrings,
-	// startsWith: SubstringMatcher.startsWith,
-	// endsWith: SubstringMatcher.endsWith,
-	// matchesPattern: require('./matchers/IsStringMatching').matchesPattern,
-	// matches: require('./matchers/matches'),
+  export function containsString(subString: string): void
+
+  // containsStrings: SubstringMatcher.containsStrings,
+  export function containsStrings(...subStrings: string[]): void
+
+  // startsWith: SubstringMatcher.startsWith,
+  export function startsWith(subString: string): void
+
+  // endsWith: SubstringMatcher.endsWith,
+  export function endWith(subString: string): void
+
+  // matchesPattern: require('./matchers/IsStringMatching').matchesPattern,
+  export function matchesPattern(stringOrPattern: string | RegExp): void
+
+  // matches: require('./matchers/matches'),
+  export function matches(matcher: Matcher): void // ????? unsure if typed correctly
+
+
 	// failsToMatch: require('./matchers/failsToMatch'),
 	// hasDescription: require('./matchers/hasDescription'),
 	// lessThan: NumberComparisonMatcher.lessThan,
