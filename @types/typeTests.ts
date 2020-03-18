@@ -32,6 +32,12 @@ _.assertThat(6, _.greaterThanOrEqualTo(5))
 _.assertThat(1/3, _.closeTo(0.33, 0.01));
 
 
+_.assertThat(new Date('2015-06-17T14:00:00'), _.after(new Date('2015-06-01T00:00:00')))
+_.assertThat(new Date('2015-06-17T14:00:00'), _.afterOrEqualTo(new Date('2015-06-01T00:00:00')))
+_.assertThat(new Date('2015-06-01T14:00:00'), _.before(new Date('2015-06-17T00:00:00')))
+_.assertThat(new Date('2015-06-01T14:00:00'), _.beforeOrEqualTo(new Date('2015-06-17T00:00:00')))
+
+
 _.assertThat(undefined, _.undef())
 _.assertThat(undefined, _.undefined())
 _.assertThat(undefined, _.defined())

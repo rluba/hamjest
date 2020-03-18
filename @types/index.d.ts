@@ -113,10 +113,17 @@ declare module "hamjest" {
   export function inRange(upperBound: number): void
   export function inRange(lowerBound: number, upperBound: number): void
 
-	// after: DateComparisonMatcher.after,
-	// afterOrEqualTo: DateComparisonMatcher.afterOrEqualTo,
-	// before: DateComparisonMatcher.before,
-	// beforeOrEqualTo: DateComparisonMatcher.beforeOrEqualTo,
+  // after: DateComparisonMatcher.after,
+  export function after(date: Date): void
+
+  // afterOrEqualTo: DateComparisonMatcher.afterOrEqualTo,
+  export function afterOrEqualTo(date: Date): void
+
+  // before: DateComparisonMatcher.before,
+  export function before(date: Date): void
+
+  // beforeOrEqualTo: DateComparisonMatcher.beforeOrEqualTo,
+  export function beforeOrEqualTo(date: Date): void
 
 	// allOf: require('./matchers/AllOf').allOf,
 	// anyOf: require('./matchers/AnyOf').anyOf,
