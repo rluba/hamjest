@@ -6,7 +6,6 @@ declare module "hamjest" {
   export function assertThat(actual: Value, matcher: Matcher): void
   export function assertThat(reason: string, actual: Value, matcher: Matcher): void
 
-
   // anything: require('./matchers/IsAnything').anything,
   export function anything(): void
 
@@ -32,21 +31,45 @@ declare module "hamjest" {
   export function falsey(): void
 
 	// defined: require('./matchers/IsDefined').defined,
-	// undefined: require('./matchers/IsDefined').undefined,
-	// undef: require('./matchers/IsDefined').undefined,
-	// instanceOf: require('./matchers/IsInstanceOf').instanceOf,
+  export function defined(): void
+
+  // undefined: require('./matchers/IsDefined').undefined,
+  export function undefined(): void
+
+  // undef: require('./matchers/IsDefined').undefined,
+  export function undef(): void
+
+  // instanceOf: require('./matchers/IsInstanceOf').instanceOf,
+  export function instanceOf(expectedType: Value): void
+
   // array: require('./matchers/IsArray').array,
   export function array(): void
 
-	// bool: require('./matchers/IsBoolean').bool,
-	// boolean: require('./matchers/IsBoolean').bool,
-	// date: require('./matchers/IsDate').date,
-	// func: require('./matchers/IsFunction').func,
+  // bool: require('./matchers/IsBoolean').bool,
+  export function bool(): void
+
+  // boolean: require('./matchers/IsBoolean').bool,
+  export function boolean(): void
+
+  // date: require('./matchers/IsDate').date,
+  export function date(): void
+
+  // func: require('./matchers/IsFunction').func,
+  export function func(): void
+
 	// number: require('./matchers/IsNumber').number,
-	// object: require('./matchers/IsObject').object,
-	// regExp: require('./matchers/IsRegExp').regExp,
-	// string: require('./matchers/IsString').string,
-	// containsString: SubstringMatcher.containsString,
+  export function number(): void
+
+  // object: require('./matchers/IsObject').object,
+  export function object(): void
+
+  // regExp: require('./matchers/IsRegExp').regExp,
+  export function regExp(): void
+
+  // string: require('./matchers/IsString').string,
+  export function string(): void
+
+  // containsString: SubstringMatcher.containsString,
 	// containsStrings: SubstringMatcher.containsStrings,
 	// startsWith: SubstringMatcher.startsWith,
 	// endsWith: SubstringMatcher.endsWith,
@@ -59,8 +82,8 @@ declare module "hamjest" {
 	// greaterThan: NumberComparisonMatcher.greaterThan,
 	// greaterThanOrEqualTo: NumberComparisonMatcher.greaterThanOrEqualTo,
   // inRange: require('./matchers/inRange'),
-  export function inRange(upperBound: number)
-  export function inRange(lowerBound: number, upperBound: number)
+  export function inRange(upperBound: number): void
+  export function inRange(lowerBound: number, upperBound: number): void
 
 	// after: DateComparisonMatcher.after,
 	// afterOrEqualTo: DateComparisonMatcher.afterOrEqualTo,
@@ -73,18 +96,20 @@ declare module "hamjest" {
 	// hasItem: require('./matchers/IsArrayWithItem').hasItem,
 	// hasItems: require('./matchers/IsArrayWithItems').hasItems,
   // hasExactlyOneItem: require('./matchers/hasExactlyOneItem'),
-  export function hasExactlyOneItem()
+  export function hasExactlyOneItem(): void
 
 	// contains: require('./matchers/IsArrayContaining').contains,
 	// containsInAnyOrder: require('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
 	// orderedBy: require('./matchers/IsArrayOrderedBy').orderedBy,
   // hasSize: require('./matchers/hasSize'),
-  export function hasSize(size: number)
+  export function hasSize(size: number): void
 
   // isEmpty: require('./matchers/isEmpty'),
-  export function isEmpty()
+  export function isEmpty(): void
 
-	// empty: require('./matchers/isEmpty'),
+  // empty: require('./matchers/isEmpty'),
+  export function empty(): void
+
 	// hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,
 	// hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,
 	// throws: require('./matchers/IsFunctionThrowing').throws,
@@ -97,7 +122,4 @@ declare module "hamjest" {
 	// rejected: require('./matchers/IsRejected').rejected,
 	// isRejectedWith: require('./matchers/IsRejected').isRejectedWith,
 	// promiseAllOf: require('./matchers/AllOf').allOf
-
-
-
 }
