@@ -91,7 +91,21 @@ _.assertThat(() => { return 1 }, _.returns(_.number()))
 _.assertThat(() => { throw new RangeError('value out of range') },
   _.throws(_.typedError(RangeError, 'value out of range')))
 
+// Promise matchers
+_.promiseThat(new Promise((resolve) => { resolve() }), _.promise())
 
+_.promiseThat(new Promise((resolve) => { resolve() }), _.fulfilled())
+_.promiseThat(new Promise((resolve) => { resolve('hamjest') }), _.fulfilled(_.string()))
+_.promiseThat(new Promise((resolve) => { resolve() }), _.isFulfilledWith())
+_.promiseThat(new Promise((resolve) => { resolve('hamjest') }), _.isFulfilledWith(_.string()))
+_.promiseThat(new Promise((resolve) => { resolve('hamjest') }), _.willBe(_.string()))
+
+_.promiseThat(new Promise((_, reject) => { reject() }), _.rejected())
+_.promiseThat(new Promise((_, reject) => { reject('hamjest') }), _.rejected(_.string()))
+_.promiseThat(new Promise((_, reject) => { reject() }), _.isRejectedWith())
+_.promiseThat(new Promise((_, reject) => { reject('hamjest') }), _.isRejectedWith(_.string()))
+
+_.promiseThat(new Promise((_, reject) => { reject('hamjest') }), _.promiseAllOf(_.string()))
 
 
 // TODO: unsure if used correctly

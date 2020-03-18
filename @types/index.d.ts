@@ -7,6 +7,10 @@ declare module "hamjest" {
   export function assertThat(actual: Value, matcher: Matcher): void
   export function assertThat(reason: string, actual: Value, matcher: Matcher): void
 
+  export function promiseThat(actual: Value, matcher: Matcher): void
+  export function promiseThat(reason: string, actual: Value, matcher: Matcher): void
+
+
   // anything: require('./matchers/IsAnything').anything,
   export function anything(): void
 
@@ -179,11 +183,28 @@ declare module "hamjest" {
   // typedError: require('./matchers/typedError'),
   export function typedError(type: Value, messageValueOrMatcher: ValueOrMatcher): void
 
-	// promise: require('./matchers/IsPromise').promise,
-	// fulfilled: require('./matchers/IsFulfilled').fulfilled,
-	// isFulfilledWith: require('./matchers/IsFulfilled').isFulfilledWith,
-	// willBe: require('./matchers/IsFulfilled').isFulfilledWith,
+  // promise: require('./matchers/IsPromise').promise,
+  export function promise(): void
+
+  // fulfilled: require('./matchers/IsFulfilled').fulfilled,
+  export function fulfilled(): void
+  export function fulfilled(valueOrMatcher: ValueOrMatcher): void
+
+  // isFulfilledWith: require('./matchers/IsFulfilled').isFulfilledWith,
+  export function isFulfilledWith(): void
+  export function isFulfilledWith(valueOrMatcher: ValueOrMatcher): void
+
+  // willBe: require('./matchers/IsFulfilled').isFulfilledWith,
+  export function willBe(valueOrMatcher: ValueOrMatcher): void
+
 	// rejected: require('./matchers/IsRejected').rejected,
-	// isRejectedWith: require('./matchers/IsRejected').isRejectedWith,
-	// promiseAllOf: require('./matchers/AllOf').allOf
+  export function rejected(): void
+  export function rejected(valueOrMatcher: ValueOrMatcher): void
+
+  // isRejectedWith: require('./matchers/IsRejected').isRejectedWith,
+  export function isRejectedWith(): void
+  export function isRejectedWith(valueOrMatcher: ValueOrMatcher): void
+
+  // promiseAllOf: require('./matchers/AllOf').allOf
+  export function promiseAllOf(...matchers: Matcher): void
 }
