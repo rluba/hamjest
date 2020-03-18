@@ -81,6 +81,18 @@ _.assertThat([1,2,3,4], _.orderedBy((a, b) => a < b, 'ascending'))
 _.assertThat({a: 'A', 0: 0}, _.hasProperties({ a: 'A', 0: 0 }))
 _.assertThat({a: 'A', 0: 0}, _.hasProperty('a', 'A'))
 
+_.assertThat(() => { throw new Error() }, _.throws())
+_.assertThat(() => { throw new Error() }, _.throws(_.instanceOf(Error)))
+
+_.assertThat(() => { return 1 }, _.returns())
+_.assertThat(() => { return 1 }, _.returns(1))
+_.assertThat(() => { return 1 }, _.returns(_.number()))
+
+_.assertThat(() => { throw new RangeError('value out of range') },
+  _.throws(_.typedError(RangeError, 'value out of range')))
+
+
+
 
 // TODO: unsure if used correctly
 _.assertThat(_.containsString('value'), _.matches('some value'))

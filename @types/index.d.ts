@@ -169,10 +169,16 @@ declare module "hamjest" {
   export function hasProperty(path: string, valueOrMatcher: ValueOrMatcher): void
 
   // throws: require('./matchers/IsFunctionThrowing').throws,
+  export function throws(): void
+  export function throws(matcher: Matcher): void
 
+  // returns: require('./matchers/returns'),
+  export function returns(): void
+  export function returns(matcher: ValueOrMatcher): void
 
-	// returns: require('./matchers/returns'),
-	// typedError: require('./matchers/typedError'),
+  // typedError: require('./matchers/typedError'),
+  export function typedError(type: Value, messageValueOrMatcher: ValueOrMatcher): void
+
 	// promise: require('./matchers/IsPromise').promise,
 	// fulfilled: require('./matchers/IsFulfilled').fulfilled,
 	// isFulfilledWith: require('./matchers/IsFulfilled').isFulfilledWith,
