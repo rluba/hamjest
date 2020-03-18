@@ -83,13 +83,19 @@ _.assertThat({a: 'A', 0: 0}, _.hasProperty('a', 'A'))
 
 _.assertThat(() => { throw new Error() }, _.throws())
 _.assertThat(() => { throw new Error() }, _.throws(_.instanceOf(Error)))
+_.assertThat(() => { throw new RangeError('value out of range') },
+  _.throws(_.typedError(RangeError, 'value out of range')))
+
+_.assertThat(() => { _.fail() }, _.throws())
+_.assertThat(() => { _.fail('reason') }, _.throws())
+
 
 _.assertThat(() => { return 1 }, _.returns())
 _.assertThat(() => { return 1 }, _.returns(1))
 _.assertThat(() => { return 1 }, _.returns(_.number()))
 
-_.assertThat(() => { throw new RangeError('value out of range') },
-  _.throws(_.typedError(RangeError, 'value out of range')))
+
+
 
 // Promise matchers
 _.promiseThat(new Promise((resolve) => { resolve() }), _.promise())
