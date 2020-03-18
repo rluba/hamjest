@@ -52,6 +52,7 @@ declare module "hamjest" {
   // TypeSafeMatcher.js
   // failsToMatch.js
   // falsy.js
+  export function falsy(): void
   // hasDescription.js
   // hasExactlyOneItem.js
   // hasSize.js
@@ -61,11 +62,8 @@ declare module "hamjest" {
   // promiseAgnostic.js
   // returns.js
   // truthy.js
+  export function truthy(): void
+
   // typedError.js
-
-
-
-
-
 
 }

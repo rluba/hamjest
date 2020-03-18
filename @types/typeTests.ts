@@ -5,4 +5,9 @@ _.assertThat('Reason', 1, _.equalTo(1))
 
 _.assertThat(1, _.is(_.equalTo(1)))
 
-_.assertThat(1, _.not(_.equalTo(1)))
+_.assertThat(2, _.not(_.equalTo(1)))
+_.assertThat(2, _.is(_.not(_.equalTo(1))))
+
+
+_.assertThat(true, _.truthy())
+_.assertThat(false, _.falsy())
