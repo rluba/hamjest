@@ -52,4 +52,6 @@ _.assertThat([1], _.hasExactlyOneItem())
 _.assertThat([1], _.array())
 
 // TODO: unsure if used correctly
-_.assertThat(1, _.matches(_.equalTo(1)))
+_.assertThat(_.containsString('value'), _.matches('some value'))
+_. assertThat(_.containsString('value'), _.hasDescription('a string containing "value"'));
+_. assertThat(_.hasSize(5), _.failsToMatch('long string', _.containsString('size was <11>')));

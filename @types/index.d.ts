@@ -2,6 +2,7 @@ declare module "hamjest" {
   type TODO = any
   type Matcher = TODO;
   type Value = any
+  type ValueOrMatcher = Value | Matcher
 
   export function assertThat(actual: Value, matcher: Matcher): void
   export function assertThat(reason: string, actual: Value, matcher: Matcher): void
@@ -85,11 +86,14 @@ declare module "hamjest" {
   export function matchesPattern(stringOrPattern: string | RegExp): void
 
   // matches: require('./matchers/matches'),
-  export function matches(matcher: Matcher): void // ????? unsure if typed correctly
+  export function matches(...matcher: ValueOrMatcher[]): void // ????? unsure if typed correctly
 
+  // failsToMatch: require('./matchers/failsToMatch'),
+  export function failsToMatch(...matcher: ValueOrMatcher[]): void // ????? unsure if typed correctly
 
-	// failsToMatch: require('./matchers/failsToMatch'),
-	// hasDescription: require('./matchers/hasDescription'),
+  // hasDescription: require('./matchers/hasDescription'),
+  export function hasDescription(matcher: ValueOrMatcher): void
+
 	// lessThan: NumberComparisonMatcher.lessThan,
 	// lessThanOrEqualTo: NumberComparisonMatcher.lessThanOrEqualTo,
 	// greaterThan: NumberComparisonMatcher.greaterThan,
