@@ -9,6 +9,7 @@
     "email": "raphael@leanbyte.com",
     "url": "https://github.com/rluba"
   },
+  "types": "./@types/index.d.ts",
   "keywords": [
     "hamjest",
     "hamcrest",
