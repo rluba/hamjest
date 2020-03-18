@@ -78,6 +78,10 @@ _.assertThat([1,2,3,4], _.containsInAnyOrder(1,2,3))
 _.assertThat([1,2,3,4], _.orderedBy((a, b) => a < b))
 _.assertThat([1,2,3,4], _.orderedBy((a, b) => a < b, 'ascending'))
 
+_.assertThat({a: 'A', 0: 0}, _.hasProperties({ a: 'A', 0: 0 }))
+_.assertThat({a: 'A', 0: 0}, _.hasProperty('a', 'A'))
+
+
 // TODO: unsure if used correctly
 _.assertThat(_.containsString('value'), _.matches('some value'))
 _. assertThat(_.containsString('value'), _.hasDescription('a string containing "value"'));

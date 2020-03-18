@@ -162,9 +162,15 @@ declare module "hamjest" {
   // empty: require('./matchers/isEmpty'),
   export function empty(): void
 
-	// hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,
-	// hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,
-	// throws: require('./matchers/IsFunctionThrowing').throws,
+  // hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,
+  export function hasProperties(matcher: { [key: string]: ValueOrMatcher }): void
+
+  // hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,
+  export function hasProperty(path: string, valueOrMatcher: ValueOrMatcher): void
+
+  // throws: require('./matchers/IsFunctionThrowing').throws,
+
+
 	// returns: require('./matchers/returns'),
 	// typedError: require('./matchers/typedError'),
 	// promise: require('./matchers/IsPromise').promise,
