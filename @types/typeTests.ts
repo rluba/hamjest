@@ -1,5 +1,4 @@
 import * as _ from 'hamjest'
-import { equal } from 'assert'
 
 _.assertThat(1, _.equalTo(1))
 _.assertThat('Reason', 1, _.equalTo(1))
@@ -7,6 +6,8 @@ _.assertThat('Reason', 1, _.equalTo(1))
 _.assertThat(1, _.is(_.equalTo(1)))
 
 _.assertThat(2, _.not(_.equalTo(1)))
+_.assertThat(2, _.is(_.not(_.equalTo(1))))
+
 _.assertThat(2, _.is(_.not(_.equalTo(1))))
 
 _.assertThat(true, _.truthy())
@@ -22,6 +23,14 @@ _.assertThat(1, _.number())
 _.assertThat({}, _.object())
 _.assertThat(/d+/, _.regExp())
 _.assertThat('', _.string())
+
+
+_.assertThat(1, _.lessThan(5))
+_.assertThat(1, _.lessThanOrEqualTo(5))
+_.assertThat(6, _.greaterThan(5))
+_.assertThat(6, _.greaterThanOrEqualTo(5))
+_.assertThat(1/3, _.closeTo(0.33, 0.01));
+
 
 _.assertThat(undefined, _.undef())
 _.assertThat(undefined, _.undefined())

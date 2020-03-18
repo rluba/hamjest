@@ -94,10 +94,21 @@ declare module "hamjest" {
   // hasDescription: require('./matchers/hasDescription'),
   export function hasDescription(matcher: ValueOrMatcher): void
 
-	// lessThan: NumberComparisonMatcher.lessThan,
-	// lessThanOrEqualTo: NumberComparisonMatcher.lessThanOrEqualTo,
-	// greaterThan: NumberComparisonMatcher.greaterThan,
-	// greaterThanOrEqualTo: NumberComparisonMatcher.greaterThanOrEqualTo,
+  // lessThan: NumberComparisonMatcher.lessThan,
+  export function lessThan(number: number): void
+
+  // lessThanOrEqualTo: NumberComparisonMatcher.lessThanOrEqualTo,
+  export function lessThanOrEqualTo(number: number): void
+
+  // greaterThan: NumberComparisonMatcher.greaterThan,
+  export function greaterThan(number: number): void
+
+  // greaterThanOrEqualTo: NumberComparisonMatcher.greaterThanOrEqualTo,
+  export function greaterThanOrEqualTo(number: number): void
+
+  // closeTo: require('./matchers/IsCloseTo').closeTo,
+  export function closeTo(number: number, delta: number): void
+
   // inRange: require('./matchers/inRange'),
   export function inRange(upperBound: number): void
   export function inRange(lowerBound: number, upperBound: number): void
@@ -106,7 +117,7 @@ declare module "hamjest" {
 	// afterOrEqualTo: DateComparisonMatcher.afterOrEqualTo,
 	// before: DateComparisonMatcher.before,
 	// beforeOrEqualTo: DateComparisonMatcher.beforeOrEqualTo,
-	// closeTo: require('./matchers/IsCloseTo').closeTo,
+
 	// allOf: require('./matchers/AllOf').allOf,
 	// anyOf: require('./matchers/AnyOf').anyOf,
 	// everyItem: require('./matchers/Every').everyItem,
