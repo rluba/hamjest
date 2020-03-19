@@ -30,7 +30,7 @@ _.assertThat(1, _.lessThan(5));
 _.assertThat(1, _.lessThanOrEqualTo(5));
 _.assertThat(6, _.greaterThan(5));
 _.assertThat(6, _.greaterThanOrEqualTo(5));
-_.assertThat(1/3, _.closeTo(0.33, 0.01));;
+_.assertThat(1/3, _.closeTo(0.33, 0.01));
 _.assertThat(1, _.inRange(2));
 _.assertThat(1, _.inRange(0, 2));
 
@@ -89,7 +89,7 @@ _.assertThat(() => { throw new Error() }, _.throws(_.instanceOf(Error)));
 _.assertThat(() => { _.fail() }, _.throws());
 _.assertThat(() => { _.fail('reason') }, _.throws());
 _.assertThat(() => { throw new RangeError('value out of range') },
-  _.throws(_.typedError(RangeError, 'value out of range')));
+	_.throws(_.typedError(RangeError, 'value out of range')));
 
 // Function matcher
 _.assertThat(() => { return 1 }, _.returns());
@@ -98,5 +98,5 @@ _.assertThat(() => { return 1 }, _.returns(_.number()));
 
 // TODO: unsure if used correctly
 _.assertThat(_.containsString('value'), _.matches('some value'));
-_. assertThat(_.containsString('value'), _.hasDescription('a string containing "value"'));;
-_. assertThat(_.hasSize(5), _.failsToMatch('long string', _.containsString('size was <11>')));;
+_. assertThat(_.containsString('value'), _.hasDescription('a string containing "value"'));
+_. assertThat(_.hasSize(5), _.failsToMatch('long string', _.containsString('size was <11>')));

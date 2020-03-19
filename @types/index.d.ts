@@ -1,249 +1,250 @@
 declare module "hamjest" {
-  type Value = any
+	type Value = any;
 
-  export class Matcher {
-    matches(actual?: Value): void | boolean
-    describeTo(description?: Description): void
-    describeMismatch(value: Value, description: Description): void
-  }
+	export class Matcher {
+		matches(actual?: Value): void | boolean;
+		describeTo(description?: Description): void;
+		describeMismatch(value: Value, description: Description): void;
+	}
 
-  export class TypeSafeMatcher extends Matcher  {
-    describeMismatch (actual: Value, description: Description): void
-    isExpectedType (): void
-    matchesSafely (): boolean
-		describeMismatchSafely (): void
-  }
 
-  export class FeatureMatcher extends Matcher {}
+	export class TypeSafeMatcher extends Matcher	{
+		describeMismatch (actual: Value, description: Description): void;
+		isExpectedType (): void;
+		matchesSafely (): boolean;
+		describeMismatchSafely (): void;
+	}
 
-  export class Description {
-    useJsonForObjects: boolean
-    indentation: number
-    append(text: string): Description
-    indented(describingfn: () => Description): Description | Promise<void>
-    appendDescriptionOf(selfDescribing: Matcher): Description
-    appendValue(value: Value): Description
-    appendNonJson(value: Value): void
-    appendList(start: string, separator: string, end: string, list: Value): Description
-    get(): string
-  }
+	export class FeatureMatcher extends Matcher {}
 
-  type ValueOrMatcher = Value | Matcher
+	export class Description {
+		useJsonForObjects: boolean;
+		indentation: number;
+		append(text: string): Description;
+		indented(describingfn: () => Description): Description | Promise<void>;
+		appendDescriptionOf(selfDescribing: Matcher): Description;
+		appendValue(value: Value): Description;
+		appendNonJson(value: Value): void;
+		appendList(start: string, separator: string, end: string, list: Value): Description;
+		get(): string;
+	}
 
-  export function assertThat(actual: Value, matcher: Matcher): void
-  export function assertThat(reason: string, actual: Value, matcher: Matcher): void
+	type ValueOrMatcher = Value | Matcher;
 
-  export function promiseThat(actual: Value, matcher: Matcher): void
-  export function promiseThat(reason: string, actual: Value, matcher: Matcher): void
+	export function assertThat(actual: Value, matcher: Matcher): void;
+	export function assertThat(reason: string, actual: Value, matcher: Matcher): void;
 
-  export function fail(): void
-  export function fail(reason: string): void
+	export function promiseThat(actual: Value, matcher: Matcher): void;
+	export function promiseThat(reason: string, actual: Value, matcher: Matcher): void;
 
-  // anything: require('./matchers/IsAnything').anything,
-  export function anything(): Matcher
+	export function fail(): void;
+	export function fail(reason: string): void;
 
-  // strictlyEqualTo: require('./matchers/IsSame').strictlyEqualTo,
-  export function equalTo(expectedValue: Value): Matcher
+	// anything: require('./matchers/IsAnything').anything,;
+	export function anything(): Matcher;
 
-  // is: require('./matchers/Is').is,
-  export function is(matcher: Matcher): Matcher
+	// strictlyEqualTo: require('./matchers/IsSame').strictlyEqualTo,;
+	export function equalTo(expectedValue: Value): Matcher;
 
-  // not: require('./matchers/IsNot').not,
-  export function not(matcher: Matcher): Matcher
+	// is: require('./matchers/Is').is,;
+	export function is(matcher: Matcher): Matcher;
 
-  // equalTo: IsEqual.equalTo,
-  export function equalTo(expectedValue: Value): Matcher
+	// not: require('./matchers/IsNot').not,;
+	export function not(matcher: Matcher): Matcher;
 
-  // truthy: require('./matchers/truthy'),
-  export function truthy(): Matcher
+	// equalTo: IsEqual.equalTo,;
+	export function equalTo(expectedValue: Value): Matcher;
 
-  // falsy: require('./matchers/falsy'),
-  export function falsy(): Matcher
+	// truthy: require('./matchers/truthy'),;
+	export function truthy(): Matcher;
 
-  // falsey: require('./matchers/falsy'),
-  export function falsey(): Matcher
+	// falsy: require('./matchers/falsy'),;
+	export function falsy(): Matcher;
 
-	// defined: require('./matchers/IsDefined').defined,
-  export function defined(): Matcher
+	// falsey: require('./matchers/falsy'),;
+	export function falsey(): Matcher;
 
-  // undefined: require('./matchers/IsDefined').undefined,
-  export function undefined(): Matcher
+	// defined: require('./matchers/IsDefined').defined,;
+	export function defined(): Matcher;
 
-  // undef: require('./matchers/IsDefined').undefined,
-  export function undef(): Matcher
+	// undefined: require('./matchers/IsDefined').undefined,;
+	export function undefined(): Matcher;
 
-  // instanceOf: require('./matchers/IsInstanceOf').instanceOf,
-  export function instanceOf(expectedType: Value): Matcher
+	// undef: require('./matchers/IsDefined').undefined,;
+	export function undef(): Matcher;
 
-  // array: require('./matchers/IsArray').array,
-  export function array(): Matcher
+	// instanceOf: require('./matchers/IsInstanceOf').instanceOf,;
+	export function instanceOf(expectedType: Value): Matcher;
 
-  // bool: require('./matchers/IsBoolean').bool,
-  export function bool(): Matcher
+	// array: require('./matchers/IsArray').array,;
+	export function array(): Matcher;
 
-  // boolean: require('./matchers/IsBoolean').bool,
-  export function boolean(): Matcher
+	// bool: require('./matchers/IsBoolean').bool,;
+	export function bool(): Matcher;
 
-  // date: require('./matchers/IsDate').date,
-  export function date(): Matcher
+	// boolean: require('./matchers/IsBoolean').bool,;
+	export function boolean(): Matcher;
 
-  // func: require('./matchers/IsFunction').func,
-  export function func(): Matcher
+	// date: require('./matchers/IsDate').date,;
+	export function date(): Matcher;
 
-	// number: require('./matchers/IsNumber').number,
-  export function number(): Matcher
+	// func: require('./matchers/IsFunction').func,;
+	export function func(): Matcher;
 
-  // object: require('./matchers/IsObject').object,
-  export function object(): Matcher
+	// number: require('./matchers/IsNumber').number,;
+	export function number(): Matcher;
 
-  // regExp: require('./matchers/IsRegExp').regExp,
-  export function regExp(): Matcher
+	// object: require('./matchers/IsObject').object,;
+	export function object(): Matcher;
 
-  // string: require('./matchers/IsString').string,
-  export function string(): Matcher
+	// regExp: require('./matchers/IsRegExp').regExp,;
+	export function regExp(): Matcher;
 
-  // containsString: SubstringMatcher.containsString,
-  export function containsString(subString: string): Matcher
+	// string: require('./matchers/IsString').string,;
+	export function string(): Matcher;
 
-  // containsStrings: SubstringMatcher.containsStrings,
-  export function containsStrings(...subStrings: string[]): Matcher
+	// containsString: SubstringMatcher.containsString,;
+	export function containsString(subString: string): Matcher;
 
-  // startsWith: SubstringMatcher.startsWith,
-  export function startsWith(subString: string): Matcher
+	// containsStrings: SubstringMatcher.containsStrings,;
+	export function containsStrings(...subStrings: string[]): Matcher;
 
-  // endsWith: SubstringMatcher.endsWith,
-  export function endWith(subString: string): Matcher
+	// startsWith: SubstringMatcher.startsWith,;
+	export function startsWith(subString: string): Matcher;
 
-  // matchesPattern: require('./matchers/IsStringMatching').matchesPattern,
-  export function matchesPattern(stringOrPattern: string | RegExp): Matcher
+	// endsWith: SubstringMatcher.endsWith,;
+	export function endWith(subString: string): Matcher;
 
-  // matches: require('./matchers/matches'),
-  export function matches(...matcher: ValueOrMatcher[]): Matcher
+	// matchesPattern: require('./matchers/IsStringMatching').matchesPattern,;
+	export function matchesPattern(stringOrPattern: string | RegExp): Matcher;
 
-  // failsToMatch: require('./matchers/failsToMatch'),
-  export function failsToMatch(...matcher: ValueOrMatcher[]): Matcher
+	// matches: require('./matchers/matches'),;
+	export function matches(...matcher: ValueOrMatcher[]): Matcher;
 
-  // hasDescription: require('./matchers/hasDescription'),
-  export function hasDescription(matcher: ValueOrMatcher): Matcher
+	// failsToMatch: require('./matchers/failsToMatch'),;
+	export function failsToMatch(...matcher: ValueOrMatcher[]): Matcher;
 
-  // lessThan: NumberComparisonMatcher.lessThan,
-  export function lessThan(number: number): Matcher
+	// hasDescription: require('./matchers/hasDescription'),;
+	export function hasDescription(matcher: ValueOrMatcher): Matcher;
 
-  // lessThanOrEqualTo: NumberComparisonMatcher.lessThanOrEqualTo,
-  export function lessThanOrEqualTo(number: number): Matcher
+	// lessThan: NumberComparisonMatcher.lessThan,;
+	export function lessThan(number: number): Matcher;
 
-  // greaterThan: NumberComparisonMatcher.greaterThan,
-  export function greaterThan(number: number): Matcher
+	// lessThanOrEqualTo: NumberComparisonMatcher.lessThanOrEqualTo,;
+	export function lessThanOrEqualTo(number: number): Matcher;
 
-  // greaterThanOrEqualTo: NumberComparisonMatcher.greaterThanOrEqualTo,
-  export function greaterThanOrEqualTo(number: number): Matcher
+	// greaterThan: NumberComparisonMatcher.greaterThan,;
+	export function greaterThan(number: number): Matcher;
 
-  // closeTo: require('./matchers/IsCloseTo').closeTo,
-  export function closeTo(number: number, delta: number): Matcher
+	// greaterThanOrEqualTo: NumberComparisonMatcher.greaterThanOrEqualTo,;
+	export function greaterThanOrEqualTo(number: number): Matcher;
 
-  // inRange: require('./matchers/inRange'),
-  export function inRange(upperBound: number): Matcher
-  export function inRange(lowerBound: number, upperBound: number): Matcher
+	// closeTo: require('./matchers/IsCloseTo').closeTo,;
+	export function closeTo(number: number, delta: number): Matcher;
 
-  // after: DateComparisonMatcher.after,
-  export function after(date: Date): Matcher
+	// inRange: require('./matchers/inRange'),;
+	export function inRange(upperBound: number): Matcher;
+	export function inRange(lowerBound: number, upperBound: number): Matcher;
 
-  // afterOrEqualTo: DateComparisonMatcher.afterOrEqualTo,
-  export function afterOrEqualTo(date: Date): Matcher
+	// after: DateComparisonMatcher.after,;
+	export function after(date: Date): Matcher;
 
-  // before: DateComparisonMatcher.before,
-  export function before(date: Date): Matcher
+	// afterOrEqualTo: DateComparisonMatcher.afterOrEqualTo,;
+	export function afterOrEqualTo(date: Date): Matcher;
 
-  // beforeOrEqualTo: DateComparisonMatcher.beforeOrEqualTo,
-  export function beforeOrEqualTo(date: Date): Matcher
+	// before: DateComparisonMatcher.before,;
+	export function before(date: Date): Matcher;
 
-  // allOf: require('./matchers/AllOf').allOf,
-  export function allOf(...matchers: Matcher[]): Matcher
+	// beforeOrEqualTo: DateComparisonMatcher.beforeOrEqualTo,;
+	export function beforeOrEqualTo(date: Date): Matcher;
 
-  // anyOf: require('./matchers/AnyOf').anyOf,
-  export function anyOf(...matchers: Matcher[]): Matcher
+	// allOf: require('./matchers/AllOf').allOf,;
+	export function allOf(...matchers: Matcher[]): Matcher;
 
-  // everyItem: require('./matchers/Every').everyItem,
-  export function everyItem(valueOrMatcher: ValueOrMatcher): Matcher
+	// anyOf: require('./matchers/AnyOf').anyOf,;
+	export function anyOf(...matchers: Matcher[]): Matcher;
 
-  // hasItem: require('./matchers/IsArrayWithItem').hasItem,
-  export function hasItem(valueOrMatcher: ValueOrMatcher): Matcher
+	// everyItem: require('./matchers/Every').everyItem,;
+	export function everyItem(valueOrMatcher: ValueOrMatcher): Matcher;
 
-  // hasItems: require('./matchers/IsArrayWithItems').hasItems,
-  export function hasItems(...valueOrMatcher: ValueOrMatcher[]): Matcher
+	// hasItem: require('./matchers/IsArrayWithItem').hasItem,;
+	export function hasItem(valueOrMatcher: ValueOrMatcher): Matcher;
 
-  // hasExactlyOneItem: require('./matchers/hasExactlyOneItem'),
-  export function hasExactlyOneItem(): Matcher
+	// hasItems: require('./matchers/IsArrayWithItems').hasItems,;
+	export function hasItems(...valueOrMatcher: ValueOrMatcher[]): Matcher;
 
-  // contains: require('./matchers/IsArrayContaining').contains,
-  export function contains(...valueOrMatcher: ValueOrMatcher[]): Matcher
+	// hasExactlyOneItem: require('./matchers/hasExactlyOneItem'),;
+	export function hasExactlyOneItem(): Matcher;
 
-  // containsInAnyOrder: require('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,
-  export function containsInAnyOrder(...valueOrMatcher: ValueOrMatcher[]): Matcher
+	// contains: require('./matchers/IsArrayContaining').contains,;
+	export function contains(...valueOrMatcher: ValueOrMatcher[]): Matcher;
 
-  // orderedBy: require('./matchers/IsArrayOrderedBy').orderedBy,
-  export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean): Matcher
-  export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean, orderName: string): Matcher
+	// containsInAnyOrder: require('./matchers/IsArrayContainingInAnyOrder').containsInAnyOrder,;
+	export function containsInAnyOrder(...valueOrMatcher: ValueOrMatcher[]): Matcher;
 
-  // hasSize: require('./matchers/hasSize'),
-  export function hasSize(size: number): Matcher
+	// orderedBy: require('./matchers/IsArrayOrderedBy').orderedBy,;
+	export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean): Matcher;
+	export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean, orderName: string): Matcher;
 
-  // isEmpty: require('./matchers/isEmpty'),
-  export function isEmpty(): Matcher
+	// hasSize: require('./matchers/hasSize'),;
+	export function hasSize(size: number): Matcher;
 
-  // empty: require('./matchers/isEmpty'),
-  export function empty(): Matcher
+	// isEmpty: require('./matchers/isEmpty'),;
+	export function isEmpty(): Matcher;
 
-  // hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,
-  export function hasProperties(matcher: { [key: string]: ValueOrMatcher }): Matcher
+	// empty: require('./matchers/isEmpty'),;
+	export function empty(): Matcher;
 
-  // hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,
-  export function hasProperty(path: string, valueOrMatcher: ValueOrMatcher): Matcher
+	// hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,;
+	export function hasProperties(matcher: { [key: string]: ValueOrMatcher }): Matcher;
 
-  // throws: require('./matchers/IsFunctionThrowing').throws,
-  export function throws(): Matcher
-  export function throws(matcher: Matcher): Matcher
+	// hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,;
+	export function hasProperty(path: string, valueOrMatcher: ValueOrMatcher): Matcher;
 
-  // returns: require('./matchers/returns'),
-  export function returns(): Matcher
-  export function returns(matcher: ValueOrMatcher): Matcher
+	// throws: require('./matchers/IsFunctionThrowing').throws,;
+	export function throws(): Matcher;
+	export function throws(matcher: Matcher): Matcher;
 
-  // typedError: require('./matchers/typedError'),
-  export function typedError(type: Value, messageValueOrMatcher: ValueOrMatcher): Matcher
+	// returns: require('./matchers/returns'),;
+	export function returns(): Matcher;
+	export function returns(matcher: ValueOrMatcher): Matcher;
 
-  // promise: require('./matchers/IsPromise').promise,
-  export function promise(): Matcher
+	// typedError: require('./matchers/typedError'),;
+	export function typedError(type: Value, messageValueOrMatcher: ValueOrMatcher): Matcher;
 
-  // fulfilled: require('./matchers/IsFulfilled').fulfilled,
-  export function fulfilled(): Matcher
-  export function fulfilled(valueOrMatcher: ValueOrMatcher): Matcher
+	// promise: require('./matchers/IsPromise').promise,;
+	export function promise(): Matcher;
 
-  // isFulfilledWith: require('./matchers/IsFulfilled').isFulfilledWith,
-  export function isFulfilledWith(): Matcher
-  export function isFulfilledWith(valueOrMatcher: ValueOrMatcher): Matcher
+	// fulfilled: require('./matchers/IsFulfilled').fulfilled,;
+	export function fulfilled(): Matcher;
+	export function fulfilled(valueOrMatcher: ValueOrMatcher): Matcher;
 
-  // willBe: require('./matchers/IsFulfilled').isFulfilledWith,
-  export function willBe(valueOrMatcher: ValueOrMatcher): Matcher
+	// isFulfilledWith: require('./matchers/IsFulfilled').isFulfilledWith,;
+	export function isFulfilledWith(): Matcher;
+	export function isFulfilledWith(valueOrMatcher: ValueOrMatcher): Matcher;
 
-	// rejected: require('./matchers/IsRejected').rejected,
-  export function rejected(): Matcher
-  export function rejected(valueOrMatcher: ValueOrMatcher): Matcher
+	// willBe: require('./matchers/IsFulfilled').isFulfilledWith,;
+	export function willBe(valueOrMatcher: ValueOrMatcher): Matcher;
 
-  // isRejectedWith: require('./matchers/IsRejected').isRejectedWith,
-  export function isRejectedWith(): Matcher
-  export function isRejectedWith(valueOrMatcher: ValueOrMatcher): Matcher
+	// rejected: require('./matchers/IsRejected').rejected,;
+	export function rejected(): Matcher;
+	export function rejected(valueOrMatcher: ValueOrMatcher): Matcher;
 
-  // promiseAllOf: require('./matchers/AllOf').allOf
-  export function promiseAllOf(...matchers: Matcher[]): Matcher
+	// isRejectedWith: require('./matchers/IsRejected').isRejectedWith,;
+	export function isRejectedWith(): Matcher;
+	export function isRejectedWith(valueOrMatcher: ValueOrMatcher): Matcher;
 
-  // isMatcher: Matcher.isMatcher,
-  export function isMatcher(valueOrMatcher: ValueOrMatcher): void
+	// promiseAllOf: require('./matchers/AllOf').allOf;
+	export function promiseAllOf(...matchers: Matcher[]): Matcher;
 
-  // asMatcher: require('./utils/asMatcher'),
-  export function asMatcher(valueOrMatcher: ValueOrMatcher): void
+	// isMatcher: Matcher.isMatcher,;
+	export function isMatcher(valueOrMatcher: ValueOrMatcher): void;
 
-  // acceptingMatcher: require('./utils/acceptingMatcher'),
-  export function acceptingMatcher<Rtn>(fn: (matcher: Matcher) => Rtn): Rtn
+	// asMatcher: require('./utils/asMatcher'),;
+	export function asMatcher(valueOrMatcher: ValueOrMatcher): void;
 
-  export function describe(matcher: Matcher): Description
+	// acceptingMatcher: require('./utils/acceptingMatcher'),;
+	export function acceptingMatcher<Rtn>(fn: (matcher: Matcher) => Rtn): Rtn;
+
+	export function describe(matcher: Matcher): Description;
 }
