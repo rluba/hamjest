@@ -53,6 +53,7 @@
     "gulp-eslint": "^6.0.0",
     "gulp-mocha": "^6.0.0",
     "gulp-rename": "^1.4.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
     "karma": "^4.2.0",
     "karma-chrome-launcher": "^3.0.0",
