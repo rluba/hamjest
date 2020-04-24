@@ -82,6 +82,7 @@ _.assertThat('hamjest is awesome', _.anyOf(_.string(), _.containsString('hamjest
 // Object matcher
 _.assertThat({a: 'A', 0: 0}, _.hasProperties({ a: 'A', 0: 0 }));
 _.assertThat({a: 'A', 0: 0}, _.hasProperty('a', 'A'));
+_.assertThat({a: 'A', 0: 0}, _.hasProperty('a'));
 
 // Exception matcher
 _.assertThat(() => { throw new Error() }, _.throws());
