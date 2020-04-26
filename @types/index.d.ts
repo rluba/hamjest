@@ -199,7 +199,7 @@ declare module "hamjest" {
 	export function hasProperties(matcher: { [key: string]: ValueOrMatcher }): Matcher;
 
 	// hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,;
-	export function hasProperty(path: string, valueOrMatcher: ValueOrMatcher): Matcher;
+	export function hasProperty(path: string, valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// throws: require('./matchers/IsFunctionThrowing').throws,;
 	export function throws(): Matcher;
