@@ -57,7 +57,21 @@ function buildDist() {
 		entries: './index.js',
 		standalone: 'hamjest',
 		debug: true
-	}).transform('babelify', {presets: ['es2015']});
+	})
+	.transform('babelify', {presets: [
+		[
+			'@babel/preset-env',
+			{
+				targets: {
+					browsers: require('./package.json').browserslist,
+				},
+				loose: false,
+				// modules: false,
+				useBuiltIns: 'usage',
+				corejs: 'core-js@3',
+			},
+		]
+	]});
 
 	return b.bundle()
 		.pipe(sourceStream('hamjest.js'))
