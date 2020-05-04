@@ -11,12 +11,18 @@ const browserify = require('browserify');
 const del = require('del');
 const sourceStream = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
+const typescript = require('gulp-typescript');
 const KarmaServer = require('karma').Server;
 
 const jsFiles = [
 	'*.js',
 	'lib/**/*.js',
 	'test/**/*.js'
+];
+
+const tsFiles = [
+	'*.ts',
+	'@types/**/*.ts'
 ];
 
 function lint() {
@@ -26,7 +32,16 @@ function lint() {
 		.pipe(gulpEslint.failAfterError());
 }
 
-const test = testNode;
+function testTypes() {
+	return gulp.src(tsFiles)
+		.pipe(typescript({
+			lib: ['es2015']
+		}));
+}
+
+function test(done) {
+	return gulp.parallel(testNode, testTypes)(done);
+}
 
 function testNode() {
 	return gulp.src('test/node/**/*Spec.js', {read: false})
@@ -90,6 +105,8 @@ function clean() {
 
 function dev(done) {
 	gulp.watch(jsFiles, gulp.parallel(lint, test));
+	gulp.watch(tsFiles, testTypes);
+
 	done();
 }
 

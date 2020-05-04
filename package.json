@@ -9,6 +9,7 @@
     "email": "raphael@leanbyte.com",
     "url": "https://github.com/rluba"
   },
+  "types": "./@types/index.d.ts",
   "keywords": [
     "hamjest",
     "hamcrest",
@@ -58,12 +59,14 @@
     "gulp-eslint": "^6.0.0",
     "gulp-mocha": "^7.0.2",
     "gulp-rename": "^2.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
     "karma": "^5.0.4",
     "karma-chrome-launcher": "^3.0.0",
     "karma-firefox-launcher": "^1.1.0",
     "karma-mocha": "^2.0.1",
     "mocha": "^7.1.2",
+    "typescript": "^3.8.3",    
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   }
