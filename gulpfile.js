@@ -119,6 +119,7 @@ const build = gulp.series(
 module.exports = {
 	clean,
 	build,
+	lint,
 	dev,
 	test,
 	default: gulp.series(
