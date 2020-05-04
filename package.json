@@ -1,6 +1,6 @@
 {
   "name": "hamjest",
-  "version": "3.3.1",
+  "version": "3.4.0",
   "main": "index.js",
   "description": "A library of composable matchers for defining meaningful and readable assertions in JavaScript.",
   "homepage": "https://github.com/rluba/hamjest",
@@ -68,7 +68,7 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-mocha": "^2.0.1",
     "mocha": "^7.1.2",
-    "typescript": "^3.8.3",    
+    "typescript": "^3.8.3",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   }
