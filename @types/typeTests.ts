@@ -1,103 +1,102 @@
-import * as _ from 'hamjest'
+import * as __ from 'hamjest'
 
-_.assertThat(1, _.equalTo(1));
-_.assertThat('Reason', 1, _.equalTo(1));
-_.assertThat(1, _.is(_.equalTo(1)));
-_.assertThat(2, _.not(_.equalTo(1)));
-_.assertThat(2, _.is(_.not(_.equalTo(1))));
-_.assertThat(2, _.is(_.not(_.equalTo(1))));
+__.assertThat(1, __.equalTo(1));
+__.assertThat('Reason', 1, __.equalTo(1));
+__.assertThat(1, __.is(__.equalTo(1)));
+__.assertThat(2, __.not(__.equalTo(1)));
+__.assertThat(2, __.is(__.not(__.equalTo(1))));
+__.assertThat(2, __.is(__.not(__.equalTo(1))));
 
 // Primitives
-_.assertThat(true, _.truthy());
-_.assertThat(false, _.falsy());
-_.assertThat(false, _.falsey());
-_.assertThat(false, _.bool());
-_.assertThat(false, _.boolean());
-_.assertThat(() => {}, _.func());
-_.assertThat(1, _.number());
-_.assertThat({}, _.object());
-_.assertThat(/d+/, _.regExp());
-_.assertThat('', _.string());
-_.assertThat(undefined, _.undef());
-_.assertThat(undefined, _.undefined());
-_.assertThat(undefined, _.defined());
-_.assertThat(new Date(), _.date());
-_.assertThat(Date, _.instanceOf(Date));
-_.assertThat(false, _.anything());
+__.assertThat(true, __.truthy());
+__.assertThat(false, __.falsy());
+__.assertThat(false, __.falsey());
+__.assertThat(false, __.bool());
+__.assertThat(false, __.boolean());
+__.assertThat(() => {}, __.func());
+__.assertThat(1, __.number());
+__.assertThat({}, __.object());
+__.assertThat(/d+/, __.regExp());
+__.assertThat('', __.string());
+__.assertThat(undefined, __.undef());
+__.assertThat(undefined, __.undefined());
+__.assertThat(undefined, __.defined());
+__.assertThat(new Date(), __.date());
+__.assertThat(Date, __.instanceOf(Date));
+__.assertThat(false, __.anything());
 
 // Number matcher
-_.assertThat(1, _.lessThan(5));
-_.assertThat(1, _.lessThanOrEqualTo(5));
-_.assertThat(6, _.greaterThan(5));
-_.assertThat(6, _.greaterThanOrEqualTo(5));
-_.assertThat(1/3, _.closeTo(0.33, 0.01));
-_.assertThat(1, _.inRange(2));
-_.assertThat(1, _.inRange(0, 2));
+__.assertThat(1, __.lessThan(5));
+__.assertThat(1, __.lessThanOrEqualTo(5));
+__.assertThat(6, __.greaterThan(5));
+__.assertThat(6, __.greaterThanOrEqualTo(5));
+__.assertThat(1/3, __.closeTo(0.33, 0.01));
+__.assertThat(1, __.inRange(2));
+__.assertThat(1, __.inRange(0, 2));
 
 // String matcher
-_.assertThat('hamjest is awesome', _.containsString('is'));
-_.assertThat('hamjest is awesome', _.containsStrings('hamjest', 'is'));
-_.assertThat('hamjest is awesome', _.startsWith('hamjest'));
-_.assertThat('hamjest is awesome', _.endWith('awesome'));
-_.assertThat('hamjest is awesome', _.matchesPattern('is'));
-_.assertThat('hamjest is awesome', _.matchesPattern(/.*is.*/));
+__.assertThat('hamjest is awesome', __.containsString('is'));
+__.assertThat('hamjest is awesome', __.containsStrings('hamjest', 'is'));
+__.assertThat('hamjest is awesome', __.startsWith('hamjest'));
+__.assertThat('hamjest is awesome', __.endsWith('awesome'));
+__.assertThat('hamjest is awesome', __.matchesPattern('is'));
+__.assertThat('hamjest is awesome', __.matchesPattern(/.*is.*/));
 
 // Date matcher
-_.assertThat(new Date('2015-06-17T14:00:00'), _.after(new Date('2015-06-01T00:00:00')));
-_.assertThat(new Date('2015-06-17T14:00:00'), _.afterOrEqualTo(new Date('2015-06-01T00:00:00')));
-_.assertThat(new Date('2015-06-01T14:00:00'), _.before(new Date('2015-06-17T00:00:00')));
-_.assertThat(new Date('2015-06-01T14:00:00'), _.beforeOrEqualTo(new Date('2015-06-17T00:00:00')));
+__.assertThat(new Date('2015-06-17T14:00:00'), __.after(new Date('2015-06-01T00:00:00')));
+__.assertThat(new Date('2015-06-17T14:00:00'), __.afterOrEqualTo(new Date('2015-06-01T00:00:00')));
+__.assertThat(new Date('2015-06-01T14:00:00'), __.before(new Date('2015-06-17T00:00:00')));
+__.assertThat(new Date('2015-06-01T14:00:00'), __.beforeOrEqualTo(new Date('2015-06-17T00:00:00')));
 
 // Array matcher
-_.assertThat([1,2,3], _.hasSize(3));
-_.assertThat([], _.isEmpty());
-_.assertThat([], _.empty());
-_.assertThat([1], _.hasExactlyOneItem());
-_.assertThat([1], _.array());
-_.assertThat([1,2,3,4], _.everyItem(_.number()));
-_.assertThat([1,2,3,4], _.hasItem(2));
-_.assertThat([1,2,3,4], _.hasItems(2,3));
-_.assertThat([1,2,3,4], _.contains(1,2,3));
-_.assertThat([1,2,3,4], _.containsInAnyOrder(1,2,3));
-_.assertThat([1,2,3,4], _.orderedBy((a, b) => a < b));
-_.assertThat([1,2,3,4], _.orderedBy((a, b) => a < b, 'ascending'));
+__.assertThat([1,2,3], __.hasSize(3));
+__.assertThat([], __.isEmpty());
+__.assertThat([], __.empty());
+__.assertThat([1], __.hasExactlyOneItem(1));
+__.assertThat([1], __.array());
+__.assertThat([1,2,3,4], __.everyItem(__.number()));
+__.assertThat([1,2,3,4], __.hasItem(2));
+__.assertThat([1,2,3,4], __.hasItems(2,3));
+__.assertThat([1,2,3,4], __.contains(1,2,3));
+__.assertThat([1,2,3,4], __.containsInAnyOrder(1,2,3));
+__.assertThat([1,2,3,4], __.orderedBy((a, b) => a < b));
+__.assertThat([1,2,3,4], __.orderedBy((a, b) => a < b, 'ascending'));
 
 // Promise matchers
-_.promiseThat(new Promise((resolve) => { resolve() }), _.promise());
-_.promiseThat(new Promise((resolve) => { resolve() }), _.fulfilled());
-_.promiseThat(new Promise((resolve) => { resolve('hamjest') }), _.fulfilled(_.string()));
-_.promiseThat(new Promise((resolve) => { resolve() }), _.isFulfilledWith());
-_.promiseThat(new Promise((resolve) => { resolve('hamjest') }), _.isFulfilledWith(_.string()));
-_.promiseThat(new Promise((resolve) => { resolve('hamjest') }), _.willBe(_.string()));
-_.promiseThat(new Promise((_, reject) => { reject() }), _.rejected());
-_.promiseThat(new Promise((_, reject) => { reject('hamjest') }), _.rejected(_.string()));
-_.promiseThat(new Promise((_, reject) => { reject() }), _.isRejectedWith());
-_.promiseThat(new Promise((_, reject) => { reject('hamjest') }), _.isRejectedWith(_.string()));
-_.promiseThat(new Promise((_, reject) => { reject('hamjest') }), _.promiseAllOf(_.string()));
+__.promiseThat(new Promise((resolve) => { resolve() }), __.promise());
+__.promiseThat(new Promise((resolve) => { resolve() }), __.fulfilled());
+__.promiseThat(new Promise((resolve) => { resolve('hamjest') }), __.fulfilled(__.string()));
+__.promiseThat(new Promise((resolve) => { resolve() }), __.isFulfilledWith());
+__.promiseThat(new Promise((resolve) => { resolve('hamjest') }), __.isFulfilledWith(__.string()));
+__.promiseThat(new Promise((resolve) => { resolve('hamjest') }), __.willBe(__.string()));
+__.promiseThat(new Promise((_, reject) => { reject() }), __.rejected());
+__.promiseThat(new Promise((_, reject) => { reject('hamjest') }), __.rejected(__.string()));
+__.promiseThat(new Promise((_, reject) => { reject() }), __.isRejectedWith());
+__.promiseThat(new Promise((_, reject) => { reject('hamjest') }), __.isRejectedWith(__.string()));
 
 // Combinator matcher
-_.assertThat('hamjest is awesome', _.allOf(_.string(), _.containsString('hamjest')));
-_.assertThat('hamjest is awesome', _.anyOf(_.string(), _.containsString('hamjest')));
+__.assertThat('hamjest is awesome', __.allOf(__.string(), __.containsString('hamjest')));
+__.assertThat('hamjest is awesome', __.anyOf(__.string(), __.containsString('hamjest')));
 
 // Object matcher
-_.assertThat({a: 'A', 0: 0}, _.hasProperties({ a: 'A', 0: 0 }));
-_.assertThat({a: 'A', 0: 0}, _.hasProperty('a', 'A'));
-_.assertThat({a: 'A', 0: 0}, _.hasProperty('a'));
+__.assertThat({a: 'A', 0: 0}, __.hasProperties({ a: 'A', 0: 0 }));
+__.assertThat({a: 'A', 0: 0}, __.hasProperty('a', 'A'));
+__.assertThat({a: 'A', 0: 0}, __.hasProperty('a'));
 
 // Exception matcher
-_.assertThat(() => { throw new Error() }, _.throws());
-_.assertThat(() => { throw new Error() }, _.throws(_.instanceOf(Error)));
-_.assertThat(() => { _.fail() }, _.throws());
-_.assertThat(() => { _.fail('reason') }, _.throws());
-_.assertThat(() => { throw new RangeError('value out of range') },
-	_.throws(_.typedError(RangeError, 'value out of range')));
+__.assertThat(() => { throw new Error() }, __.throws());
+__.assertThat(() => { throw new Error() }, __.throws(__.instanceOf(Error)));
+__.assertThat(() => { __.fail() }, __.throws());
+__.assertThat(() => { __.fail('reason') }, __.throws());
+__.assertThat(() => { throw new RangeError('value out of range') },
+	__.throws(__.typedError(RangeError, 'value out of range')));
 
 // Function matcher
-_.assertThat(() => { return 1 }, _.returns());
-_.assertThat(() => { return 1 }, _.returns(1));
-_.assertThat(() => { return 1 }, _.returns(_.number()));
+__.assertThat(() => { return 1 }, __.returns());
+__.assertThat(() => { return 1 }, __.returns(1));
+__.assertThat(() => { return 1 }, __.returns(__.number()));
 
 // TODO: unsure if used correctly
-_.assertThat(_.containsString('value'), _.matches('some value'));
-_. assertThat(_.containsString('value'), _.hasDescription('a string containing "value"'));
-_. assertThat(_.hasSize(5), _.failsToMatch('long string', _.containsString('size was <11>')));
+__.assertThat(__.containsString('value'), __.matches('some value'));
+__. assertThat(__.containsString('value'), __.hasDescription('a string containing "value"'));
+__. assertThat(__.hasSize(5), __.failsToMatch('long string', __.containsString('size was <11>')));

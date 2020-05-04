@@ -2,20 +2,22 @@ declare module "hamjest" {
 	type Value = any;
 
 	export class Matcher {
-		matches(actual?: Value): void | boolean;
-		describeTo(description?: Description): void;
+		matches(actual: Value): boolean;
+		describeTo(description: Description): void;
 		describeMismatch(value: Value, description: Description): void;
 	}
 
+	type ValueOrMatcher = Value | Matcher;
 
-	export class TypeSafeMatcher extends Matcher	{
-		describeMismatch (actual: Value, description: Description): void;
-		isExpectedType (): void;
-		matchesSafely (): boolean;
-		describeMismatchSafely (): void;
+	export class TypeSafeMatcher<T> extends Matcher {
+		isExpectedType(actual: Value): boolean;
+		matchesSafely(actual: T): boolean;
+		describeMismatchSafely(value: T, description: Description): void;
 	}
 
-	export class FeatureMatcher extends Matcher {}
+	export class FeatureMatcher<T> extends Matcher {
+		constructor(valueOrMatcher: ValueOrMatcher, featureDescription: string, featureName: string, featureFunction: (actual: Value) => T)
+	}
 
 	export class Description {
 		useJsonForObjects: boolean;
@@ -29,16 +31,13 @@ declare module "hamjest" {
 		get(): string;
 	}
 
-	type ValueOrMatcher = Value | Matcher;
-
 	export function assertThat(actual: Value, matcher: Matcher): void;
 	export function assertThat(reason: string, actual: Value, matcher: Matcher): void;
 
-	export function promiseThat(actual: Value, matcher: Matcher): void;
-	export function promiseThat(reason: string, actual: Value, matcher: Matcher): void;
+	export function promiseThat(actual: Promise<Value>, matcher: Matcher): void;
+	export function promiseThat(reason: string, actual: Promise<Value>, matcher: Matcher): void;
 
-	export function fail(): void;
-	export function fail(reason: string): void;
+	export function fail(reason?: string): void;
 
 	// anything: require('./matchers/IsAnything').anything,;
 	export function anything(): Matcher;
@@ -113,16 +112,16 @@ declare module "hamjest" {
 	export function startsWith(subString: string): Matcher;
 
 	// endsWith: SubstringMatcher.endsWith,;
-	export function endWith(subString: string): Matcher;
+	export function endsWith(subString: string): Matcher;
 
 	// matchesPattern: require('./matchers/IsStringMatching').matchesPattern,;
 	export function matchesPattern(stringOrPattern: string | RegExp): Matcher;
 
 	// matches: require('./matchers/matches'),;
-	export function matches(...matcher: ValueOrMatcher[]): Matcher;
+	export function matches(target: Value): Matcher;
 
 	// failsToMatch: require('./matchers/failsToMatch'),;
-	export function failsToMatch(...matcher: ValueOrMatcher[]): Matcher;
+	export function failsToMatch(target: Value, descriptionMatcher?: ValueOrMatcher): Matcher;
 
 	// hasDescription: require('./matchers/hasDescription'),;
 	export function hasDescription(matcher: ValueOrMatcher): Matcher;
@@ -174,7 +173,7 @@ declare module "hamjest" {
 	export function hasItems(...valueOrMatcher: ValueOrMatcher[]): Matcher;
 
 	// hasExactlyOneItem: require('./matchers/hasExactlyOneItem'),;
-	export function hasExactlyOneItem(): Matcher;
+	export function hasExactlyOneItem(valueOrMatcher: ValueOrMatcher): Matcher;
 
 	// contains: require('./matchers/IsArrayContaining').contains,;
 	export function contains(...valueOrMatcher: ValueOrMatcher[]): Matcher;
@@ -183,8 +182,7 @@ declare module "hamjest" {
 	export function containsInAnyOrder(...valueOrMatcher: ValueOrMatcher[]): Matcher;
 
 	// orderedBy: require('./matchers/IsArrayOrderedBy').orderedBy,;
-	export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean): Matcher;
-	export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean, orderName: string): Matcher;
+	export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean, orderName?: string): Matcher;
 
 	// hasSize: require('./matchers/hasSize'),;
 	export function hasSize(size: number): Matcher;
@@ -202,12 +200,10 @@ declare module "hamjest" {
 	export function hasProperty(path: string, valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// throws: require('./matchers/IsFunctionThrowing').throws,;
-	export function throws(): Matcher;
-	export function throws(matcher: Matcher): Matcher;
+	export function throws(valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// returns: require('./matchers/returns'),;
-	export function returns(): Matcher;
-	export function returns(matcher: ValueOrMatcher): Matcher;
+	export function returns(valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// typedError: require('./matchers/typedError'),;
 	export function typedError(type: Value, messageValueOrMatcher: ValueOrMatcher): Matcher;
@@ -216,35 +212,30 @@ declare module "hamjest" {
 	export function promise(): Matcher;
 
 	// fulfilled: require('./matchers/IsFulfilled').fulfilled,;
-	export function fulfilled(): Matcher;
-	export function fulfilled(valueOrMatcher: ValueOrMatcher): Matcher;
+	export function fulfilled(valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// isFulfilledWith: require('./matchers/IsFulfilled').isFulfilledWith,;
-	export function isFulfilledWith(): Matcher;
-	export function isFulfilledWith(valueOrMatcher: ValueOrMatcher): Matcher;
+	export function isFulfilledWith(valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// willBe: require('./matchers/IsFulfilled').isFulfilledWith,;
 	export function willBe(valueOrMatcher: ValueOrMatcher): Matcher;
 
 	// rejected: require('./matchers/IsRejected').rejected,;
-	export function rejected(): Matcher;
-	export function rejected(valueOrMatcher: ValueOrMatcher): Matcher;
+	export function rejected(valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// isRejectedWith: require('./matchers/IsRejected').isRejectedWith,;
-	export function isRejectedWith(): Matcher;
-	export function isRejectedWith(valueOrMatcher: ValueOrMatcher): Matcher;
-
-	// promiseAllOf: require('./matchers/AllOf').allOf;
-	export function promiseAllOf(...matchers: Matcher[]): Matcher;
+	export function isRejectedWith(valueOrMatcher?: ValueOrMatcher): Matcher;
 
 	// isMatcher: Matcher.isMatcher,;
-	export function isMatcher(valueOrMatcher: ValueOrMatcher): void;
+	export function isMatcher(valueOrMatcher: ValueOrMatcher): boolean;
 
 	// asMatcher: require('./utils/asMatcher'),;
-	export function asMatcher(valueOrMatcher: ValueOrMatcher): void;
+	export function asMatcher(valueOrMatcher: ValueOrMatcher): Matcher;
+
+	type ComposingMatcher = (valueOrMatcher: ValueOrMatcher) => Matcher;
 
 	// acceptingMatcher: require('./utils/acceptingMatcher'),;
-	export function acceptingMatcher<Rtn>(fn: (matcher: Matcher) => Rtn): Rtn;
+	export function acceptingMatcher<Rtn>(fn: (matcher: Matcher) => Matcher): ComposingMatcher;
 
 	export function describe(matcher: Matcher): Description;
 }
