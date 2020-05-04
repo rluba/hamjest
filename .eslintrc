@@ -3,5 +3,16 @@
 	"extends": "leanbyte",
 	"rules": {
 		"no-extend-native": 0
-	}
+	},
+    overrides: [
+        {
+            files: ['**/*.ts?(x)'],
+            parser: "@typescript-eslint/parser",
+            extends: [
+                'plugin:@typescript-eslint/recommended',
+            ],
+            rules: {
+            }
+        },
+    ]
 }
