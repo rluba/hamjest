@@ -2,6 +2,7 @@ declare module 'hamjest' {
 	type Value = any;
 
 	export class Matcher {
+		constructor(fns?: {matches?: (Value) => boolean; describeTo?: (Description) => void; describeMismatch?: (Value, Description) => void});
 		matches(actual: Value): boolean;
 		describeTo(description: Description): void;
 		describeMismatch(value: Value, description: Description): void;
@@ -10,6 +11,7 @@ declare module 'hamjest' {
 	type ValueOrMatcher = Value | Matcher;
 
 	export class TypeSafeMatcher<T> extends Matcher {
+		constructor(fns?: {isExpectedType?: (Value) => boolean; matchesSafely?: (T) => boolean; describeTo?: (Description) => void; describeMismatchSafely?: (T, Description) => void});
 		isExpectedType(actual: Value): boolean;
 		matchesSafely(actual: T): boolean;
 		describeMismatchSafely(value: T, description: Description): void;

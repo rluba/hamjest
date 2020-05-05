@@ -99,5 +99,29 @@ __.assertThat(() => 1, __.returns(1));
 __.assertThat(() => 1, __.returns(__.number()));
 
 __.assertThat(__.containsString('value'), __.matches('some value'));
-__. assertThat(__.containsString('value'), __.hasDescription('a string containing "value"'));
-__. assertThat(__.hasSize(5), __.failsToMatch('long string', __.containsString('size was <11>')));
+__.assertThat(__.containsString('value'), __.hasDescription('a string containing "value"'));
+__.assertThat(__.hasSize(5), __.failsToMatch('long string', __.containsString('size was <11>')));
+
+// New Matcher
+const matcher = new __.Matcher({
+	matches(v: any): boolean {
+		return v === true;
+	},
+	describeTo(description: __.Description): void {
+	},
+	describeMismatch(v: any, description: __.Description): void {
+	},
+});
+// New TypeSafeMatcher
+const tsm = new __.TypeSafeMatcher({
+	isExpectedType(v: any): boolean {
+		return false;
+	},
+	matchesSafely(v: boolean): boolean {
+		return v === true;
+	},
+	describeTo(description: __.Description): void {
+	},
+	describeMismatchSafely(v: boolean, description: __.Description): void {
+	},
+});
