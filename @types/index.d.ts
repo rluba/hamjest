@@ -43,13 +43,13 @@ declare module "hamjest" {
 	export function anything(): Matcher;
 
 	// strictlyEqualTo: require('./matchers/IsSame').strictlyEqualTo,;
-	export function equalTo(expectedValue: Value): Matcher;
+	export function strictlyEqualTo(expectedValue: Value): Matcher;
 
 	// is: require('./matchers/Is').is,;
-	export function is(matcher: Matcher): Matcher;
+	export function is(valueOrMatcher: ValueOrMatcher): Matcher;
 
 	// not: require('./matchers/IsNot').not,;
-	export function not(matcher: Matcher): Matcher;
+	export function not(valueOrMatcher: ValueOrMatcher): Matcher;
 
 	// equalTo: IsEqual.equalTo,;
 	export function equalTo(expectedValue: Value): Matcher;

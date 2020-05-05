@@ -2,8 +2,10 @@ import * as __ from 'hamjest'
 
 __.assertThat(1, __.equalTo(1));
 __.assertThat('Reason', 1, __.equalTo(1));
+__.assertThat(1, __.is(1));
 __.assertThat(1, __.is(__.equalTo(1)));
 __.assertThat(2, __.not(__.equalTo(1)));
+__.assertThat(2, __.is(__.not(1)));
 __.assertThat(2, __.is(__.not(__.equalTo(1))));
 __.assertThat(2, __.is(__.not(__.equalTo(1))));
 
@@ -13,7 +15,7 @@ __.assertThat(false, __.falsy());
 __.assertThat(false, __.falsey());
 __.assertThat(false, __.bool());
 __.assertThat(false, __.boolean());
-__.assertThat(() => {}, __.func());
+__.assertThat(() => null, __.func());
 __.assertThat(1, __.number());
 __.assertThat({}, __.object());
 __.assertThat(/d+/, __.regExp());
@@ -30,7 +32,7 @@ __.assertThat(1, __.lessThan(5));
 __.assertThat(1, __.lessThanOrEqualTo(5));
 __.assertThat(6, __.greaterThan(5));
 __.assertThat(6, __.greaterThanOrEqualTo(5));
-__.assertThat(1/3, __.closeTo(0.33, 0.01));
+__.assertThat(1 / 3, __.closeTo(0.33, 0.01));
 __.assertThat(1, __.inRange(2));
 __.assertThat(1, __.inRange(0, 2));
 
