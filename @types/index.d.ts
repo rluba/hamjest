@@ -36,8 +36,8 @@ declare module 'hamjest' {
 	export function assertThat(actual: Value, matcher: Matcher): void;
 	export function assertThat(reason: string, actual: Value, matcher: Matcher): void;
 
-	export function promiseThat(actual: Promise<Value>, matcher: Matcher): void;
-	export function promiseThat(reason: string, actual: Promise<Value>, matcher: Matcher): void;
+	export function promiseThat(actual: Promise<Value>, matcher: Matcher): Promise<any>;
+	export function promiseThat(reason: string, actual: Promise<Value>, matcher: Matcher): Promise<any>;
 
 	export function fail(reason?: string): void;
 
@@ -197,6 +197,7 @@ declare module 'hamjest' {
 
 	// hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,;
 	export function hasProperties(matcher: { [key: string]: ValueOrMatcher }): TypeSafeMatcher<object>;
+	export function hasDeepProperties(matcher: { [key: string]: ValueOrMatcher }): TypeSafeMatcher<object>;
 
 	// hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,;
 	export function hasProperty(path: string, valueOrMatcher?: ValueOrMatcher): TypeSafeMatcher<object>;

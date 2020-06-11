@@ -65,16 +65,18 @@ __.assertThat([1, 2, 3, 4], __.orderedBy((a, b) => a < b));
 __.assertThat([1, 2, 3, 4], __.orderedBy((a, b) => a < b, 'ascending'));
 
 // Promise matchers
-__.promiseThat(new Promise((resolve) => resolve()), __.promise());
-__.promiseThat(new Promise((resolve) => resolve()), __.fulfilled());
-__.promiseThat(new Promise((resolve) => resolve('hamjest')), __.fulfilled(__.string()));
-__.promiseThat(new Promise((resolve) => resolve()), __.isFulfilledWith());
-__.promiseThat(new Promise((resolve) => resolve('hamjest')), __.isFulfilledWith(__.string()));
-__.promiseThat(new Promise((resolve) => resolve('hamjest')), __.willBe(__.string()));
-__.promiseThat(new Promise((_, reject) => reject()), __.rejected());
-__.promiseThat(new Promise((_, reject) => reject('hamjest')), __.rejected(__.string()));
-__.promiseThat(new Promise((_, reject) => reject()), __.isRejectedWith());
-__.promiseThat(new Promise((_, reject) => reject('hamjest')), __.isRejectedWith(__.string()));
+async function promises() {
+	await __.promiseThat(new Promise((resolve) => resolve()), __.promise());
+	await __.promiseThat(new Promise((resolve) => resolve()), __.fulfilled());
+	await __.promiseThat(new Promise((resolve) => resolve('hamjest')), __.fulfilled(__.string()));
+	await __.promiseThat(new Promise((resolve) => resolve()), __.isFulfilledWith());
+	await __.promiseThat(new Promise((resolve) => resolve('hamjest')), __.isFulfilledWith(__.string()));
+	await __.promiseThat(new Promise((resolve) => resolve('hamjest')), __.willBe(__.string()));
+	await __.promiseThat(new Promise((_, reject) => reject()), __.rejected());
+	await __.promiseThat(new Promise((_, reject) => reject('hamjest')), __.rejected(__.string()));
+	await __.promiseThat(new Promise((_, reject) => reject()), __.isRejectedWith());
+	await __.promiseThat(new Promise((_, reject) => reject('hamjest')), __.isRejectedWith(__.string()));
+}
 
 // Combinator matcher
 __.assertThat('hamjest is awesome', __.allOf(__.string(), __.containsString('hamjest')));
