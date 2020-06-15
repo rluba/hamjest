@@ -208,6 +208,34 @@ describe('IsObjectWithProperties', () => {
 		});
 	});
 
+	describe('hasDeepProperties', () => {
+		function Person(name, partner) {
+			this.name = name;
+			this.partner = partner;
+		}
+
+		let sut;
+		beforeEach(() => {
+			sut = __.hasDeepProperties({
+				name: 'Joe',
+				partner: {
+					name: __.startsWith('Jane'),
+					pet: {
+						name: 'Garfield',
+					}
+				}
+			});
+		});
+
+		it('converts every sub-object to a hasDeepProperties matcher', () => {
+			__.assertThat(sut.matches(new Person('Joe', {name: 'Janette', pet: {name: 'Garfield'}})), __.is(true));
+			__.assertThat(sut.matches(new Person('Joe', {name: 'Janette', pet: {name: 'Garfield', age: 52}})), __.is(true));
+
+			__.assertThat(sut.matches(new Person('Joe', {name: 'Janette', pet: {name: 'John'}})), __.is(false));
+			__.assertThat(sut.matches(new Person('Joe', {name: 'Abigail', pet: {name: 'Garfield'}})), __.is(false));
+		});
+	});
+
 	describe('hasProperty', () => {
 		describe('with a simple property name', () => {
 			let sut;
