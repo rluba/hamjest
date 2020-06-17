@@ -195,12 +195,14 @@ declare module 'hamjest' {
 	// empty: require('./matchers/isEmpty'),;
 	export function empty(): Matcher;
 
+	type PropertiesMatcher = TypeSafeMatcher<object> & {verbose: () => PropertiesMatcher};
+
 	// hasProperties: require('./matchers/IsObjectWithProperties').hasProperties,;
-	export function hasProperties(matcher: { [key: string]: ValueOrMatcher }): TypeSafeMatcher<object>;
-	export function hasDeepProperties(matcher: { [key: string]: ValueOrMatcher }): TypeSafeMatcher<object>;
+	export function hasProperties(matcher: { [key: string]: ValueOrMatcher }): PropertiesMatcher;
+	export function hasDeepProperties(matcher: { [key: string]: ValueOrMatcher }): PropertiesMatcher;
 
 	// hasProperty: require('./matchers/IsObjectWithProperties').hasProperty,;
-	export function hasProperty(path: string, valueOrMatcher?: ValueOrMatcher): TypeSafeMatcher<object>;
+	export function hasProperty(path: string, valueOrMatcher?: ValueOrMatcher): PropertiesMatcher;
 
 	// throws: require('./matchers/IsFunctionThrowing').throws,;
 	export function throws(valueOrMatcher?: ValueOrMatcher): Matcher;
