@@ -209,14 +209,12 @@ describe('IsObjectWithProperties', () => {
 	});
 
 	describe('hasDeepProperties', () => {
-		function Person(name, partner) {
-			this.name = name;
-			this.partner = partner;
-		}
-
-		let sut;
-		beforeEach(() => {
-			sut = __.hasDeepProperties({
+		it('converts every sub-object to a hasDeepProperties matcher', () => {
+			function Person(name, partner) {
+				this.name = name;
+				this.partner = partner;
+			}
+			const sut = __.hasDeepProperties({
 				name: 'Joe',
 				partner: {
 					name: __.startsWith('Jane'),
@@ -225,14 +223,31 @@ describe('IsObjectWithProperties', () => {
 					}
 				}
 			});
-		});
 
-		it('converts every sub-object to a hasDeepProperties matcher', () => {
 			__.assertThat(sut.matches(new Person('Joe', {name: 'Janette', pet: {name: 'Garfield'}})), __.is(true));
 			__.assertThat(sut.matches(new Person('Joe', {name: 'Janette', pet: {name: 'Garfield', age: 52}})), __.is(true));
 
 			__.assertThat(sut.matches(new Person('Joe', {name: 'Janette', pet: {name: 'John'}})), __.is(false));
 			__.assertThat(sut.matches(new Person('Joe', {name: 'Abigail', pet: {name: 'Garfield'}})), __.is(false));
+		});
+
+		it('converts every sub-array to a "contains(hasDeepProperties(), …)" matcher', () => {
+			function Person(name, children = []) {
+				this.name = name;
+				this.children = children;
+			}
+			const sut = __.hasDeepProperties({
+				name: 'Joe',
+				children: [
+					{name: 'Jane'},
+					{name: 'Jim'},
+				],
+			});
+
+			__.assertThat(sut.matches(new Person('Joe', [new Person('Jane'), new Person('Jim')])), __.is(true));
+
+			__.assertThat(sut.matches(new Person('Joe')), __.is(false));
+			__.assertThat(sut.matches(new Person('Joe', [new Person('Jane')])), __.is(false));
 		});
 	});
 
