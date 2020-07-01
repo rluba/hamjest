@@ -52,6 +52,7 @@ __.assertThat(new Date('2015-06-01T14:00:00'), __.beforeOrEqualTo(new Date('2015
 
 // Array matcher
 __.assertThat([1, 2, 3], __.hasSize(3));
+__.assertThat([1, 2, 3], __.hasSize(__.greaterThan(2)));
 __.assertThat([], __.isEmpty());
 __.assertThat([], __.empty());
 __.assertThat([1], __.hasExactlyOneItem(1));

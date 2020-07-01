@@ -187,7 +187,7 @@ declare module 'hamjest' {
 	export function orderedBy(comparisonFunction: (a: Value, b: Value) => boolean, orderName?: string): TypeSafeMatcher<Array<any>>;
 
 	// hasSize: require('./matchers/hasSize'),;
-	export function hasSize(size: number): Matcher;
+	export function hasSize(size: ValueOrMatcher): Matcher;
 
 	// isEmpty: require('./matchers/isEmpty'),;
 	export function isEmpty(): Matcher;
