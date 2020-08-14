@@ -60,7 +60,7 @@ Expected: a number less than <18>
 
 See the [matcher documentation](https://github.com/rluba/hamjest/wiki/Matcher-documentation) for a list of available matchers.
 
-Have a look at the [test suite](./test/) to see lots of usage examples [for each matcher](./test/matchers/) as well as the [assertThat](./test/assertThatSpec.js) and [promiseThat](./test/promiseThatSpec.js) functions.
+Have a look at the [test suite](./test/node/) to see lots of usage examples [for each matcher](./test/node/matchers/) as well as the [assertThat](./test/node/assertThatSpec.js) and [promiseThat](./test/node/promiseThatSpec.js) functions.
 
 See the [documentation about promises](https://github.com/rluba/hamjest/wiki/Hamjest-and-Promises) for details about using Hamjest with promises or asserting asynchronously.
 
