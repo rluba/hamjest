@@ -30,7 +30,7 @@ npm install hamjest --save-dev
 All asserts and matchers are available as children of the `hamjest` module, so just require it, give it an unobtrusive name and start matching:
 
 ```JavaScript
-var __ = require('hamjest');
+const __ = require('hamjest');
 	
 __.assertThat('jim the rat', __.containsString('rat'));
 __.assertThat(5, __.is(__.greaterThan(2)));
@@ -49,7 +49,7 @@ assertThat(42, is(greaterThan(21)));
 The best thing about Hamjest are its error messages, just like the [Java original](http://hamcrest.org):
 
 ```JavaScript
-var sut = {name: 1337, age: 25};
+const sut = {name: 1337, age: 25};
 __.assertThat(sut, __.hasProperties({name: __.string(), age: __.greaterThan(18)}));
 
 AssertionError: 
@@ -94,7 +94,7 @@ function animalWithName(valueOrMatcher) {
 	return new __.FeatureMatcher(valueOrMatcher, 'animal with name', 'name');
 }
 
-var animal = {name: 'Bob', age: 12};
+const animal = {name: 'Bob', age: 12};
 __.assertThat(animal, __.is(animalWithName('Tom')));
 
 AssertionError: 
@@ -111,7 +111,7 @@ function animalWithNameLength(valueOrMatcher) {
 	});
 }
 
-var animal = {name: 'bob', age: 12};
+const animal = {name: 'bob', age: 12};
 __.assertThat(animal, __.is(animalWithNameLength(__.greaterThan(5))));
 
 AssertionError: 
@@ -132,7 +132,7 @@ Simply include `dist/hamjest(.min).js` in your browser tests. It comes with "bat
 The browser build exports a single global: `hamjest`. You can rename it as usual for better readability:
 
 ```JavaScript
-var __ = hamjest;
+const __ = hamjest;
 
 __.assertThat('2007-05-01', __.startsWith('2007'));
 ```
