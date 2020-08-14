@@ -37,6 +37,15 @@ __.assertThat(5, __.is(__.greaterThan(2)));
 __.assertThat([5, 12, 9], __.hasItem(__.greaterThanOrEqualTo(11)));
 ```
 
+If you’re a TypeScript fan, you can use that as well:
+```TypeScript
+// You can use destructuring imports if you like…
+import {assertThat, is, greaterThan} from 'hamjest';
+
+assertThat(42, is(greaterThan(21)));
+```
+
+
 The best thing about Hamjest are its error messages, just like the [Java original](http://hamcrest.org):
 
 ```JavaScript
