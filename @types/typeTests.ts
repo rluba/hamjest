@@ -8,6 +8,8 @@ __.assertThat(2, __.not(__.equalTo(1)));
 __.assertThat(2, __.is(__.not(1)));
 __.assertThat(2, __.is(__.not(__.equalTo(1))));
 __.assertThat(2, __.is(__.not(__.equalTo(1))));
+__.assertThat({one: 1}, {one: 1});
+__.assertThat('a reason', {one: 1}, {one: 1});
 
 // Primitives
 __.assertThat(true, __.truthy());

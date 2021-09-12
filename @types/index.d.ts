@@ -33,8 +33,8 @@ declare module 'hamjest' {
 		get(): string;
 	}
 
-	export function assertThat(actual: Value, matcher: Matcher): void;
-	export function assertThat(reason: string, actual: Value, matcher: Matcher): void;
+	export function assertThat(actual: Value, matcher: ValueOrMatcher): void;
+	export function assertThat(reason: string, actual: Value, matcher: ValueOrMatcher): void;
 
 	export function promiseThat(actual: Promise<Value>, matcher: Matcher): Promise<any>;
 	export function promiseThat(reason: string, actual: Promise<Value>, matcher: Matcher): Promise<any>;
