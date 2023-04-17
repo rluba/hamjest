@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const assert = require('assert');
 
-const __ = require('../../../lib/hamjest');
+const __ = require('../../..');
 const deferMatcher = require('../deferMatcher');
 
 describe('AllOf', () => {

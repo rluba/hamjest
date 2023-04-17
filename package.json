@@ -1,7 +1,7 @@
 {
   "name": "hamjest",
   "version": "3.7.3",
-  "main": "lib/hamjest.js",
+  "main": "index.js",
   "description": "A library of composable matchers for defining meaningful and readable assertions in JavaScript.",
   "homepage": "https://github.com/rluba/hamjest",
   "author": {
