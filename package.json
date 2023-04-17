@@ -43,7 +43,6 @@
   ],
   "dependencies": {
     "assertion-error": "^1.1.0",
-    "bluebird": "^3.3.4",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

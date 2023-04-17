@@ -1,7 +1,5 @@
 'use strict';
 
-process.env.BLUEBIRD_DEBUG = 1;
-
 const gulp = require('gulp');
 const gulpEslint = require('gulp-eslint');
 const gulpMocha = require('gulp-mocha');
