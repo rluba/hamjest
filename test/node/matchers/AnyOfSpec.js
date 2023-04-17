@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 
-const __ = require('../../../lib/hamjest');
+const __ = require('../../..');
 
 describe('AnyOf', () => {
 
