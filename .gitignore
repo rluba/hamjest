@@ -4,4 +4,4 @@ npm-debug.log
 *.vim
 *.sublime-project
 *.sublime-workspace
-
+tags
