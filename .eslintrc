@@ -1,18 +1,22 @@
 {
-	root: true,
-	extends: 'leanbyte',
-	rules: {
-		'no-extend-native': 0
+	"root": true,
+	"extends": "leanbyte",
+	"parserOptions": {
+        "ecmaVersion": 9,
+        "sourceType": "script"
+    },
+	"rules": {
+		"no-extend-native": 0
 	},
-    overrides: [
+    "overrides": [
         {
-            files: ['*.ts'],
-            parser: '@typescript-eslint/parser',
-            extends: [
-                'plugin:@typescript-eslint/recommended',
+            "files": ["*.ts"],
+            "parser": "@typescript-eslint/parser",
+            "extends": [
+                "plugin:@typescript-eslint/recommended"
             ],
-            rules: {
+            "rules": {
             }
-        },
+        }
     ]
 }
