@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('assert');
-const Bluebird = require('bluebird');
 
 const __ = require('../../..');
 
@@ -15,20 +14,20 @@ describe('IsPromise', () => {
 			});
 
 			it('should match fulfilled promises', () => {
-				const aFulfilledPromise = Bluebird.resolve('a value');
+				const aFulfilledPromise = Promise.resolve('a value');
 
 				assert.ok(sut.matches(aFulfilledPromise));
 			});
 
 			it('should match rejected promises', () => {
-				const aRejectedPromise = Bluebird.reject(new Error('rejected for a reason'));
+				const aRejectedPromise = Promise.reject(new Error('rejected for a reason'));
 				aRejectedPromise.catch(() => null);
 
 				assert.ok(sut.matches(aRejectedPromise));
 			});
 
 			it('should match pending promises', () => {
-				const aPendingPromise = new Bluebird(() => {});
+				const aPendingPromise = new Promise(() => {});
 
 				assert.ok(sut.matches(aPendingPromise));
 			});
