@@ -1,6 +1,6 @@
 {
   "name": "hamjest",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "main": "index.js",
   "description": "A library of composable matchers for defining meaningful and readable assertions in JavaScript.",
   "homepage": "https://github.com/rluba/hamjest",
@@ -49,7 +49,7 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.4.2",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
-	"@types/node": "16.11.6",
+    "@types/node": "16.11.6",
     "@typescript-eslint/parser": "^2.30.0",
     "babelify": "^10.0.0",
     "browserify": "^16.3.0",
