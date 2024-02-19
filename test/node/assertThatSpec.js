@@ -114,4 +114,18 @@ describe('assertThat', () => {
 
 		assert.equal(expectNothingWasCalled, true);
 	});
+
+	it('should not throw when nothing is not available on expect (fix "Invalid Chai property" in vitest)', () => {
+		const chaiFake = {irrelevant: 'property'};
+
+		global.expect = () => new Proxy(chaiFake, {
+			get(target, property) {
+				if (!Object.keys(target).includes(property)) {
+					throw Error(`Invalid Chai property: ${property}`);
+				}
+			}
+		});
+
+		__.assertThat(true, __.is(__.equalTo(true)));
+	});
 });
