@@ -122,7 +122,7 @@ Expected: is animal with name length a number greater than <5>
 ## Suggestions
 Do you have an idea how to make a matcher's error description even more readable? Does Hamjest lack a crucial matcher? (I'm sure it does...)
 
-Just send me a message (I'm [@LubaRaph on Twitter](https://twitter.com/lubaraph)), open a ticket or - even better - send me a pull request.
+Just send me a message (I'm [@LubaRaphael on X/Twitter](https://x.com/LubaRaphael)), open a ticket or - even better - send me a pull request.
 
 # Browser support
 Hamjest also runs in the browser - thanks to [browserify](http://browserify.org/).
